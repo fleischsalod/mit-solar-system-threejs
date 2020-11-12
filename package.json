@@ -4,9 +4,7 @@
   "description": "solar system educational experience built with threejs",
   "private": "true",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "dev": "webpack serve --open Chrome.exe"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
