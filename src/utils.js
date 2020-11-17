@@ -1,3 +1,5 @@
+import * as THREE from '../lib/threejs/r122/build/three.module.js';
+
 const createEarthMesh = () => {
   const geometry = new THREE.SphereGeometry(2, 64, 64);
   const earthMap = new THREE.TextureLoader().load(
