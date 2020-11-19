@@ -4,7 +4,7 @@ import {
   createEarthCloud,
   createEarthMesh,
   createEarthMoon,
-} from './utils.js';
+} from './modules/earth.js';
 
 // renderer
 const canvas = document.querySelector('canvas');
