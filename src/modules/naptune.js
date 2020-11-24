@@ -1,3 +1,0 @@
-/**
- * Creational Functions for Neptune
- */

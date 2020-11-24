@@ -9,9 +9,15 @@ import { createjupiterMesh } from './modules/jupiter.js';
 import { createMarsMesh } from './modules/mars.js';
 import { createMercuryMesh } from './modules/mercury.js';
 import { createNeptuneMesh } from './modules/neptune.js';
-import { createSaturnMesh, createSaturnRingMesh} from './modules/saturn.js';
+import {
+  createSaturnMesh,
+  createSaturnRingMesh,
+} from './modules/saturn.js';
 import { createSunMesh } from './modules/sun.js';
-import { createUranusMesh, createUranusRingMesh} from './modules/uranus.js';
+import {
+  createUranusMesh,
+  createUranusRingMesh,
+} from './modules/uranus.js';
 import { createVenusMesh } from './modules/venus.js';
 
 // renderer
@@ -42,17 +48,17 @@ controls.update();
 
 // Add Sun to Scene
 const sunMesh = createSunMesh();
-sunMesh.position.set (-280,0,0);
+sunMesh.position.set(-280, 0, 0);
 scene.add(sunMesh);
 
 // Add Mercury to Scene
 const mercuryMesh = createMercuryMesh();
-mercuryMesh.position.set (-30,0,0);
+mercuryMesh.position.set(-30, 0, 0);
 scene.add(mercuryMesh);
 
 // Add Venus to Scene
 const venusMesh = createVenusMesh();
-venusMesh.position.set (-15,0,0);
+venusMesh.position.set(-15, 0, 0);
 scene.add(venusMesh);
 
 // Add group for earth and moon
@@ -73,17 +79,17 @@ earthGroup.add(moonMesh);
 
 // Add Mars to Scene
 const marsMesh = createMarsMesh();
-marsMesh.position.set (10,0,0);
+marsMesh.position.set(10, 0, 0);
 scene.add(marsMesh);
 
 // Add Jupiter to scene
 const jupiterMesh = createjupiterMesh();
-jupiterMesh.position.set (40,0,0);
+jupiterMesh.position.set(40, 0, 0);
 scene.add(jupiterMesh);
 
 // Add Saturn so Scene
 const saturnMesh = createSaturnMesh();
-saturnMesh.position.set (100,0,0);
+saturnMesh.position.set(100, 0, 0);
 scene.add(saturnMesh);
 /* 
 const saturnRingMesh = createSaturnRingMesh();
@@ -94,7 +100,7 @@ saturnRingMesh.rotation.x = Math.PI / 2;
 // Add Uranus to Scene
 const uranusMesh = createUranusMesh();
 uranusMesh.add(createUranusRingMesh);
-uranusMesh.position.set (160,0,0);
+uranusMesh.position.set(160, 0, 0);
 scene.add(uranusMesh);
 /* 
 const uranusRingMesh = createUranusRingMesh();
@@ -104,9 +110,8 @@ uranusRingMesh.rotation.x = Math.PI / 2;
 
 // Add Neptune to Scene
 const neptuneMesh = createNeptuneMesh();
-neptuneMesh.position.set (200,0,0);
+neptuneMesh.position.set(200, 0, 0);
 scene.add(neptuneMesh);
-
 
 // handle browser resize
 function resizeRendererToDisplaySize(renderer) {
@@ -127,13 +132,13 @@ const render = () => {
   cloudMesh.rotation.y += 0.005;
   earthGroup.rotation.y += 0.0015;
   marsMesh.rotation.y += 0.0020516;
-  mercuryMesh.rotation.y += 0.11729166;
-  sunMesh.rotation.y += 0.0507499;
+  mercuryMesh.rotation.y += 0.01;
+  sunMesh.rotation.y += 0.000507499;
   jupiterMesh.rotation.y += 0.00082749;
   neptuneMesh.rotation.y += 0.00134166;
   saturnMesh.rotation.y += 0.00089166;
   uranusMesh.rotation.y += 0.00143583;
-  venusMesh.rotation.y += 0.2334999;
+  venusMesh.rotation.y += 0.01;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;

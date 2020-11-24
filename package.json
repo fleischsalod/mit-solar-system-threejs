@@ -13,7 +13,11 @@
   "keywords": [
     "solar-system"
   ],
-  "author": "Luis Graml, Nadine Mirlach, Jürgen Mayer",
+  "contributors": [
+    "Luis 'Fleischsalod' Graml <luis.graml@stud.th-deg.de>",
+    "Juergen Mayer <juergen.mayer@stud.th-deg.de>",
+    "Nadine Mirlach <nadine.mirlach@stud.th-deg.de>"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/fleischsalod/mit-solar-system-threejs/issues"
