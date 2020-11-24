@@ -11,13 +11,10 @@ import { createMercuryMesh } from './modules/mercury.js';
 import { createNeptuneMesh } from './modules/neptune.js';
 import {
   createSaturnMesh,
-  createSaturnRingMesh,
+  createSaturnRing,
 } from './modules/saturn.js';
 import { createSunMesh } from './modules/sun.js';
-import {
-  createUranusMesh,
-  createUranusRingMesh,
-} from './modules/uranus.js';
+import { createUranusMesh } from './modules/uranus.js';
 import { createVenusMesh } from './modules/venus.js';
 
 // renderer
@@ -33,7 +30,7 @@ const near = 0.1;
 const far = 1000;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 camera.position.set(0, 0, 10);
-camera.lookAt(scene.position);
+camera.lookAt(300, 0, 0);
 
 // Add Light
 const light = new THREE.AmbientLight(0x404040); // soft white light
@@ -90,16 +87,20 @@ scene.add(jupiterMesh);
 // Add Saturn so Scene
 const saturnMesh = createSaturnMesh();
 saturnMesh.position.set(100, 0, 0);
-scene.add(saturnMesh);
-/* 
-const saturnRingMesh = createSaturnRingMesh();
-saturnRingMesh.position.set (100,0,0);
+
+const saturnRingMesh = createSaturnRing();
+saturnRingMesh.position.set(0, 0, 0);
 saturnRingMesh.rotation.x = Math.PI / 2;
-*/
+saturnMesh.add(saturnRingMesh);
+scene.add(saturnMesh);
+
+// const saturnRingMesh = createSaturnRing();
+// saturnRingMesh.position.set(100, 0, 0);
+// // saturnRingMesh.rotation.x = Math.PI / 2;
+// scene.add(saturnMesh, saturnRingMesh);
 
 // Add Uranus to Scene
 const uranusMesh = createUranusMesh();
-uranusMesh.add(createUranusRingMesh);
 uranusMesh.position.set(160, 0, 0);
 scene.add(uranusMesh);
 /* 
