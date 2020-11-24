@@ -32,6 +32,14 @@ const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 camera.position.set(0, 0, 10);
 camera.lookAt(300, 0, 0);
 
+// Add Background
+const loader = new THREE.TextureLoader();
+const texture = loader.load('src/textures/background.jpg', () => {
+  const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
+  rt.fromEquirectangularTexture(renderer, texture);
+  scene.background = rt;
+});
+
 // Add Light
 const light = new THREE.AmbientLight(0x404040); // soft white light
 const directionalLight = new THREE.DirectionalLight(0xf39f8f, 0.75);
