@@ -35,17 +35,17 @@ const createUranusMesh = () => {
 /**
  * Create mesh of Uranusrings
  */
-const createUranusRingMesh = () => {
-  const geometry = new RingGeometry(11.92905, 30.7644, 256);
-  const uranusRingMap = new TextureLoader().load(
-    BASIC_URL + 'uranusringcolor.jpg',
-  );
+// const createUranusRingMesh = () => {
+//     const geometry = new RingGeometry(11.92905, 30.76440, 256);
+//     const uranusRingMap = new TextureLoader().load(
+//         BASIC_URL + 'uranusringcolor.jpg',
+//       );
 
-  const material = new MeshPhongMaterial({
-    map: uranusRingMap,
-    bumpScale: 0.2,
-  });
-  return new Mesh(geometry, material);
-};
+//       const material = new MeshPhongMaterial({
+//         map: uranusRingMap,
+//         bumpScale: 0.2,
+//     });
+//     return new Mesh(geometry, material);
+// };
 
-export { createUranusMesh, createUranusRingMesh };
+export { createUranusMesh };

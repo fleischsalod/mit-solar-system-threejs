@@ -11,13 +11,10 @@ import { createMercuryMesh } from './modules/mercury.js';
 import { createNeptuneMesh } from './modules/neptune.js';
 import {
   createSaturnMesh,
-  createSaturnRingMesh,
+  createSaturnRing,
 } from './modules/saturn.js';
 import { createSunMesh } from './modules/sun.js';
-import {
-  createUranusMesh,
-  createUranusRingMesh,
-} from './modules/uranus.js';
+import { createUranusMesh } from './modules/uranus.js';
 import { createVenusMesh } from './modules/venus.js';
 
 // renderer
@@ -34,6 +31,14 @@ const far = 1000;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 camera.position.set(0, 0, 10);
 camera.lookAt(scene.position);
+
+// Add Background
+const loader = new THREE.TextureLoader();
+const texture = loader.load('src/textures/background.jpg', () => {
+  const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
+  rt.fromEquirectangularTexture(renderer, texture);
+  scene.background = rt;
+});
 
 // Add Light
 const light = new THREE.AmbientLight(0x404040); // soft white light
@@ -90,16 +95,15 @@ scene.add(jupiterMesh);
 // Add Saturn so Scene
 const saturnMesh = createSaturnMesh();
 saturnMesh.position.set(100, 0, 0);
-scene.add(saturnMesh);
-/* 
-const saturnRingMesh = createSaturnRingMesh();
-saturnRingMesh.position.set (100,0,0);
+
+const saturnRingMesh = createSaturnRing();
+saturnRingMesh.position.set(0, 0, 0);
 saturnRingMesh.rotation.x = Math.PI / 2;
-*/
+saturnMesh.add(saturnRingMesh);
+scene.add(saturnMesh);
 
 // Add Uranus to Scene
 const uranusMesh = createUranusMesh();
-uranusMesh.add(createUranusRingMesh);
 uranusMesh.position.set(160, 0, 0);
 scene.add(uranusMesh);
 /* 
@@ -132,13 +136,13 @@ const render = () => {
   cloudMesh.rotation.y += 0.005;
   earthGroup.rotation.y += 0.0015;
   marsMesh.rotation.y += 0.0020516;
-  mercuryMesh.rotation.y += 0.11729166;
-  sunMesh.rotation.y += 0.0507499;
+  mercuryMesh.rotation.y += 0.01;
+  sunMesh.rotation.y += 0.000507499;
   jupiterMesh.rotation.y += 0.00082749;
   neptuneMesh.rotation.y += 0.00134166;
   saturnMesh.rotation.y += 0.00089166;
   uranusMesh.rotation.y += 0.00143583;
-  venusMesh.rotation.y += 0.2334999;
+  venusMesh.rotation.y += 0.01;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
