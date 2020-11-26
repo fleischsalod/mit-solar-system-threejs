@@ -30,7 +30,7 @@ const near = 0.1;
 const far = 1000;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 camera.position.set(0, 0, 10);
-camera.lookAt(300, 0, 0);
+camera.lookAt(scene.position);
 
 // Add Background
 const loader = new THREE.TextureLoader();
