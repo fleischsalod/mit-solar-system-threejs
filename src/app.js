@@ -102,11 +102,6 @@ saturnRingMesh.rotation.x = Math.PI / 2;
 saturnMesh.add(saturnRingMesh);
 scene.add(saturnMesh);
 
-// const saturnRingMesh = createSaturnRing();
-// saturnRingMesh.position.set(100, 0, 0);
-// // saturnRingMesh.rotation.x = Math.PI / 2;
-// scene.add(saturnMesh, saturnRingMesh);
-
 // Add Uranus to Scene
 const uranusMesh = createUranusMesh();
 uranusMesh.position.set(160, 0, 0);
