@@ -3,13 +3,12 @@
  */
 
 import {
-  Color,
   DoubleSide,
+  MathUtils,
   Mesh,
   MeshPhongMaterial,
-  RingGeometry,
+  RingBufferGeometry,
   SphereGeometry,
-  Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
 
@@ -35,17 +34,33 @@ const createUranusMesh = () => {
 /**
  * Create mesh of Uranusrings
  */
-// const createUranusRingMesh = () => {
-//     const geometry = new RingGeometry(11.92905, 30.76440, 256);
-//     const uranusRingMap = new TextureLoader().load(
-//         BASIC_URL + 'uranusringcolor.jpg',
-//       );
+const createUranusRing = () => {
+  const geometry = new RingBufferGeometry(11, 16, 64);
+  var uvs = geometry.attributes.uv.array;
+  // loop and initialization taken from RingBufferGeometry
+  var phiSegments = geometry.parameters.phiSegments || 0;
+  var thetaSegments = geometry.parameters.thetaSegments || 0;
+  phiSegments =
+    phiSegments !== undefined ? Math.max(1, phiSegments) : 1;
+  thetaSegments =
+    thetaSegments !== undefined ? Math.max(3, thetaSegments) : 8;
+  for (var c = 0, j = 0; j <= phiSegments; j++) {
+    for (var i = 0; i <= thetaSegments; i++) {
+      (uvs[c++] = i / thetaSegments), (uvs[c++] = j / phiSegments);
+    }
+  }
+  const uranusRingMap = new TextureLoader().load(
+    BASIC_URL + 'uranusringcolor.jpg',
+  );
+  uranusRingMap.rotation = MathUtils.degToRad(90);
+  const material = new MeshPhongMaterial({
+    map: uranusRingMap,
+    side: DoubleSide,
+    transparent: true,
+    opacity: 0.6,
+  });
+  const ringMesh = new Mesh(geometry, material);
+  return ringMesh;
+};
 
-//       const material = new MeshPhongMaterial({
-//         map: uranusRingMap,
-//         bumpScale: 0.2,
-//     });
-//     return new Mesh(geometry, material);
-// };
-
-export { createUranusMesh };
+export { createUranusMesh, createUranusRing };

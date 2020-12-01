@@ -14,7 +14,10 @@ import {
   createSaturnRing,
 } from './modules/saturn.js';
 import { createSunMesh } from './modules/sun.js';
-import { createUranusMesh } from './modules/uranus.js';
+import {
+  createUranusMesh,
+  createUranusRing,
+} from './modules/uranus.js';
 import { createVenusMesh } from './modules/venus.js';
 
 // renderer
@@ -105,12 +108,11 @@ scene.add(saturnMesh);
 // Add Uranus to Scene
 const uranusMesh = createUranusMesh();
 uranusMesh.position.set(160, 0, 0);
-scene.add(uranusMesh);
-/* 
-const uranusRingMesh = createUranusRingMesh();
-uranusRingMesh.position.set (100,0,0);
+const uranusRingMesh = createUranusRing();
+uranusRingMesh.position.set(0, 0, 0);
 uranusRingMesh.rotation.x = Math.PI / 2;
-*/
+uranusMesh.add(uranusRingMesh);
+scene.add(uranusMesh);
 
 // Add Neptune to Scene
 const neptuneMesh = createNeptuneMesh();
