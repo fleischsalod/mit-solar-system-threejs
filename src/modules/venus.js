@@ -21,7 +21,7 @@ const BASIC_URL = 'src/textures/venus/';
 const createVenusMesh = () => {
   const geometry = new SphereGeometry(1.89954, 64, 64);
   const venusMap = new TextureLoader().load(
-    BASIC_URL + 'venusmap.jpg',
+    BASIC_URL + 'venuscolor.jpg',
   );
   const venusBump = new TextureLoader().load(
     BASIC_URL + 'venusbump.jpg',
