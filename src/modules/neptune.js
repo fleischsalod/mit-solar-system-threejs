@@ -21,7 +21,7 @@ const BASIC_URL = 'src/textures/neptune/';
 const createNeptuneMesh = () => {
   const geometry = new SphereGeometry(7.72625, 64, 64);
   const neptuneMap = new TextureLoader().load(
-    BASIC_URL + 'neptunemap.jpg',
+    BASIC_URL + 'neptunecolor.jpg',
   );
 
   const material = new MeshPhongMaterial({
