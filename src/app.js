@@ -18,7 +18,10 @@ import {
   createUranusMesh,
   createUranusRing,
 } from './modules/uranus.js';
-import { createVenusMesh } from './modules/venus.js';
+import {
+  createVenusMesh,
+  createVenusCloudMesh,
+} from './modules/venus.js';
 
 // renderer
 const canvas = document.querySelector('canvas');
@@ -66,7 +69,9 @@ scene.add(mercuryMesh);
 
 // Add Venus to Scene
 const venusMesh = createVenusMesh();
+const venusAtmos = createVenusCloudMesh();
 venusMesh.position.set(-15, 0, 0);
+venusMesh.add(venusAtmos);
 scene.add(venusMesh);
 
 // Add group for earth and moon
@@ -145,6 +150,7 @@ const render = () => {
   saturnMesh.rotation.y += 0.00089166;
   uranusMesh.rotation.y += 0.00143583;
   venusMesh.rotation.y += 0.01;
+  venusAtmos.rotation.y += 0.02;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;

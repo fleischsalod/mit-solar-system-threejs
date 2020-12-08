@@ -20,7 +20,9 @@ const BASIC_URL = 'src/textures/sun/';
  */
 const createSunMesh = () => {
   const geometry = new SphereGeometry(218.5999, 64, 64);
-  const sunMap = new TextureLoader().load(BASIC_URL + 'suncolor.jpg');
+  const sunMap = new TextureLoader().load(
+    BASIC_URL + 'suncolor2.jpg',
+  );
 
   const material = new MeshPhongMaterial({
     map: sunMap,
