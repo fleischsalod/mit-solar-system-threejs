@@ -21,7 +21,7 @@ const BASIC_URL = 'src/textures/mars/';
 const createMarsMesh = () => {
   const geometry = new SphereGeometry(1.06404, 64, 64);
   const marsMap = new TextureLoader().load(
-    BASIC_URL + 'mars_1k_color.jpg',
+    BASIC_URL + 'marscolor.jpg',
   );
   const marsBump = new TextureLoader().load(
     BASIC_URL + 'marsbump1k.jpg',
