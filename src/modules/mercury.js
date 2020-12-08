@@ -21,7 +21,7 @@ const BASIC_URL = 'src/textures/mercury/';
 const createMercuryMesh = () => {
   const geometry = new SphereGeometry(0.76581, 64, 64);
   const mercuryMap = new TextureLoader().load(
-    BASIC_URL + 'mercurymap.jpg',
+    BASIC_URL + 'merkurcolor.jpg',
   );
   const mercuryBump = new TextureLoader().load(
     BASIC_URL + 'mercurybump.jpg',
