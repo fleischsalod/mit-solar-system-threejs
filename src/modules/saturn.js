@@ -21,7 +21,7 @@ const BASIC_URL = 'src/textures/saturn/';
 const createSaturnMesh = () => {
   const geometry = new SphereGeometry(18.28033, 64, 64);
   const saturnMap = new TextureLoader().load(
-    BASIC_URL + 'saturncolor.jpg',
+    BASIC_URL + 'saturncolor2.jpg',
   );
 
   const material = new MeshPhongMaterial({
