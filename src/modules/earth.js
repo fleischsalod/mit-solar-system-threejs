@@ -5,30 +5,21 @@
 import {
   Color,
   DoubleSide,
-  MathUtils,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
   Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { fetchBodyData } from '../api.js';
 
 // basic url to textures of earth
 const BASIC_URL = 'src/textures/earth/';
 
-const asyncFunc = async () => {
-  const earthData = await fetchBodyData('terre');
-  console.log(earthData.axialTilt);
-  return earthData;
-};
-
-asyncFunc();
-
 /**
  * Create mesh of earth
  */
-const createEarthMesh = () => {
+const createEarthMesh = (earthData) => {
+  console.log('earthData', earthData);
   const geometry = new SphereGeometry(2, 64, 64);
   const earthMap = new TextureLoader().load(
     BASIC_URL + 'earthmap1k.jpg',

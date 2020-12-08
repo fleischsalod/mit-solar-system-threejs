@@ -20,6 +20,33 @@ import {
 } from './modules/uranus.js';
 import { createVenusMesh } from './modules/venus.js';
 
+// load data
+const fileLoader = new THREE.FileLoader();
+
+//load a text file and output the result to the console
+fileLoader.load(
+  // resource URL
+  //'https://api.le-systeme-solaire.net/rest/bodies/terre',
+  '/src/data/data.json',
+
+  // onLoad callback
+  function (data) {
+    // output the text to the console
+    const jsonData = JSON.parse(data);
+    console.log(jsonData);
+  },
+
+  // onProgress callback
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+  },
+
+  // onError callback
+  function (err) {
+    console.error('An error happened');
+  },
+);
+
 // renderer
 const canvas = document.querySelector('canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
