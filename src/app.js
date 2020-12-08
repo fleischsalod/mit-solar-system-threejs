@@ -13,7 +13,11 @@ import {
   createSaturnMesh,
   createSaturnRing,
 } from './modules/saturn.js';
-import { createSunMesh } from './modules/sun.js';
+import {
+  createSunMesh,
+  createSunCloudMesh1,
+  createSunCloudMesh2,
+} from './modules/sun.js';
 import {
   createUranusMesh,
   createUranusRing,
@@ -59,7 +63,10 @@ controls.update();
 
 // Add Sun to Scene
 const sunMesh = createSunMesh();
+const sunCloud1 = createSunCloudMesh1();
+const sunCloud2 = createSunCloudMesh2();
 sunMesh.position.set(-280, 0, 0);
+sunMesh.add(sunCloud1, sunCloud2);
 scene.add(sunMesh);
 
 // Add Mercury to Scene
@@ -145,12 +152,14 @@ const render = () => {
   marsMesh.rotation.y += 0.0020516;
   mercuryMesh.rotation.y += 0.01;
   sunMesh.rotation.y += 0.000507499;
+  sunCloud1.rotation.y += 0.001;
+  sunCloud2.rotation.y -= 0.002;
   jupiterMesh.rotation.y += 0.00082749;
   neptuneMesh.rotation.y += 0.00134166;
   saturnMesh.rotation.y += 0.00089166;
   uranusMesh.rotation.y += 0.00143583;
-  venusMesh.rotation.y += 0.01;
-  venusAtmos.rotation.y += 0.02;
+  venusMesh.rotation.y += 0.002;
+  venusAtmos.rotation.y += 0.005;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;

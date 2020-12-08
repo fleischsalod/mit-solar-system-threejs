@@ -37,14 +37,14 @@ const createVenusMesh = () => {
  * Create mesh of transparent cloud-layer
  */
 const createVenusCloudMesh = () => {
-  const geometry = new SphereGeometry(1.91, 64, 64);
+  const geometry = new SphereGeometry(1.95, 64, 64);
   const venusatmos = new TextureLoader().load(
     BASIC_URL + 'venusatmosphere.jpg',
   );
   const material = new MeshPhongMaterial({
     map: venusatmos,
     transparent: true,
-    opacity: 0.8,
+    opacity: 0.7,
   });
   const mesh = new Mesh(geometry, material);
   return mesh;
