@@ -26,7 +26,7 @@ const createjupiterMesh = () => {
     64,
   );
   const jupiterMap = new TextureLoader().load(
-    BASIC_URL + 'jupitermap2k.jpg',
+    BASIC_URL + 'jupitercolor.jpg',
   );
   const material = new MeshPhongMaterial({
     map: jupiterMap,

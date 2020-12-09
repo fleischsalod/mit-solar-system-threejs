@@ -26,7 +26,7 @@ const createMercuryMesh = () => {
     64,
   );
   const mercuryMap = new TextureLoader().load(
-    BASIC_URL + 'mercurymap.jpg',
+    BASIC_URL + 'merkurcolor.jpg',
   );
   const mercuryBump = new TextureLoader().load(
     BASIC_URL + 'mercurybump.jpg',

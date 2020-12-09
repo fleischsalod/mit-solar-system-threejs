@@ -26,7 +26,7 @@ const createSaturnMesh = () => {
     64,
   );
   const saturnMap = new TextureLoader().load(
-    BASIC_URL + 'saturncolor.jpg',
+    BASIC_URL + 'saturncolor2.jpg',
   );
 
   const material = new MeshPhongMaterial({
