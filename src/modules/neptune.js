@@ -30,7 +30,9 @@ const createNeptuneMesh = () => {
     map: neptuneMap,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = neptune.axialTilt * (Math.PI / 180);
+  return mesh;
 };
 
 export { createNeptuneMesh };

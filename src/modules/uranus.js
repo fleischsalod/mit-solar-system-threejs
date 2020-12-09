@@ -33,14 +33,23 @@ const createUranusMesh = () => {
     map: uranusMap,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = uranus.axialTilt * (Math.PI / 180);
+  const ringMesh = createUranusRing();
+  ringMesh.rotation.x = Math.PI / 2;
+  mesh.add(ringMesh);
+  return mesh;
 };
 
 /**
  * Create mesh of Uranusrings
  */
 const createUranusRing = () => {
-  const geometry = new RingBufferGeometry(11, 16, 64);
+  const geometry = new RingBufferGeometry(
+    2 * (uranus.ringsInnerRadius / earth.equaRadius),
+    2 * (uranus.ringsOuterRadius / earth.equaRadius),
+    64,
+  );
   var uvs = geometry.attributes.uv.array;
   // loop and initialization taken from RingBufferGeometry
   var phiSegments = geometry.parameters.phiSegments || 0;
@@ -62,10 +71,10 @@ const createUranusRing = () => {
     map: uranusRingMap,
     side: DoubleSide,
     transparent: true,
-    opacity: 0.6,
+    opacity: 0.3,
   });
   const ringMesh = new Mesh(geometry, material);
   return ringMesh;
 };
 
-export { createUranusMesh, createUranusRing };
+export { createUranusMesh };

@@ -9,23 +9,29 @@ import { createjupiterMesh } from './modules/jupiter.js';
 import { createMarsMesh } from './modules/mars.js';
 import { createMercuryMesh } from './modules/mercury.js';
 import { createNeptuneMesh } from './modules/neptune.js';
-import {
-  createSaturnMesh,
-  createSaturnRing,
-} from './modules/saturn.js';
+import { createSaturnMesh } from './modules/saturn.js';
 import {
   createSunMesh,
   createSunCloudMesh1,
   createSunCloudMesh2,
 } from './modules/sun.js';
-import {
-  createUranusMesh,
-  createUranusRing,
-} from './modules/uranus.js';
+import { createUranusMesh } from './modules/uranus.js';
 import {
   createVenusMesh,
   createVenusCloudMesh,
 } from './modules/venus.js';
+import {
+  earth,
+  jupiter,
+  mars,
+  mercury,
+  moon,
+  neptune,
+  saturn,
+  sun,
+  uranus,
+  venus,
+} from './data.js';
 
 // renderer
 const canvas = document.querySelector('canvas');
@@ -110,20 +116,11 @@ scene.add(jupiterMesh);
 // Add Saturn so Scene
 const saturnMesh = createSaturnMesh();
 saturnMesh.position.set(100, 0, 0);
-
-const saturnRingMesh = createSaturnRing();
-saturnRingMesh.position.set(0, 0, 0);
-saturnRingMesh.rotation.x = Math.PI / 2;
-saturnMesh.add(saturnRingMesh);
 scene.add(saturnMesh);
 
 // Add Uranus to Scene
 const uranusMesh = createUranusMesh();
 uranusMesh.position.set(160, 0, 0);
-const uranusRingMesh = createUranusRing();
-uranusRingMesh.position.set(0, 0, 0);
-uranusRingMesh.rotation.x = Math.PI / 2;
-uranusMesh.add(uranusRingMesh);
 scene.add(uranusMesh);
 
 // Add Neptune to Scene
@@ -146,20 +143,25 @@ function resizeRendererToDisplaySize(renderer) {
 
 // Add animations to elements in scene
 const render = () => {
-  earthMesh.rotation.y += 0.002;
-  cloudMesh.rotation.y += 0.005;
-  earthGroup.rotation.y += 0.0015;
-  marsMesh.rotation.y += 0.0020516;
-  mercuryMesh.rotation.y += 0.01;
-  sunMesh.rotation.y += 0.000507499;
+  earthMesh.rotation.y +=
+    earth.sideralRotation / earth.sideralRotation / 1000;
+  cloudMesh.rotation.y +=
+    earth.sideralRotation / (earth.sideralRotation / 5) / 1000;
+  moonMesh.rotation.y +=
+    moon.sideralOrbit / earth.sideralOrbit / 24000;
+  earthGroup.rotation.y +=
+    moon.sideralRotation / earth.sideralRotation / 1000;
+  marsMesh.rotation.y += mars.sideralRotation / 10000;
+  mercuryMesh.rotation.y += mercury.sideralRotation / 10000;
+  sunMesh.rotation.y += sun.sideralRotation / 10000;
   sunCloud1.rotation.y += 0.001;
   sunCloud2.rotation.y -= 0.002;
-  jupiterMesh.rotation.y += 0.00082749;
-  neptuneMesh.rotation.y += 0.00134166;
-  saturnMesh.rotation.y += 0.00089166;
-  uranusMesh.rotation.y += 0.00143583;
-  venusMesh.rotation.y += 0.002;
-  venusAtmos.rotation.y += 0.005;
+  jupiterMesh.rotation.y += jupiter.sideralRotation / 10000;
+  neptuneMesh.rotation.y += neptune.sideralRotation / 10000;
+  saturnMesh.rotation.y += saturn.sideralRotation / 10000;
+  uranusMesh.rotation.y += uranus.sideralRotation / 10000;
+  venusMesh.rotation.y -= venus.sideralRotation / 10000;
+  venusAtmos.rotation.y += venus.sideralRotation / 100000;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;

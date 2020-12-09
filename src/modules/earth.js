@@ -42,7 +42,7 @@ const createEarthMesh = () => {
     specular: new Color('grey'),
   });
   const mesh = new Mesh(geometry, material);
-  // mesh.rotation.x = MathUtils.degToRad(earthData.axialTilt);
+  mesh.rotation.x = earth.axialTilt * (Math.PI / 180);
   return mesh;
 };
 
@@ -66,7 +66,9 @@ const createEarthMoon = () => {
     bumpMap: bumpMap,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = moon.axialTilt * (Math.PI / 180);
+  return mesh;
 };
 
 /**
@@ -148,6 +150,7 @@ const createEarthCloud = () => {
     opacity: 0.8,
   });
   const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = earth.axialTilt * (Math.PI / 180);
   return mesh;
 };
 

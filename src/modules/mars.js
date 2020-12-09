@@ -37,7 +37,9 @@ const createMarsMesh = () => {
     bumpMap: marsBump,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = mars.axialTilt * (Math.PI / 180);
+  return mesh;
 };
 
 export { createMarsMesh };

@@ -3,12 +3,9 @@
  */
 
 import {
-  Color,
-  DoubleSide,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
-  Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
 import { mercury, earth } from '../data.js';
@@ -37,7 +34,9 @@ const createMercuryMesh = () => {
     bumpMap: mercuryBump,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = mercury.axialTilt * (Math.PI / 180);
+  return mesh;
 };
 
 export { createMercuryMesh };

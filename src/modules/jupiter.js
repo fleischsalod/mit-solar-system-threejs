@@ -3,12 +3,9 @@
  */
 
 import {
-  Color,
-  DoubleSide,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
-  Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
 import { jupiter, earth } from '../data.js';
@@ -32,7 +29,9 @@ const createjupiterMesh = () => {
     map: jupiterMap,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = jupiter.axialTilt * (Math.PI / 180);
+  return mesh;
 };
 
 export { createjupiterMesh };

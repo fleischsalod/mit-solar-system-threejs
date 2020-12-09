@@ -33,14 +33,23 @@ const createSaturnMesh = () => {
     map: saturnMap,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = saturn.axialTilt * (Math.PI / 180);
+  const ringMesh = createSaturnRing();
+  ringMesh.rotation.x = Math.PI / 2;
+  mesh.add(ringMesh);
+  return mesh;
 };
 
 /**
  * Create Saturnrings
  */
 const createSaturnRing = () => {
-  const geometry = new RingBufferGeometry(25, 35, 64);
+  const geometry = new RingBufferGeometry(
+    2 * (saturn.ringsInnerRadius / earth.equaRadius),
+    2 * (saturn.ringsOuterRadius / earth.equaRadius),
+    64,
+  );
   var uvs = geometry.attributes.uv.array;
   // loop and initialization taken from RingBufferGeometry
   var phiSegments = geometry.parameters.phiSegments || 0;
@@ -55,17 +64,16 @@ const createSaturnRing = () => {
     }
   }
   const saturnRingMap = new TextureLoader().load(
-    BASIC_URL + 'saturnringcolor.jpg',
+    BASIC_URL + '2k_saturn_ring_alpha.png',
   );
   saturnRingMap.rotation = MathUtils.degToRad(90);
   const material = new MeshPhongMaterial({
     map: saturnRingMap,
     side: DoubleSide,
     transparent: true,
-    opacity: 0.8,
   });
   const ringMesh = new Mesh(geometry, material);
   return ringMesh;
 };
 
-export { createSaturnMesh, createSaturnRing };
+export { createSaturnMesh };
