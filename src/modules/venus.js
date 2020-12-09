@@ -8,6 +8,7 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
+import { venus, earth } from '../data.js';
 
 // basic url to textures of venus
 const BASIC_URL = 'src/textures/venus/';
@@ -16,7 +17,11 @@ const BASIC_URL = 'src/textures/venus/';
  * Create mesh of venus
  */
 const createVenusMesh = () => {
-  const geometry = new SphereGeometry(1.89954, 64, 64);
+  const geometry = new SphereGeometry(
+    2 * (venus.equaRadius / earth.equaRadius),
+    64,
+    64,
+  );
   const venusMap = new TextureLoader().load(
     BASIC_URL + 'venuscolor.jpg',
   );

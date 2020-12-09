@@ -11,6 +11,7 @@ import {
   Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
+import { earth, moon } from '../data.js';
 
 // basic url to textures of earth
 const BASIC_URL = 'src/textures/earth/';
@@ -18,9 +19,12 @@ const BASIC_URL = 'src/textures/earth/';
 /**
  * Create mesh of earth
  */
-const createEarthMesh = (earthData) => {
-  console.log('earthData', earthData);
-  const geometry = new SphereGeometry(2, 64, 64);
+const createEarthMesh = () => {
+  const geometry = new SphereGeometry(
+    2 * (earth.equaRadius / earth.equaRadius),
+    64,
+    64,
+  );
   const earthMap = new TextureLoader().load(
     BASIC_URL + 'earthmap1k.jpg',
   );
@@ -46,7 +50,11 @@ const createEarthMesh = (earthData) => {
  * Create mesh of moon
  */
 const createEarthMoon = () => {
-  const geometry = new SphereGeometry(0.5, 64, 64);
+  const geometry = new SphereGeometry(
+    2 * (moon.equaRadius / earth.equaRadius),
+    64,
+    64,
+  );
   const map = new TextureLoader().load(
     BASIC_URL + 'moon/moonmap1k.jpg',
   );
@@ -128,7 +136,11 @@ const createEarthCloud = () => {
   );
   imageMap.src = BASIC_URL + 'earthcloudmap.jpg';
 
-  const geometry = new SphereGeometry(2.01, 64, 64);
+  const geometry = new SphereGeometry(
+    2 * (earth.equaRadius / earth.equaRadius) + 0.01,
+    64,
+    64,
+  );
   const material = new MeshPhongMaterial({
     map: new Texture(canvasResult),
     side: DoubleSide,

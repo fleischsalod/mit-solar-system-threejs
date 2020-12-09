@@ -11,6 +11,7 @@ import {
   RingBufferGeometry,
   MathUtils,
 } from '../../lib/threejs/r122/build/three.module.js';
+import { saturn, earth } from '../data.js';
 
 // basic url to textures of Saturn
 const BASIC_URL = 'src/textures/saturn/';
@@ -19,7 +20,11 @@ const BASIC_URL = 'src/textures/saturn/';
  * Create mesh of Saturn
  */
 const createSaturnMesh = () => {
-  const geometry = new SphereGeometry(18.28033, 64, 64);
+  const geometry = new SphereGeometry(
+    2 * (saturn.equaRadius / earth.equaRadius),
+    64,
+    64,
+  );
   const saturnMap = new TextureLoader().load(
     BASIC_URL + 'saturncolor.jpg',
   );

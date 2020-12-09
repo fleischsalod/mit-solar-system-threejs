@@ -11,6 +11,7 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
+import { uranus, earth } from '../data.js';
 
 // basic url to textures of Uranus
 const BASIC_URL = 'src/textures/uranus/';
@@ -19,7 +20,11 @@ const BASIC_URL = 'src/textures/uranus/';
  * Create mesh of Uranus
  */
 const createUranusMesh = () => {
-  const geometry = new SphereGeometry(7.9617, 64, 64);
+  const geometry = new SphereGeometry(
+    2 * (uranus.equaRadius / earth.equaRadius),
+    64,
+    64,
+  );
   const uranusMap = new TextureLoader().load(
     BASIC_URL + 'uranusmap.jpg',
   );

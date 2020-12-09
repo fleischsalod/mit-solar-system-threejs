@@ -3,14 +3,12 @@
  */
 
 import {
-  Color,
-  DoubleSide,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
-  Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
+import { sun, earth } from '../data.js';
 
 // basic url to textures of sun
 const BASIC_URL = 'src/textures/sun/';
@@ -19,7 +17,11 @@ const BASIC_URL = 'src/textures/sun/';
  * Create mesh of sun
  */
 const createSunMesh = () => {
-  const geometry = new SphereGeometry(218.5999, 64, 64);
+  const geometry = new SphereGeometry(
+    2 * (sun.equaRadius / earth.equaRadius),
+    64,
+    64,
+  );
   const sunMap = new TextureLoader().load(BASIC_URL + 'sunmap.jpg');
 
   const material = new MeshPhongMaterial({

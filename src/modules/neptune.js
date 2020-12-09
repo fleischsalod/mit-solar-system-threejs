@@ -3,14 +3,12 @@
  */
 
 import {
-  Color,
-  DoubleSide,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
-  Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
+import { neptune, earth } from '../data.js';
 
 // basic url to textures of neptune
 const BASIC_URL = 'src/textures/neptune/';
@@ -19,7 +17,11 @@ const BASIC_URL = 'src/textures/neptune/';
  * Create mesh of neptune
  */
 const createNeptuneMesh = () => {
-  const geometry = new SphereGeometry(7.72625, 64, 64);
+  const geometry = new SphereGeometry(
+    2 * (neptune.equaRadius / earth.equaRadius),
+    64,
+    64,
+  );
   const neptuneMap = new TextureLoader().load(
     BASIC_URL + 'neptunecolor.jpg',
   );
