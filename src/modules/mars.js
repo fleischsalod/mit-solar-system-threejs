@@ -28,13 +28,9 @@ const createMarsMesh = () => {
   const marsMap = new TextureLoader().load(
     BASIC_URL + 'marscolor.jpg',
   );
-  const marsBump = new TextureLoader().load(
-    BASIC_URL + 'marsbump1k.jpg',
-  );
 
   const material = new MeshPhongMaterial({
     map: marsMap,
-    bumpMap: marsBump,
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);

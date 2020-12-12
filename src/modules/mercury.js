@@ -25,13 +25,9 @@ const createMercuryMesh = () => {
   const mercuryMap = new TextureLoader().load(
     BASIC_URL + 'merkurcolor.jpg',
   );
-  const mercuryBump = new TextureLoader().load(
-    BASIC_URL + 'mercurybump.jpg',
-  );
 
   const material = new MeshPhongMaterial({
     map: mercuryMap,
-    bumpMap: mercuryBump,
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);

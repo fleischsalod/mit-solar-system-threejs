@@ -25,13 +25,9 @@ const createVenusMesh = () => {
   const venusMap = new TextureLoader().load(
     BASIC_URL + 'venuscolor.jpg',
   );
-  const venusBump = new TextureLoader().load(
-    BASIC_URL + 'venusbump.jpg',
-  );
 
   const material = new MeshPhongMaterial({
     map: venusMap,
-    bumpMap: venusBump,
     bumpScale: 0.2,
   });
 
