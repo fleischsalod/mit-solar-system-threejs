@@ -45,15 +45,31 @@ const createEarthMesh = () => {
 const createEarthMoon = () => {
   const geometry = new SphereGeometry(0.5, 64, 64);
   const map = new TextureLoader().load(
-    BASIC_URL + 'moon/moonmap1k.jpg',
+    BASIC_URL + 'moon/moonNew_COLOR.png',
   );
-  const bumpMap = new TextureLoader().load(
+/* const bumpMap = new TextureLoader().load(
     BASIC_URL + 'moon/moonbump1k.jpg',
+  );*/
+  const moonDisp = new TextureLoader().load(
+    BASIC_URL + 'moonNEW_DISP.png',
+  );
+  const moonNormal = new TextureLoader().load(
+    BASIC_URL + 'moonNew_NRM.png',
+  );
+  const moonOcc = new TextureLoader().load(
+    BASIC_URL + 'moonNEW_OCC.png',
+  );
+  const moonSpec= new TextureLoader().load(
+    BASIC_URL + 'moonNew_SPEC.png',
   );
   const material = new MeshPhongMaterial({
     map: map,
-    bumpMap: bumpMap,
-    bumpScale: 0.2,
+    dispMap: moonDisp,
+    normalMap: moonNormal,
+    occlusionMap: moonOcc,
+    specularMap: moonSpec,
+  /*  bumpMap: bumpMap,
+    bumpScale: 0.2,*/
   });
   return new Mesh(geometry, material);
 };

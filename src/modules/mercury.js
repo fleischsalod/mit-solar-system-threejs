@@ -21,16 +21,31 @@ const BASIC_URL = 'src/textures/mercury/';
 const createMercuryMesh = () => {
   const geometry = new SphereGeometry(0.76581, 64, 64);
   const mercuryMap = new TextureLoader().load(
-    BASIC_URL + 'merkurcolor.jpg',
+    BASIC_URL + 'merkurcolorNew_COLOR.png',
   );
-  const mercuryBump = new TextureLoader().load(
+  /*const mercuryBump = new TextureLoader().load(
     BASIC_URL + 'mercurybump.jpg',
+  );*/
+  const merkurDisp = new TextureLoader().load(
+    BASIC_URL + 'merkurcolorNEW_DISP.png',
   );
-
+  const merkurNormal = new TextureLoader().load(
+    BASIC_URL + 'merkurcolorNew_NRM.png',
+  );
+  const merkurOcc = new TextureLoader().load(
+    BASIC_URL + 'merkurcolorNEW_OCC.png',
+  );
+  const merkurSpec= new TextureLoader().load(
+    BASIC_URL + 'merkurcolorNew_SPEC.png',
+  );
   const material = new MeshPhongMaterial({
     map: mercuryMap,
-    bumpMap: mercuryBump,
-    bumpScale: 0.2,
+  dispMap: merkurDisp,
+    normalMap: merkurNormal,
+    occlusionMap: merkurOcc,
+    specularMap: merkurSpec
+    /*bumpMap: mercuryBump,
+    bumpScale: 0.2,*/
   });
   return new Mesh(geometry, material);
 };

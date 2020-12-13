@@ -153,13 +153,13 @@ const render = () => {
   mercuryMesh.rotation.y += 0.01;
   sunMesh.rotation.y += 0.000507499;
   sunCloud1.rotation.y += 0.001;
-  sunCloud2.rotation.y -= 0.002;
+  sunCloud2.rotation.y -= 0.0001;
   jupiterMesh.rotation.y += 0.00082749;
   neptuneMesh.rotation.y += 0.00134166;
   saturnMesh.rotation.y += 0.00089166;
   uranusMesh.rotation.y += 0.00143583;
   venusMesh.rotation.y += 0.002;
-  venusAtmos.rotation.y += 0.005;
+  venusAtmos.rotation.y += 0.003;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;

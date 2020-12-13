@@ -21,11 +21,27 @@ const BASIC_URL = 'src/textures/jupiter/';
 const createjupiterMesh = () => {
   const geometry = new SphereGeometry(21.94663, 64, 64);
   const jupiterMap = new TextureLoader().load(
-    BASIC_URL + 'jupitercolor.jpg',
+    BASIC_URL + 'jupitermapNew_COLOR.png',
+  );
+  const jupiterDisp = new TextureLoader().load(
+    BASIC_URL + 'jupitermapNEW_DISP.png',
+  );
+  const jupiterNormal = new TextureLoader().load(
+    BASIC_URL + 'jupitermapNew_NRM.png',
+  );
+  const jupiterOcc = new TextureLoader().load(
+    BASIC_URL + 'jupitermapNEW_OCC.png',
+  );
+  const jupiterSpec= new TextureLoader().load(
+    BASIC_URL + 'jupitermapNew_SPEC.png',
   );
   const material = new MeshPhongMaterial({
     map: jupiterMap,
-    bumpScale: 0.2,
+    dispMap: jupiterDisp,
+    normalMap: jupiterNormal,
+    occlusionMap: jupiterOcc,
+    specularMap: jupiterSpec,
+    bumpScale: 0.1,
   });
   return new Mesh(geometry, material);
 };

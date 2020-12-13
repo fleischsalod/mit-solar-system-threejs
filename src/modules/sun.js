@@ -23,9 +23,24 @@ const createSunMesh = () => {
   const sunMap = new TextureLoader().load(
     BASIC_URL + 'suncolor2.jpg',
   );
-
+  const sunDisp = new TextureLoader().load(
+    BASIC_URL + 'suncolor2New_DISP.png',
+  );
+  const sunNormal = new TextureLoader().load(
+    BASIC_URL + 'suncolor2New_NRM.png',
+  );
+  const sunOcc = new TextureLoader().load(
+    BASIC_URL + 'suncolor2New_OCC.png',
+  );
+  const sunSpec= new TextureLoader().load(
+    BASIC_URL + 'suncolor2New_SPEC.png',
+  );
   const material = new MeshPhongMaterial({
     map: sunMap,
+    dispMap: sunDisp,
+    normalMap: sunNormal,
+    occlusionMap: sunOcc,
+    specularMap: sunSpec,
     bumpScale: 0.2,
   });
   return new Mesh(geometry, material);
@@ -35,12 +50,12 @@ const createSunMesh = () => {
 const createSunCloudMesh1 = () => {
   const geometry = new SphereGeometry(220, 64, 64);
   const venusatmos = new TextureLoader().load(
-    BASIC_URL + 'suncolor.jpg',
+    BASIC_URL + 'suncolor2.jpg',
   );
   const material = new MeshPhongMaterial({
     map: venusatmos,
     transparent: true,
-    opacity: 0.8,
+    opacity: 0.7,
   });
   const mesh = new Mesh(geometry, material);
   return mesh;
@@ -50,7 +65,7 @@ const createSunCloudMesh1 = () => {
 const createSunCloudMesh2 = () => {
   const geometry = new SphereGeometry(221, 64, 64);
   const venusatmos = new TextureLoader().load(
-    BASIC_URL + 'suncolor.jpg',
+    BASIC_URL + 'suncolor2.jpg',
   );
   const material = new MeshPhongMaterial({
     map: venusatmos,

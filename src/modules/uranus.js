@@ -21,11 +21,27 @@ const BASIC_URL = 'src/textures/uranus/';
 const createUranusMesh = () => {
   const geometry = new SphereGeometry(7.9617, 64, 64);
   const uranusMap = new TextureLoader().load(
-    BASIC_URL + 'uranusmap.jpg',
+    BASIC_URL + 'uranusNew_COLOR.png',
+  );
+  const uranusDisp = new TextureLoader().load(
+    BASIC_URL + 'uranusmapNew_DISP.png',
+  );
+  const uranusSpec = new TextureLoader().load(
+    BASIC_URL + 'uranusmapNew_SPEC.png',
+  );
+  const uranusNormal = new TextureLoader().load(
+    BASIC_URL + 'uranusmapNew_NRM.png',
+  );
+  const uranusOcc = new TextureLoader().load(
+    BASIC_URL + 'uranusmapNew_OCC.png',
   );
 
   const material = new MeshPhongMaterial({
     map: uranusMap,
+    dispMap: uranusDisp,
+    specularMap: uranusSpec,
+    normalMap: uranusNormal,
+    occlusionMap: uranusOcc,
     bumpScale: 0.2,
   });
   return new Mesh(geometry, material);
