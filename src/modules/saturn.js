@@ -11,6 +11,11 @@ import {
   RingBufferGeometry,
   MathUtils,
 } from '../../lib/threejs/r122/build/three.module.js';
+import {
+  getAxialTiltInRad,
+  getElementDiameter,
+  getRingsDiameter,
+} from '../utils.js';
 
 // basic url to textures of Saturn
 const BASIC_URL = 'src/textures/saturn/';
@@ -19,7 +24,11 @@ const BASIC_URL = 'src/textures/saturn/';
  * Create mesh of Saturn
  */
 const createSaturnMesh = () => {
-  const geometry = new SphereGeometry(18.28033, 64, 64);
+  const geometry = new SphereGeometry(
+    getElementDiameter('saturn'),
+    64,
+    64,
+  );
   const saturnMap = new TextureLoader().load(
     BASIC_URL + 'saturncolor2.jpg',
   );
@@ -43,14 +52,26 @@ const createSaturnMesh = () => {
     specularMap: saturnSpec,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('saturn');
+  const ringMesh = createSaturnRing();
+  ringMesh.rotation.x = Math.PI / 2;
+  mesh.add(ringMesh);
+  return mesh;
 };
 
 /**
  * Create Saturnrings
  */
 const createSaturnRing = () => {
-  const geometry = new RingBufferGeometry(25, 35, 64);
+  const { ringsInnerDiameter, ringsOuterDiameter } = getRingsDiameter(
+    'saturn',
+  );
+  const geometry = new RingBufferGeometry(
+    ringsInnerDiameter,
+    ringsOuterDiameter,
+    64,
+  );
   var uvs = geometry.attributes.uv.array;
   // loop and initialization taken from RingBufferGeometry
   var phiSegments = geometry.parameters.phiSegments || 0;
@@ -65,17 +86,16 @@ const createSaturnRing = () => {
     }
   }
   const saturnRingMap = new TextureLoader().load(
-    BASIC_URL + 'saturnringcolor.jpg',
+    BASIC_URL + '2k_saturn_ring_alpha.png',
   );
   saturnRingMap.rotation = MathUtils.degToRad(90);
   const material = new MeshPhongMaterial({
     map: saturnRingMap,
     side: DoubleSide,
     transparent: true,
-    opacity: 0.8,
   });
   const ringMesh = new Mesh(geometry, material);
   return ringMesh;
 };
 
-export { createSaturnMesh, createSaturnRing };
+export { createSaturnMesh };

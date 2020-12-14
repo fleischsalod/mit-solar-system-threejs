@@ -3,14 +3,12 @@
  */
 
 import {
-  Color,
-  DoubleSide,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
-  Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
+import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
 
 // basic url to textures of mercury
 const BASIC_URL = 'src/textures/mercury/';
@@ -19,7 +17,11 @@ const BASIC_URL = 'src/textures/mercury/';
  * Create mesh of mercury
  */
 const createMercuryMesh = () => {
-  const geometry = new SphereGeometry(0.76581, 64, 64);
+  const geometry = new SphereGeometry(
+    getElementDiameter('mercury'),
+    64,
+    64,
+  );
   const mercuryMap = new TextureLoader().load(
     BASIC_URL + 'merkurcolorNew_COLOR.png',
   );
@@ -47,7 +49,9 @@ const createMercuryMesh = () => {
     /*bumpMap: mercuryBump,
     bumpScale: 0.2,*/
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('mercury');
+  return mesh;
 };
 
 export { createMercuryMesh };

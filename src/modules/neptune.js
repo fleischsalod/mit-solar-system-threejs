@@ -3,14 +3,12 @@
  */
 
 import {
-  Color,
-  DoubleSide,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
-  Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
+import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
 
 // basic url to textures of neptune
 const BASIC_URL = 'src/textures/neptune/';
@@ -19,7 +17,11 @@ const BASIC_URL = 'src/textures/neptune/';
  * Create mesh of neptune
  */
 const createNeptuneMesh = () => {
-  const geometry = new SphereGeometry(7.72625, 64, 64);
+  const geometry = new SphereGeometry(
+    getElementDiameter('neptune'),
+    64,
+    64,
+  );
   const neptuneMap = new TextureLoader().load(
     BASIC_URL + 'neptunecolorNew_COLOR.png',
   );
@@ -44,7 +46,9 @@ const createNeptuneMesh = () => {
     occlusionMap: neptuneOcc,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('neptune');
+  return mesh;
 };
 
 export { createNeptuneMesh };
