@@ -142,8 +142,8 @@ const render = () => {
   marsMesh.rotation.y += getRotationSpeed('mars');
   mercuryMesh.rotation.y += getRotationSpeed('mercury');
   // sun does not rotate, but this should show some better effects on sun
-  sunCloud1.rotation.y += 0.002;
-  sunCloud2.rotation.y -= 0.004;
+  sunCloud1.rotation.y += 0.001;
+  sunCloud2.rotation.y -= 0.0001;
   jupiterMesh.rotation.y += getRotationSpeed('jupiter');
   neptuneMesh.rotation.y += getRotationSpeed('neptune');
   saturnMesh.rotation.y += getRotationSpeed('saturn');

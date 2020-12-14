@@ -23,16 +23,28 @@ const createVenusMesh = () => {
     64,
   );
   const venusMap = new TextureLoader().load(
-    BASIC_URL + 'venuscolor.jpg',
+    BASIC_URL + 'venuscolorNew_COLOR.png',
   );
-  const venusBump = new TextureLoader().load(
-    BASIC_URL + 'venusbump.jpg',
+  // const venusBump = new TextureLoader().load(
+  //   BASIC_URL + 'venusbump.jpg',
+  // );
+  // const venusDisp = new TextureLoader().load(
+  //   BASIC_URL + 'venuscolorNEW_DISP.png',
+  // );
+  const venusNormal = new TextureLoader().load(
+    BASIC_URL + 'venuscolorNew_NRM.png',
+  );
+  const venusSpec = new TextureLoader().load(
+    BASIC_URL + 'venuscolorNew_SPEC.png',
   );
 
   const material = new MeshPhongMaterial({
     map: venusMap,
-    bumpMap: venusBump,
-    bumpScale: 0.2,
+    // displacementMap: venusDisp,
+    normalMap: venusNormal,
+    specularMap: venusSpec,
+    // bumpMap: venusBump,
+    // bumpScale: 0.2,
   });
 
   const mesh = new Mesh(geometry, material);

@@ -8,7 +8,7 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { getElementDiameter } from '../utils.js';
+import { getElementDiameter, getAxialTiltInRad } from '../utils.js';
 
 // basic url to textures of sun
 const BASIC_URL = 'src/textures/sun/';
@@ -25,9 +25,20 @@ const createSunMesh = () => {
   const sunMap = new TextureLoader().load(
     BASIC_URL + 'suncolor2.jpg',
   );
-
+  // const sunDisp = new TextureLoader().load(
+  //   BASIC_URL + 'suncolor2New_DISP.png',
+  // );
+  const sunNormal = new TextureLoader().load(
+    BASIC_URL + 'suncolor2New_NRM.jpg',
+  );
+  const sunSpec = new TextureLoader().load(
+    BASIC_URL + 'suncolor2New_SPEC.png',
+  );
   const material = new MeshPhongMaterial({
     map: sunMap,
+    // displacementMap: sunDisp,
+    normalMap: sunNormal,
+    specularMap: sunSpec,
     bumpScale: 0.2,
   });
 
@@ -44,12 +55,12 @@ const createSunCloudMesh1 = () => {
     64,
   );
   const venusatmos = new TextureLoader().load(
-    BASIC_URL + 'suncolor.jpg',
+    BASIC_URL + 'suncolor2.jpg',
   );
   const material = new MeshPhongMaterial({
     map: venusatmos,
     transparent: true,
-    opacity: 0.8,
+    opacity: 0.7,
   });
   const mesh = new Mesh(geometry, material);
   mesh.rotation.x = getAxialTiltInRad('sun');
@@ -64,7 +75,7 @@ const createSunCloudMesh2 = () => {
     64,
   );
   const venusatmos = new TextureLoader().load(
-    BASIC_URL + 'suncolor.jpg',
+    BASIC_URL + 'suncolor2.jpg',
   );
   const material = new MeshPhongMaterial({
     map: venusatmos,

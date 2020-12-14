@@ -30,11 +30,23 @@ const createUranusMesh = () => {
     64,
   );
   const uranusMap = new TextureLoader().load(
-    BASIC_URL + 'uranusmap.jpg',
+    BASIC_URL + 'uranusNew_COLOR.png',
+  );
+  // const uranusDisp = new TextureLoader().load(
+  //   BASIC_URL + 'uranusNew_DISP.png',
+  // );
+  const uranusSpec = new TextureLoader().load(
+    BASIC_URL + 'uranusNew_SPEC.png',
+  );
+  const uranusNormal = new TextureLoader().load(
+    BASIC_URL + 'uranusNew_NRM.png',
   );
 
   const material = new MeshPhongMaterial({
     map: uranusMap,
+    // displacementMap: uranusDisp,
+    specularMap: uranusSpec,
+    normalMap: uranusNormal,
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
