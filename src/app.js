@@ -60,19 +60,19 @@ controls.update();
 const sunMesh = createSunMesh();
 const sunCloud1 = createSunCloudMesh1();
 const sunCloud2 = createSunCloudMesh2();
-sunMesh.position.set(-280, 0, 0);
+// sunMesh.position.set(0, 0, 0);
 sunMesh.add(sunCloud1, sunCloud2);
 scene.add(sunMesh);
 
 // Add Mercury to Scene
 const mercuryMesh = createMercuryMesh();
-mercuryMesh.position.set(-30, 0, 0);
+// mercuryMesh.position.set(-30, 0, 0);
 scene.add(mercuryMesh);
 
 // Add Venus to Scene
 const venusMesh = createVenusMesh();
 const venusAtmos = createVenusCloudMesh();
-venusMesh.position.set(-15, 0, 0);
+// venusMesh.position.set(-15, 0, 0);
 venusMesh.add(venusAtmos);
 scene.add(venusMesh);
 
@@ -94,27 +94,27 @@ earthGroup.add(moonMesh);
 
 // Add Mars to Scene
 const marsMesh = createMarsMesh();
-marsMesh.position.set(10, 0, 0);
+// marsMesh.position.set(10, 0, 0);
 scene.add(marsMesh);
 
 // Add Jupiter to scene
 const jupiterMesh = createjupiterMesh();
-jupiterMesh.position.set(40, 0, 0);
+// jupiterMesh.position.set(40, 0, 0);
 scene.add(jupiterMesh);
 
 // Add Saturn so Scene
 const saturnMesh = createSaturnMesh();
-saturnMesh.position.set(100, 0, 0);
+// saturnMesh.position.set(100, 0, 0);
 scene.add(saturnMesh);
 
 // Add Uranus to Scene
 const uranusMesh = createUranusMesh();
-uranusMesh.position.set(160, 0, 0);
+// uranusMesh.position.set(160, 0, 0);
 scene.add(uranusMesh);
 
 // Add Neptune to Scene
 const neptuneMesh = createNeptuneMesh();
-neptuneMesh.position.set(200, 0, 0);
+// neptuneMesh.position.set(200, 0, 0);
 scene.add(neptuneMesh);
 
 // handle browser resize
@@ -158,7 +158,45 @@ const render = () => {
     camera.updateProjectionMatrix();
   }
 
+  function render() {
+    requestAnimationFrame(render);
+    var time = Date.now() * 0.0005;
+
+    //mercury.rotation.x += 0.01;
+    mercuryMesh.position.x = Math.sin(time * 4.5) * 250;
+    mercuryMesh.position.y = Math.cos(time * 4.5) * 20;
+    mercuryMesh.position.z = Math.cos(time * 4.5) * 250;
+
+    //venus.rotation.x += 0.01;
+    venusMesh.position.x = Math.sin(time * 2.5) * 300;
+    venusMesh.position.y = Math.sin(time * 1.5) * 20;
+    venusMesh.position.z = Math.cos(time * 2.5) * 300;
+
+    //earth.rotation.x += 0.01;
+    earthGroup.position.x = Math.sin(time * 1.5) * 350;
+    earthGroup.position.z = Math.cos(time * 1.5) * 350;
+
+    marsMesh.position.x = Math.sin(time * 1) * 375;
+    marsMesh.position.y = Math.cos(time * 1) * 20;
+    marsMesh.position.z = Math.cos(time * 1) * 375;
+
+    jupiterMesh.position.x = Math.sin(time * 0.5) * 500;
+    jupiterMesh.position.y = Math.sin(time * 0.5) * 30;
+    jupiterMesh.position.z = Math.cos(time * 0.5) * 500;
+
+    saturnMesh.position.x = Math.sin(time * 0.3) * 650;
+    saturnMesh.position.z = Math.cos(time * 0.3) * 650;
+
+    uranusMesh.position.x = Math.sin(time * 0.2) * 700;
+    uranusMesh.position.y = Math.cos(time * 0.2) * 10;
+    uranusMesh.position.z = Math.cos(time * 0.2) * 700;
+
+    neptuneMesh.position.x = Math.sin(time * 0.1) * 750;
+    neptuneMesh.position.y = Math.cos(time * 0.1) * 20;
+    neptuneMesh.position.z = Math.cos(time * 0.1) * 750;
+  }
   renderer.render(scene, camera);
+  render();
 };
 
 renderer.setAnimationLoop(render);
