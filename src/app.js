@@ -20,18 +20,7 @@ import {
   createVenusMesh,
   createVenusCloudMesh,
 } from './modules/venus.js';
-import {
-  earth,
-  jupiter,
-  mars,
-  mercury,
-  moon,
-  neptune,
-  saturn,
-  sun,
-  uranus,
-  venus,
-} from './data.js';
+import { getRotationSpeed } from './utils.js';
 
 // renderer
 const canvas = document.querySelector('canvas');
@@ -141,38 +130,27 @@ function resizeRendererToDisplaySize(renderer) {
   return needResize;
 }
 
-const getRotation = (sideralRotation) => {
-  // the sideralRotation of a planet is set in hours.
-  // the earth rotates 360deg = 2*phi (rad) in 24h.
-  const earthRotation = earth.sideralRotation;
-  // The rotation of earth is set to 0.01
-  const rotationConst = 0.01;
-  // the rotation of all other planets is then calculated from earth rotation like this:
-  // (earthRotation/sideralRotation) * rotationConst
-  // Example Mars: (23.9345/24.6229) * 0.01 = 0.00972
-  return (earthRotation / sideralRotation) * rotationConst;
-};
-
 // Add animations to elements in scene
 const render = () => {
-  earthMesh.rotation.y += getRotation(earth.sideralRotation);
+  earthMesh.rotation.y += getRotationSpeed('earth');
   // clouds should move 5 times as fast as earth
-  cloudMesh.rotation.y += getRotation(earth.sideralRotation / 5);
-  moonMesh.rotation.y += getRotation(moon.sideralRotation);
-  // This one defines how fast moon is surrounding the earth;
-  earthGroup.rotation.y += getRotation(moon.sideralOrbit);
-  marsMesh.rotation.y += getRotation(mars.sideralRotation);
-  mercuryMesh.rotation.y += getRotation(mercury.sideralRotation);
+  cloudMesh.rotation.y += getRotationSpeed('earth') * 5;
+  moonMesh.rotation.y += getRotationSpeed('moon');
+  // This one defines how fast moon is surrounding the earth
+  // Should be changed to elliptic rotation around earth
+  earthGroup.rotation.y += getRotationSpeed('moon');
+  marsMesh.rotation.y += getRotationSpeed('mars');
+  mercuryMesh.rotation.y += getRotationSpeed('mercury');
   // sun does not rotate, but this should show some better effects on sun
   sunCloud1.rotation.y += 0.002;
   sunCloud2.rotation.y -= 0.004;
-  jupiterMesh.rotation.y += getRotation(jupiter.sideralRotation);
-  neptuneMesh.rotation.y += getRotation(neptune.sideralRotation);
-  saturnMesh.rotation.y += getRotation(saturn.sideralRotation);
-  uranusMesh.rotation.y += getRotation(uranus.sideralRotation);
-  venusMesh.rotation.y += getRotation(venus.sideralRotation);
+  jupiterMesh.rotation.y += getRotationSpeed('jupiter');
+  neptuneMesh.rotation.y += getRotationSpeed('neptune');
+  saturnMesh.rotation.y += getRotationSpeed('saturn');
+  uranusMesh.rotation.y += getRotationSpeed('uranus');
+  venusMesh.rotation.y += getRotationSpeed('venus');
   // venus atmosphere should rotate 100 times as fast as venus
-  venusAtmos.rotation.y -= getRotation(venus.sideralRotation / 100);
+  venusAtmos.rotation.y += getRotationSpeed('venus') * 100;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;

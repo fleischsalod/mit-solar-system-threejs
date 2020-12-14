@@ -11,7 +11,11 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { uranus, earth } from '../data.js';
+import {
+  getAxialTiltInRad,
+  getElementDiameter,
+  getRingsDiameter,
+} from '../utils.js';
 
 // basic url to textures of Uranus
 const BASIC_URL = 'src/textures/uranus/';
@@ -21,7 +25,7 @@ const BASIC_URL = 'src/textures/uranus/';
  */
 const createUranusMesh = () => {
   const geometry = new SphereGeometry(
-    2 * (uranus.equaRadius / earth.equaRadius),
+    getElementDiameter('uranus'),
     64,
     64,
   );
@@ -34,7 +38,7 @@ const createUranusMesh = () => {
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
-  mesh.rotation.x = uranus.axialTilt * (Math.PI / 180);
+  mesh.rotation.x = getAxialTiltInRad('uranus');
   const ringMesh = createUranusRing();
   ringMesh.rotation.x = Math.PI / 2;
   mesh.add(ringMesh);
@@ -45,9 +49,12 @@ const createUranusMesh = () => {
  * Create mesh of Uranusrings
  */
 const createUranusRing = () => {
+  const { ringsInnerDiameter, ringsOuterDiameter } = getRingsDiameter(
+    'uranus',
+  );
   const geometry = new RingBufferGeometry(
-    2 * (uranus.ringsInnerRadius / earth.equaRadius),
-    2 * (uranus.ringsOuterRadius / earth.equaRadius),
+    ringsInnerDiameter,
+    ringsOuterDiameter,
     64,
   );
   var uvs = geometry.attributes.uv.array;

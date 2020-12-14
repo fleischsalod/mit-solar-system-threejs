@@ -11,7 +11,7 @@ import {
   Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { mars, earth } from '../data.js';
+import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
 
 // basic url to textures of mars
 const BASIC_URL = 'src/textures/mars/';
@@ -21,7 +21,7 @@ const BASIC_URL = 'src/textures/mars/';
  */
 const createMarsMesh = () => {
   const geometry = new SphereGeometry(
-    2 * (mars.equaRadius / earth.equaRadius),
+    getElementDiameter('mars'),
     64,
     64,
   );
@@ -38,7 +38,7 @@ const createMarsMesh = () => {
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
-  mesh.rotation.x = mars.axialTilt * (Math.PI / 180);
+  mesh.rotation.x = getAxialTiltInRad('mars');
   return mesh;
 };
 

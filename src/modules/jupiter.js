@@ -8,7 +8,7 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { jupiter, earth } from '../data.js';
+import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
 
 // basic url to textures of jupiter
 const BASIC_URL = 'src/textures/jupiter/';
@@ -18,7 +18,7 @@ const BASIC_URL = 'src/textures/jupiter/';
  */
 const createjupiterMesh = () => {
   const geometry = new SphereGeometry(
-    2 * (jupiter.equaRadius / earth.equaRadius),
+    getElementDiameter('jupiter'),
     64,
     64,
   );
@@ -30,7 +30,7 @@ const createjupiterMesh = () => {
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
-  mesh.rotation.x = jupiter.axialTilt * (Math.PI / 180);
+  mesh.rotation.x = getAxialTiltInRad('jupiter');
   return mesh;
 };
 

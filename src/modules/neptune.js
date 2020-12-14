@@ -8,7 +8,7 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { neptune, earth } from '../data.js';
+import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
 
 // basic url to textures of neptune
 const BASIC_URL = 'src/textures/neptune/';
@@ -18,7 +18,7 @@ const BASIC_URL = 'src/textures/neptune/';
  */
 const createNeptuneMesh = () => {
   const geometry = new SphereGeometry(
-    2 * (neptune.equaRadius / earth.equaRadius),
+    getElementDiameter('neptune'),
     64,
     64,
   );
@@ -31,7 +31,7 @@ const createNeptuneMesh = () => {
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
-  mesh.rotation.x = neptune.axialTilt * (Math.PI / 180);
+  mesh.rotation.x = getAxialTiltInRad('neptune');
   return mesh;
 };
 

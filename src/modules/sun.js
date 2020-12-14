@@ -8,7 +8,7 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { sun, earth } from '../data.js';
+import { getElementDiameter } from '../utils.js';
 
 // basic url to textures of sun
 const BASIC_URL = 'src/textures/sun/';
@@ -18,7 +18,7 @@ const BASIC_URL = 'src/textures/sun/';
  */
 const createSunMesh = () => {
   const geometry = new SphereGeometry(
-    2 * (sun.equaRadius / earth.equaRadius),
+    getElementDiameter('sun'),
     64,
     64,
   );
@@ -30,12 +30,19 @@ const createSunMesh = () => {
     map: sunMap,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('sun');
+  return mesh;
 };
 
 //create SunCloud1
 const createSunCloudMesh1 = () => {
-  const geometry = new SphereGeometry(220, 64, 64);
+  const geometry = new SphereGeometry(
+    getElementDiameter('sun') + 1,
+    64,
+    64,
+  );
   const venusatmos = new TextureLoader().load(
     BASIC_URL + 'suncolor.jpg',
   );
@@ -45,12 +52,17 @@ const createSunCloudMesh1 = () => {
     opacity: 0.8,
   });
   const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('sun');
   return mesh;
 };
 
 //create SunCloud2
 const createSunCloudMesh2 = () => {
-  const geometry = new SphereGeometry(221, 64, 64);
+  const geometry = new SphereGeometry(
+    getElementDiameter('sun') + 2,
+    64,
+    64,
+  );
   const venusatmos = new TextureLoader().load(
     BASIC_URL + 'suncolor.jpg',
   );
@@ -60,6 +72,7 @@ const createSunCloudMesh2 = () => {
     opacity: 0.6,
   });
   const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('sun');
   return mesh;
 };
 

@@ -8,7 +8,7 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { mercury, earth } from '../data.js';
+import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
 
 // basic url to textures of mercury
 const BASIC_URL = 'src/textures/mercury/';
@@ -18,7 +18,7 @@ const BASIC_URL = 'src/textures/mercury/';
  */
 const createMercuryMesh = () => {
   const geometry = new SphereGeometry(
-    2 * (mercury.equaRadius / earth.equaRadius),
+    getElementDiameter('mercury'),
     64,
     64,
   );
@@ -35,7 +35,7 @@ const createMercuryMesh = () => {
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
-  mesh.rotation.x = mercury.axialTilt * (Math.PI / 180);
+  mesh.rotation.x = getAxialTiltInRad('mercury');
   return mesh;
 };
 

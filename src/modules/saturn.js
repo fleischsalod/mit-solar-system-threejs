@@ -11,7 +11,11 @@ import {
   RingBufferGeometry,
   MathUtils,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { saturn, earth } from '../data.js';
+import {
+  getAxialTiltInRad,
+  getElementDiameter,
+  getRingsDiameter,
+} from '../utils.js';
 
 // basic url to textures of Saturn
 const BASIC_URL = 'src/textures/saturn/';
@@ -21,7 +25,7 @@ const BASIC_URL = 'src/textures/saturn/';
  */
 const createSaturnMesh = () => {
   const geometry = new SphereGeometry(
-    2 * (saturn.equaRadius / earth.equaRadius),
+    getElementDiameter('saturn'),
     64,
     64,
   );
@@ -34,7 +38,7 @@ const createSaturnMesh = () => {
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
-  mesh.rotation.x = saturn.axialTilt * (Math.PI / 180);
+  mesh.rotation.x = getAxialTiltInRad('saturn');
   const ringMesh = createSaturnRing();
   ringMesh.rotation.x = Math.PI / 2;
   mesh.add(ringMesh);
@@ -45,9 +49,12 @@ const createSaturnMesh = () => {
  * Create Saturnrings
  */
 const createSaturnRing = () => {
+  const { ringsInnerDiameter, ringsOuterDiameter } = getRingsDiameter(
+    'saturn',
+  );
   const geometry = new RingBufferGeometry(
-    2 * (saturn.ringsInnerRadius / earth.equaRadius),
-    2 * (saturn.ringsOuterRadius / earth.equaRadius),
+    ringsInnerDiameter,
+    ringsOuterDiameter,
     64,
   );
   var uvs = geometry.attributes.uv.array;
