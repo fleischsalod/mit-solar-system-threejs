@@ -11,6 +11,7 @@ import {
   Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
+import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
 
 // basic url to textures of earth
 const BASIC_URL = 'src/textures/earth/';
@@ -19,7 +20,11 @@ const BASIC_URL = 'src/textures/earth/';
  * Create mesh of earth
  */
 const createEarthMesh = () => {
-  const geometry = new SphereGeometry(2, 64, 64);
+  const geometry = new SphereGeometry(
+    getElementDiameter('earth'),
+    64,
+    64,
+  );
   const earthMap = new TextureLoader().load(
     BASIC_URL + 'earthmap1k.jpg',
   );
@@ -36,14 +41,20 @@ const createEarthMesh = () => {
     specularMap: earthSpec,
     specular: new Color('grey'),
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('earth');
+  return mesh;
 };
 
 /**
  * Create mesh of moon
  */
 const createEarthMoon = () => {
-  const geometry = new SphereGeometry(0.5, 64, 64);
+  const geometry = new SphereGeometry(
+    getElementDiameter('moon'),
+    64,
+    64,
+  );
   const map = new TextureLoader().load(
     BASIC_URL + 'moon/moonmap1k.jpg',
   );
@@ -55,7 +66,9 @@ const createEarthMoon = () => {
     bumpMap: bumpMap,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('moon');
+  return mesh;
 };
 
 /**
@@ -125,7 +138,11 @@ const createEarthCloud = () => {
   );
   imageMap.src = BASIC_URL + 'earthcloudmap.jpg';
 
-  const geometry = new SphereGeometry(2.01, 64, 64);
+  const geometry = new SphereGeometry(
+    getElementDiameter('earth') + 0.01,
+    64,
+    64,
+  );
   const material = new MeshPhongMaterial({
     map: new Texture(canvasResult),
     side: DoubleSide,
@@ -133,6 +150,7 @@ const createEarthCloud = () => {
     opacity: 0.8,
   });
   const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('earth');
   return mesh;
 };
 

@@ -9,23 +9,18 @@ import { createjupiterMesh } from './modules/jupiter.js';
 import { createMarsMesh } from './modules/mars.js';
 import { createMercuryMesh } from './modules/mercury.js';
 import { createNeptuneMesh } from './modules/neptune.js';
-import {
-  createSaturnMesh,
-  createSaturnRing,
-} from './modules/saturn.js';
+import { createSaturnMesh } from './modules/saturn.js';
 import {
   createSunMesh,
   createSunCloudMesh1,
   createSunCloudMesh2,
 } from './modules/sun.js';
-import {
-  createUranusMesh,
-  createUranusRing,
-} from './modules/uranus.js';
+import { createUranusMesh } from './modules/uranus.js';
 import {
   createVenusMesh,
   createVenusCloudMesh,
 } from './modules/venus.js';
+import { getRotationSpeed } from './utils.js';
 
 // renderer
 const canvas = document.querySelector('canvas');
@@ -110,20 +105,11 @@ scene.add(jupiterMesh);
 // Add Saturn so Scene
 const saturnMesh = createSaturnMesh();
 saturnMesh.position.set(100, 0, 0);
-
-const saturnRingMesh = createSaturnRing();
-saturnRingMesh.position.set(0, 0, 0);
-saturnRingMesh.rotation.x = Math.PI / 2;
-saturnMesh.add(saturnRingMesh);
 scene.add(saturnMesh);
 
 // Add Uranus to Scene
 const uranusMesh = createUranusMesh();
 uranusMesh.position.set(160, 0, 0);
-const uranusRingMesh = createUranusRing();
-uranusRingMesh.position.set(0, 0, 0);
-uranusRingMesh.rotation.x = Math.PI / 2;
-uranusMesh.add(uranusRingMesh);
 scene.add(uranusMesh);
 
 // Add Neptune to Scene
@@ -146,20 +132,25 @@ function resizeRendererToDisplaySize(renderer) {
 
 // Add animations to elements in scene
 const render = () => {
-  earthMesh.rotation.y += 0.002;
-  cloudMesh.rotation.y += 0.005;
-  earthGroup.rotation.y += 0.0015;
-  marsMesh.rotation.y += 0.0020516;
-  mercuryMesh.rotation.y += 0.01;
-  sunMesh.rotation.y += 0.000507499;
-  sunCloud1.rotation.y += 0.001;
-  sunCloud2.rotation.y -= 0.002;
-  jupiterMesh.rotation.y += 0.00082749;
-  neptuneMesh.rotation.y += 0.00134166;
-  saturnMesh.rotation.y += 0.00089166;
-  uranusMesh.rotation.y += 0.00143583;
-  venusMesh.rotation.y += 0.002;
-  venusAtmos.rotation.y += 0.005;
+  earthMesh.rotation.y += getRotationSpeed('earth');
+  // clouds should move 5 times as fast as earth
+  cloudMesh.rotation.y += getRotationSpeed('earth') * 5;
+  moonMesh.rotation.y += getRotationSpeed('moon');
+  // This one defines how fast moon is surrounding the earth
+  // Should be changed to elliptic rotation around earth
+  earthGroup.rotation.y += getRotationSpeed('moon');
+  marsMesh.rotation.y += getRotationSpeed('mars');
+  mercuryMesh.rotation.y += getRotationSpeed('mercury');
+  // sun does not rotate, but this should show some better effects on sun
+  sunCloud1.rotation.y += 0.002;
+  sunCloud2.rotation.y -= 0.004;
+  jupiterMesh.rotation.y += getRotationSpeed('jupiter');
+  neptuneMesh.rotation.y += getRotationSpeed('neptune');
+  saturnMesh.rotation.y += getRotationSpeed('saturn');
+  uranusMesh.rotation.y += getRotationSpeed('uranus');
+  venusMesh.rotation.y += getRotationSpeed('venus');
+  // venus atmosphere should rotate 100 times as fast as venus
+  venusAtmos.rotation.y += getRotationSpeed('venus') * 100;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;

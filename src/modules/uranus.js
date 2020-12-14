@@ -11,6 +11,11 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
+import {
+  getAxialTiltInRad,
+  getElementDiameter,
+  getRingsDiameter,
+} from '../utils.js';
 
 // basic url to textures of Uranus
 const BASIC_URL = 'src/textures/uranus/';
@@ -19,7 +24,11 @@ const BASIC_URL = 'src/textures/uranus/';
  * Create mesh of Uranus
  */
 const createUranusMesh = () => {
-  const geometry = new SphereGeometry(7.9617, 64, 64);
+  const geometry = new SphereGeometry(
+    getElementDiameter('uranus'),
+    64,
+    64,
+  );
   const uranusMap = new TextureLoader().load(
     BASIC_URL + 'uranusmap.jpg',
   );
@@ -28,14 +37,26 @@ const createUranusMesh = () => {
     map: uranusMap,
     bumpScale: 0.2,
   });
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('uranus');
+  const ringMesh = createUranusRing();
+  ringMesh.rotation.x = Math.PI / 2;
+  mesh.add(ringMesh);
+  return mesh;
 };
 
 /**
  * Create mesh of Uranusrings
  */
 const createUranusRing = () => {
-  const geometry = new RingBufferGeometry(11, 16, 64);
+  const { ringsInnerDiameter, ringsOuterDiameter } = getRingsDiameter(
+    'uranus',
+  );
+  const geometry = new RingBufferGeometry(
+    ringsInnerDiameter,
+    ringsOuterDiameter,
+    64,
+  );
   var uvs = geometry.attributes.uv.array;
   // loop and initialization taken from RingBufferGeometry
   var phiSegments = geometry.parameters.phiSegments || 0;
@@ -57,10 +78,10 @@ const createUranusRing = () => {
     map: uranusRingMap,
     side: DoubleSide,
     transparent: true,
-    opacity: 0.6,
+    opacity: 0.3,
   });
   const ringMesh = new Mesh(geometry, material);
   return ringMesh;
 };
 
-export { createUranusMesh, createUranusRing };
+export { createUranusMesh };

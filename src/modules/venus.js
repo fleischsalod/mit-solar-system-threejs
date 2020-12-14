@@ -8,6 +8,7 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
+import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
 
 // basic url to textures of venus
 const BASIC_URL = 'src/textures/venus/';
@@ -16,7 +17,11 @@ const BASIC_URL = 'src/textures/venus/';
  * Create mesh of venus
  */
 const createVenusMesh = () => {
-  const geometry = new SphereGeometry(1.89954, 64, 64);
+  const geometry = new SphereGeometry(
+    getElementDiameter('venus'),
+    64,
+    64,
+  );
   const venusMap = new TextureLoader().load(
     BASIC_URL + 'venuscolor.jpg',
   );
@@ -30,14 +35,20 @@ const createVenusMesh = () => {
     bumpScale: 0.2,
   });
 
-  return new Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('venus');
+  return mesh;
 };
 
 /**
  * Create mesh of transparent cloud-layer
  */
 const createVenusCloudMesh = () => {
-  const geometry = new SphereGeometry(1.95, 64, 64);
+  const geometry = new SphereGeometry(
+    getElementDiameter('venus') + 0.01,
+    64,
+    64,
+  );
   const venusatmos = new TextureLoader().load(
     BASIC_URL + 'venusatmosphere.jpg',
   );
@@ -47,6 +58,7 @@ const createVenusCloudMesh = () => {
     opacity: 0.7,
   });
   const mesh = new Mesh(geometry, material);
+  mesh.rotation.x = getAxialTiltInRad('venus');
   return mesh;
 };
 export { createVenusMesh, createVenusCloudMesh };
