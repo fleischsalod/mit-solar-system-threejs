@@ -58,29 +58,25 @@ const createEarthMoon = () => {
   const map = new TextureLoader().load(
     BASIC_URL + 'moon/moonNew_COLOR.png',
   );
-/* const bumpMap = new TextureLoader().load(
-    BASIC_URL + 'moon/moonbump1k.jpg',
-  );*/
-  const moonDisp = new TextureLoader().load(
-    BASIC_URL + 'moonNEW_DISP.png',
-  );
+  // const bumpMap = new TextureLoader().load(
+  //   BASIC_URL + 'moon/moonbump1k.jpg',
+  // );
+  // const moonDisp = new TextureLoader().load(
+  //   BASIC_URL + 'moon/moonNEW_DISP.png',
+  // );
   const moonNormal = new TextureLoader().load(
-    BASIC_URL + 'moonNew_NRM.png',
+    BASIC_URL + 'moon/moonNew_NRM.png',
   );
-  const moonOcc = new TextureLoader().load(
-    BASIC_URL + 'moonNEW_OCC.png',
-  );
-  const moonSpec= new TextureLoader().load(
-    BASIC_URL + 'moonNew_SPEC.png',
+  const moonSpec = new TextureLoader().load(
+    BASIC_URL + 'moon/moonNew_SPEC.png',
   );
   const material = new MeshPhongMaterial({
     map: map,
-    dispMap: moonDisp,
+    // displacementMap: moonDisp,
     normalMap: moonNormal,
-    occlusionMap: moonOcc,
     specularMap: moonSpec,
-  /*  bumpMap: bumpMap,
-    bumpScale: 0.2,*/
+    //bumpMap: bumpMap,
+    bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
   mesh.rotation.x = getAxialTiltInRad('moon');

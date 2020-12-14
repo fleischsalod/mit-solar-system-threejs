@@ -32,25 +32,21 @@ const createUranusMesh = () => {
   const uranusMap = new TextureLoader().load(
     BASIC_URL + 'uranusNew_COLOR.png',
   );
-  const uranusDisp = new TextureLoader().load(
-    BASIC_URL + 'uranusmapNew_DISP.png',
-  );
+  // const uranusDisp = new TextureLoader().load(
+  //   BASIC_URL + 'uranusNew_DISP.png',
+  // );
   const uranusSpec = new TextureLoader().load(
-    BASIC_URL + 'uranusmapNew_SPEC.png',
+    BASIC_URL + 'uranusNew_SPEC.png',
   );
   const uranusNormal = new TextureLoader().load(
-    BASIC_URL + 'uranusmapNew_NRM.png',
-  );
-  const uranusOcc = new TextureLoader().load(
-    BASIC_URL + 'uranusmapNew_OCC.png',
+    BASIC_URL + 'uranusNew_NRM.png',
   );
 
   const material = new MeshPhongMaterial({
     map: uranusMap,
-    dispMap: uranusDisp,
+    // displacementMap: uranusDisp,
     specularMap: uranusSpec,
     normalMap: uranusNormal,
-    occlusionMap: uranusOcc,
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);

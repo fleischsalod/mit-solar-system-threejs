@@ -31,18 +31,18 @@ const createMarsMesh = () => {
   const marsBump = new TextureLoader().load(
     BASIC_URL + 'marsbump1k.jpg',
   );
-  const marsDisp = new TextureLoader().load(
-    BASIC_URL + 'marscolor_displacementMap.jpg',
-  );
-  const marsNormal = new TextureLoader().load(
-    BASIC_URL + 'marscolor_normalMap.jpg',
-  );
+  // const marsDisp = new TextureLoader().load(
+  //   BASIC_URL + 'marscolor_displacementMap.jpg',
+  // );
+  // const marsNormal = new TextureLoader().load(
+  //   BASIC_URL + 'marscolor_normalMap.jpg',
+  // );
 
   const material = new MeshPhongMaterial({
     map: marsMap,
     bumpMap: marsBump,
-    dispMap: marsDisp,
-    normalMap: marsNormal,
+    // displacementMap: marsDisp,
+    // normalMap: marsNormal,
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);

@@ -32,23 +32,19 @@ const createSaturnMesh = () => {
   const saturnMap = new TextureLoader().load(
     BASIC_URL + 'saturncolor2.jpg',
   );
-  const saturnDisp = new TextureLoader().load(
-    BASIC_URL + 'saturncolorNEW_DISP.png',
-  );
+  // const saturnDisp = new TextureLoader().load(
+  //   BASIC_URL + 'saturncolorNEW_DISP.png',
+  // );
   const saturnNormal = new TextureLoader().load(
     BASIC_URL + 'saturncolorNew_NRM.png',
   );
-  const saturnOcc = new TextureLoader().load(
-    BASIC_URL + 'saturncolorNEW_OCC.png',
-  );
-  const saturnSpec= new TextureLoader().load(
+  const saturnSpec = new TextureLoader().load(
     BASIC_URL + 'saturncolorNew_SPEC.png',
   );
   const material = new MeshPhongMaterial({
     map: saturnMap,
-    dispMap: saturnDisp,
+    // displacementMap: saturnDisp,
     normalMap: saturnNormal,
-    occlusionMap: saturnOcc,
     specularMap: saturnSpec,
     bumpScale: 0.2,
   });

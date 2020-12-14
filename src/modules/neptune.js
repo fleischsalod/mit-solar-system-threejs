@@ -25,25 +25,21 @@ const createNeptuneMesh = () => {
   const neptuneMap = new TextureLoader().load(
     BASIC_URL + 'neptunecolorNew_COLOR.png',
   );
-  const neptuneDisp = new TextureLoader().load(
-    BASIC_URL + 'neptunecolorNew_DISP.png',
-  );
+  // const neptuneDisp = new TextureLoader().load(
+  //   BASIC_URL + 'neptunecolorNew_DISP.png',
+  // );
   const neptuneSpec = new TextureLoader().load(
     BASIC_URL + 'neptunecolorNew_SPEC.png',
   );
   const neptuneNormal = new TextureLoader().load(
     BASIC_URL + 'neptunecolorNew_NRM.png',
   );
-  const neptuneOcc = new TextureLoader().load(
-    BASIC_URL + 'neptunecolorNew_OCC.png',
-  );
 
   const material = new MeshPhongMaterial({
     map: neptuneMap,
-    dispMap: neptuneDisp,
+    // displacementMap: neptuneDisp,
     specularMap: neptuneSpec,
     normalMap: neptuneNormal,
-    occlusionMap: neptuneOcc,
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);

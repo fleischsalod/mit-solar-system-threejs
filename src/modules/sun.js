@@ -8,7 +8,7 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { getElementDiameter } from '../utils.js';
+import { getElementDiameter, getAxialTiltInRad } from '../utils.js';
 
 // basic url to textures of sun
 const BASIC_URL = 'src/textures/sun/';
@@ -25,23 +25,19 @@ const createSunMesh = () => {
   const sunMap = new TextureLoader().load(
     BASIC_URL + 'suncolor2.jpg',
   );
-  const sunDisp = new TextureLoader().load(
-    BASIC_URL + 'suncolor2New_DISP.png',
-  );
+  // const sunDisp = new TextureLoader().load(
+  //   BASIC_URL + 'suncolor2New_DISP.png',
+  // );
   const sunNormal = new TextureLoader().load(
-    BASIC_URL + 'suncolor2New_NRM.png',
+    BASIC_URL + 'suncolor2New_NRM.jpg',
   );
-  const sunOcc = new TextureLoader().load(
-    BASIC_URL + 'suncolor2New_OCC.png',
-  );
-  const sunSpec= new TextureLoader().load(
+  const sunSpec = new TextureLoader().load(
     BASIC_URL + 'suncolor2New_SPEC.png',
   );
   const material = new MeshPhongMaterial({
     map: sunMap,
-    dispMap: sunDisp,
+    // displacementMap: sunDisp,
     normalMap: sunNormal,
-    occlusionMap: sunOcc,
     specularMap: sunSpec,
     bumpScale: 0.2,
   });

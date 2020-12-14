@@ -25,17 +25,14 @@ const createVenusMesh = () => {
   const venusMap = new TextureLoader().load(
     BASIC_URL + 'venuscolorNew_COLOR.png',
   );
-  /*  const venusBump = new TextureLoader().load(
-    BASIC_URL + 'venusbump.jpg',
-  );*/
-  const venusDisp = new TextureLoader().load(
-    BASIC_URL + 'venuscolorNEW_DISP.png',
-  );
+  // const venusBump = new TextureLoader().load(
+  //   BASIC_URL + 'venusbump.jpg',
+  // );
+  // const venusDisp = new TextureLoader().load(
+  //   BASIC_URL + 'venuscolorNEW_DISP.png',
+  // );
   const venusNormal = new TextureLoader().load(
     BASIC_URL + 'venuscolorNew_NRM.png',
-  );
-  const venusOcc = new TextureLoader().load(
-    BASIC_URL + 'venuscolorNEW_OCC.png',
   );
   const venusSpec = new TextureLoader().load(
     BASIC_URL + 'venuscolorNew_SPEC.png',
@@ -43,12 +40,11 @@ const createVenusMesh = () => {
 
   const material = new MeshPhongMaterial({
     map: venusMap,
-    dispMap: venusDisp,
+    // displacementMap: venusDisp,
     normalMap: venusNormal,
-    occlusionMap: venusOcc,
     specularMap: venusSpec,
-    /*    bumpMap: venusBump,
-    bumpScale: 0.2,*/
+    // bumpMap: venusBump,
+    // bumpScale: 0.2,
   });
 
   const mesh = new Mesh(geometry, material);

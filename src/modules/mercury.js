@@ -25,29 +25,25 @@ const createMercuryMesh = () => {
   const mercuryMap = new TextureLoader().load(
     BASIC_URL + 'merkurcolorNew_COLOR.png',
   );
-  /*const mercuryBump = new TextureLoader().load(
-    BASIC_URL + 'mercurybump.jpg',
-  );*/
-  const merkurDisp = new TextureLoader().load(
-    BASIC_URL + 'merkurcolorNEW_DISP.png',
-  );
+  // const mercuryBump = new TextureLoader().load(
+  //   BASIC_URL + 'mercurybump.jpg',
+  // );
+  // const merkurDisp = new TextureLoader().load(
+  //   BASIC_URL + 'merkurcolorNEW_DISP.png',
+  // );
   const merkurNormal = new TextureLoader().load(
     BASIC_URL + 'merkurcolorNew_NRM.png',
   );
-  const merkurOcc = new TextureLoader().load(
-    BASIC_URL + 'merkurcolorNEW_OCC.png',
-  );
-  const merkurSpec= new TextureLoader().load(
+  const merkurSpec = new TextureLoader().load(
     BASIC_URL + 'merkurcolorNew_SPEC.png',
   );
   const material = new MeshPhongMaterial({
     map: mercuryMap,
-  dispMap: merkurDisp,
+    // displacementMap: merkurDisp,
     normalMap: merkurNormal,
-    occlusionMap: merkurOcc,
-    specularMap: merkurSpec
-    /*bumpMap: mercuryBump,
-    bumpScale: 0.2,*/
+    specularMap: merkurSpec,
+    // bumpMap: mercuryBump,
+    bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
   mesh.rotation.x = getAxialTiltInRad('mercury');

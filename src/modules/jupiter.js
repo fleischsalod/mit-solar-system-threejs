@@ -25,23 +25,19 @@ const createjupiterMesh = () => {
   const jupiterMap = new TextureLoader().load(
     BASIC_URL + 'jupitermapNew_COLOR.png',
   );
-  const jupiterDisp = new TextureLoader().load(
-    BASIC_URL + 'jupitermapNEW_DISP.png',
-  );
-  const jupiterNormal = new TextureLoader().load(
-    BASIC_URL + 'jupitermapNew_NRM.png',
-  );
-  const jupiterOcc = new TextureLoader().load(
-    BASIC_URL + 'jupitermapNEW_OCC.png',
-  );
-  const jupiterSpec= new TextureLoader().load(
+  // const jupiterDisp = new TextureLoader().load(
+  //   BASIC_URL + 'jupitermapNEW_DISP.png',
+  // );
+  // const jupiterNormal = new TextureLoader().load(
+  //   BASIC_URL + 'jupitermapNew_NRM.png',
+  // );
+  const jupiterSpec = new TextureLoader().load(
     BASIC_URL + 'jupitermapNew_SPEC.png',
   );
   const material = new MeshPhongMaterial({
     map: jupiterMap,
-    dispMap: jupiterDisp,
-    normalMap: jupiterNormal,
-    occlusionMap: jupiterOcc,
+    //displacementMap: jupiterDisp,
+    //normalMap: jupiterNormal,
     specularMap: jupiterSpec,
     bumpScale: 0.1,
   });
