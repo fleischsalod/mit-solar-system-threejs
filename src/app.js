@@ -138,7 +138,7 @@ const render = () => {
   moonMesh.rotation.y += getRotationSpeed('moon');
   // This one defines how fast moon is surrounding the earth
   // Should be changed to elliptic rotation around earth
-  //earthGroup.rotation.y += getRotationSpeed('moon');
+  earthGroup.rotation.y += getRotationSpeed('moon');
   marsMesh.rotation.y += getRotationSpeed('mars');
   mercuryMesh.rotation.y += getRotationSpeed('mercury');
   // sun does not rotate, but this should show some better effects on sun
