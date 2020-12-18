@@ -50,7 +50,7 @@ const createSunMesh = () => {
 //create SunCloud1
 const createSunCloudMesh1 = () => {
   const geometry = new SphereGeometry(
-    getElementDiameter('sun') + 1,
+    getElementDiameter('sun') + 2,
     64,
     64,
   );
@@ -70,7 +70,7 @@ const createSunCloudMesh1 = () => {
 //create SunCloud2
 const createSunCloudMesh2 = () => {
   const geometry = new SphereGeometry(
-    getElementDiameter('sun') + 2,
+    getElementDiameter('sun') + 3,
     64,
     64,
   );
