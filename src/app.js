@@ -38,7 +38,7 @@ const aspect = canvas.innerWidth / canvas.innerHeight; // the canvas default
 const near = 0.1;
 const far = 1000000;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(0, 0, 10);
+camera.position.set(0, 800, 0);
 camera.lookAt(scene.position);
 
 // Add Background
@@ -82,6 +82,7 @@ scene.add(venusMesh);
 
 // Add group for earth and moon
 const earthGroup = new THREE.Group();
+earthGroup.position.set(0, 0, 0);
 scene.add(earthGroup);
 
 // Add earth with clouds to scene
@@ -134,7 +135,14 @@ function resizeRendererToDisplaySize(renderer) {
   return needResize;
 }
 
-// Add animations to elements in scene
+const earthDistance = getElementDistanceFromSun('earth');
+const earthOrbit = getSideralOrbit('earth');
+const venusDistance = getElementDistanceFromSun('venus');
+const venusOrbit = getSideralOrbit('venus');
+console.log(venusDistance);
+console.log(venusOrbit);
+
+let time = 0;
 const render = () => {
   earthMesh.rotation.y += getRotationSpeed('earth');
   // clouds should move 5 times as fast as earth
@@ -156,95 +164,36 @@ const render = () => {
   // venus atmosphere should rotate 100 times as fast as venus
   venusAtmos.rotation.y += getRotationSpeed('venus') * 100;
 
+  // requestAnimationFrame(render);
+  time += 0.001;
+
+  // //mercury.rotation.x += 0.01;
+  // mercury.position.x = Math.sin( time * 4.5 ) * 5;
+  // mercury.position.y = Math.cos( time * 4.5 ) * 2;
+  // mercury.position.z = Math.cos( time * 4.5 ) * 5;
+
+  // //venus.rotation.x += 0.01;
+  // venus.position.x = Math.sin( time * -2.5 ) * 9;
+  // venus.position.y = Math.sin( time * -1.5 ) * 2;
+  // venus.position.z = Math.cos( time * -2.5 ) * 9;
+
+  venusMesh.position.x =
+    Math.sin(time * venusOrbit) * venusDistance.perihelion;
+  venusMesh.position.z =
+    Math.cos(time * venusOrbit) * venusDistance.aphelion;
+
+  earthGroup.position.x =
+    Math.sin(time * earthOrbit) * earthDistance.perihelion;
+  earthGroup.position.z =
+    Math.cos(time * earthOrbit) * earthDistance.aphelion;
+
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.updateProjectionMatrix();
   }
 
-  function render() {
-    requestAnimationFrame(render);
-    var time = Date.now() * 0.0001;
-
-    //mercury.rotation.x += 0.01;
-    const {
-      mercuryPerihelion,
-      mercuryAphelion,
-    } = getElementDistanceFromSun('mercury');
-    mercuryMesh.position.x =
-      Math.sin(time * getSideralOrbit('mercury')) * mercuryPerihelion;
-    mercuryMesh.position.z =
-      Math.cos(time * getSideralOrbit('mercury')) * mercuryAphelion;
-
-    //venus.rotation.x += 0.01;
-    const {
-      venusPerihelion,
-      venusAphelion,
-    } = getElementDistanceFromSun('venus');
-    venusMesh.position.x =
-      Math.sin(time * getSideralOrbit('venus')) * venusPerihelion;
-    venusMesh.position.z =
-      Math.cos(time * getSideralOrbit('venus')) * venusAphelion;
-
-    //earth.rotation.x += 0.01;
-    const {
-      earthPerihelion,
-      earthAphelion,
-    } = getElementDistanceFromSun('earth');
-    // earthGroup.position.x =
-    //   Math.sin(time * getSideralOrbit('earth')) * earthPerihelion;
-    // earthGroup.position.z =
-    //   Math.cos(time * getSideralOrbit('earth')) * earthAphelion;
-    console.log('peri', earthPerihelion);
-    console.log('Api', earthAphelion);
-
-    const {
-      marsPerihelion,
-      marsAphelion,
-    } = getElementDistanceFromSun('mars');
-    marsMesh.position.x =
-      Math.sin(time * getSideralOrbit('mars')) * marsPerihelion;
-    marsMesh.position.z =
-      Math.cos(time * getSideralOrbit('mars')) * marsAphelion;
-
-    const {
-      jupiterPerihelion,
-      jupiterAphelion,
-    } = getElementDistanceFromSun('jupiter');
-    jupiterMesh.position.x =
-      Math.sin(time * getSideralOrbit('jupiter')) * jupiterPerihelion;
-    jupiterMesh.position.z =
-      Math.cos(time * getSideralOrbit('jupiter')) * jupiterAphelion;
-
-    const {
-      saturnPerihelion,
-      saturnAphelion,
-    } = getElementDistanceFromSun('saturn');
-    saturnMesh.position.x =
-      Math.sin(time * getSideralOrbit('saturn')) * saturnPerihelion;
-    saturnMesh.position.z =
-      Math.cos(time * getSideralOrbit('saturn')) * saturnAphelion;
-
-    const {
-      uranusPerihelion,
-      uranusAphelion,
-    } = getElementDistanceFromSun('uranus');
-    uranusMesh.position.x =
-      Math.sin(time * getSideralOrbit('uranus')) * uranusPerihelion;
-    uranusMesh.position.z =
-      Math.cos(time * getSideralOrbit('uranus')) * uranusAphelion;
-
-    const {
-      neptunePerihelion,
-      neptuneAphelion,
-    } = getElementDistanceFromSun('neptune');
-    neptuneMesh.position.x =
-      Math.sin(time * getSideralOrbit('neptune')) * neptunePerihelion;
-    neptuneMesh.position.z =
-      Math.cos(time * getSideralOrbit('neptune')) * neptuneAphelion;
-  }
   renderer.render(scene, camera);
-  render();
 };
 
 renderer.setAnimationLoop(render);
