@@ -32,7 +32,7 @@ export const getElementDistanceFromSun = (element) => {
   const earthPerihelion = data.earth.perihelion;
   const earthAphelion = data.earth.aphelion;
 
-  const perihelionConst = 400;
+  const perihelionConst = 900;
   const AphelionConst =
     perihelionConst * (elementAphelion / elementPerihelion);
 

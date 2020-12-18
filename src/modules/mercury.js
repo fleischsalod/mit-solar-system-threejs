@@ -49,5 +49,4 @@ const createMercuryMesh = () => {
   mesh.rotation.x = getAxialTiltInRad('mercury');
   return mesh;
 };
-
 export { createMercuryMesh };
