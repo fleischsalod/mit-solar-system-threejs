@@ -82,7 +82,7 @@ const sunMesh = createSunMesh();
 const sunCloud1 = createSunCloudMesh1();
 const sunCloud2 = createSunCloudMesh2();
 // sunMark.position.z = 5;
-sunMesh.position.set(0, 0, 0);
+sunMesh.position.set(-20, 0, 100);
 // sunMark.rotation.y = 1.5707963268;
 sunMesh.add(sunCloud1, sunCloud2);
 scene.add(sunMesh);
