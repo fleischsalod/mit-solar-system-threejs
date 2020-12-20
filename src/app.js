@@ -91,7 +91,7 @@ scene.add(sunMesh);
 const mercuryMesh = createMercuryMesh();
 const mercuryMark = createMercuryMark();
 // mercuryMesh.position.set(-30, 0, 0);
-mercuryMark.position.y = 10;
+mercuryMark.position.y = 20;
 mercuryMesh.add(mercuryMark);
 scene.add(mercuryMesh);
 
@@ -99,7 +99,7 @@ scene.add(mercuryMesh);
 const venusMesh = createVenusMesh();
 const venusAtmos = createVenusCloudMesh();
 const venusMark = createVenusMark();
-(venusMark.position.y = -10),
+(venusMark.position.y = -20),
   // venusMesh.position.set(-15, 0, 0);
   venusMesh.add(venusAtmos, venusMark);
 scene.add(venusMesh);
@@ -113,7 +113,7 @@ scene.add(earthGroup);
 const eartMark = createEarthMark();
 const earthMesh = createEarthMesh();
 const cloudMesh = createEarthCloud();
-eartMark.position.y = 10;
+eartMark.position.y = 20;
 earthMesh.add(cloudMesh);
 earthGroup.add(earthMesh, eartMark);
 
@@ -127,7 +127,7 @@ earthGroup.add(moonMesh);
 const marsGroup = new THREE.Group();
 const marsMesh = createMarsMesh();
 const marsMark = createMarsMark();
-marsMark.position.y = 10;
+marsMark.position.y = 20;
 marsGroup.position.set(0, 0, 0);
 marsGroup.add(marsMark, marsMesh);
 // marsMesh.position.set(10, 0, 0);
