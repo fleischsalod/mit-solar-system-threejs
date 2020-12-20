@@ -3,6 +3,8 @@
  */
 
 import {
+  ConeGeometry,
+  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,

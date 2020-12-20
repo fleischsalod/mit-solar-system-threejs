@@ -3,6 +3,8 @@
  */
 
 import {
+  ConeGeometry,
+  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
@@ -46,4 +48,12 @@ const createjupiterMesh = () => {
   return mesh;
 };
 
-export { createjupiterMesh };
+//create JupiterMark
+const createJupiterMark = () => {
+  const geometry = new ConeGeometry(48, 96, 64, 1, 0, 6.3);
+  const material = new MeshBasicMaterial({ color: 0xfffff });
+  const cone = new Mesh(geometry, material);
+  return cone;
+};
+
+export { createjupiterMesh, createJupiterMark };

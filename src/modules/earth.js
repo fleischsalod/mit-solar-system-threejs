@@ -3,6 +3,8 @@
  */
 
 import {
+  ConeGeometry,
+  MeshBasicMaterial,
   Color,
   DoubleSide,
   Mesh,
@@ -166,4 +168,17 @@ const createEarthCloud = () => {
   return mesh;
 };
 
-export { createEarthCloud, createEarthMesh, createEarthMoon };
+//create EarthMark
+const createEarthMark = () => {
+  const geometry = new ConeGeometry(12, 24, 64, 1, 0, 6.3);
+  const material = new MeshBasicMaterial({ color: 0xfffff });
+  const cone = new Mesh(geometry, material);
+  return cone;
+};
+
+export {
+  createEarthCloud,
+  createEarthMesh,
+  createEarthMoon,
+  createEarthMark,
+};

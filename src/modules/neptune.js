@@ -3,6 +3,8 @@
  */
 
 import {
+  ConeGeometry,
+  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
@@ -47,4 +49,12 @@ const createNeptuneMesh = () => {
   return mesh;
 };
 
-export { createNeptuneMesh };
+//create NeptuneMark
+const createNeptuneMark = () => {
+  const geometry = new ConeGeometry(96, 192, 64, 1, 0, 6.3);
+  const material = new MeshBasicMaterial({ color: 0xfffff });
+  const cone = new Mesh(geometry, material);
+  return cone;
+};
+
+export { createNeptuneMesh, createNeptuneMark };

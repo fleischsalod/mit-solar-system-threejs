@@ -3,6 +3,8 @@
  */
 
 import {
+  ConeGeometry,
+  MeshBasicMaterial,
   DoubleSide,
   Mesh,
   MeshPhongMaterial,
@@ -94,4 +96,12 @@ const createSaturnRing = () => {
   return ringMesh;
 };
 
-export { createSaturnMesh };
+//create SaturnMark
+const createSaturnMark = () => {
+  const geometry = new ConeGeometry(48, 96, 64, 1, 0, 6.3);
+  const material = new MeshBasicMaterial({ color: 0xfffff });
+  const cone = new Mesh(geometry, material);
+  return cone;
+};
+
+export { createSaturnMesh, createSaturnMark };

@@ -3,6 +3,8 @@
  */
 
 import {
+  MeshBasicMaterial,
+  ConeGeometry,
   DoubleSide,
   MathUtils,
   Mesh,
@@ -96,4 +98,12 @@ const createUranusRing = () => {
   return ringMesh;
 };
 
-export { createUranusMesh };
+//create UranusMark
+const createUranusMark = () => {
+  const geometry = new ConeGeometry(96, 192, 64, 1, 0, 6.3);
+  const material = new MeshBasicMaterial({ color: 0xfffff });
+  const cone = new Mesh(geometry, material);
+  return cone;
+};
+
+export { createUranusMesh, createUranusMark };

@@ -3,6 +3,8 @@
  */
 
 import {
+  ConeGeometry,
+  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
@@ -49,4 +51,13 @@ const createMercuryMesh = () => {
   mesh.rotation.x = getAxialTiltInRad('mercury');
   return mesh;
 };
-export { createMercuryMesh };
+
+//create MercuryMark
+const createMercuryMark = () => {
+  const geometry = new ConeGeometry(12, 24, 64, 1, 0, 6.3);
+  const material = new MeshBasicMaterial({ color: 0xfffff });
+  const cone = new Mesh(geometry, material);
+  return cone;
+};
+
+export { createMercuryMesh, createMercuryMark };

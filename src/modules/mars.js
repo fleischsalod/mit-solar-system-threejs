@@ -3,12 +3,11 @@
  */
 
 import {
-  Color,
-  DoubleSide,
+  ConeGeometry,
+  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
-  Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
 import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
@@ -50,4 +49,12 @@ const createMarsMesh = () => {
   return mesh;
 };
 
-export { createMarsMesh };
+//create MarsMark
+const createMarsMark = () => {
+  const geometry = new ConeGeometry(14, 28, 64, 1, 0, 6.3);
+  const material = new MeshBasicMaterial({ color: 0xfffff });
+  const cone = new Mesh(geometry, material);
+  return cone;
+};
+
+export { createMarsMesh, createMarsMark };
