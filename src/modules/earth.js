@@ -36,13 +36,13 @@ const createEarthMesh = () => {
     64,
   );
   const earthMap = new TextureLoader().load(
-    BASIC_URL + 'earthmap1k.jpg',
+    BASIC_URL + '8k_earth_daymap.jpg',
   );
   const earthBump = new TextureLoader().load(
-    BASIC_URL + 'earthbump1k.jpg',
+    BASIC_URL + '2k_earth_normal_map.png',
   );
   const earthSpec = new TextureLoader().load(
-    BASIC_URL + 'earthspec1k.jpg',
+    BASIC_URL + '2k_earth_specular.png',
   );
   const material = new MeshPhongMaterial({
     map: earthMap,

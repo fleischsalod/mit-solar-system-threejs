@@ -1,50 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
   <head>
-    <meta charset="utf-8" />
+    <meta content="text/javascript" charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <link
+      href="/css/bootstrap-3.3.5-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Abel&display=swap"
       rel="stylesheet"
     />
+    <link type="text/css" rel="stylesheet" href="/css/app.css" />
     <title>Solar System</title>
-    <style>
-      html,
-      body {
-        margin: 0;
-        height: 100%;
-      }
-
-      canvas {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
-      nav {
-        position: absolute;
-        bottom: 0;
-      }
-    </style>
-    <script type="module" src="src/app.js"></script>
   </head>
-
   <body>
-    <canvas>
-      <video
-        id="video01"
-        loop
-        crossorigin="anonymous"
-        playsinline
-        style="display: none"
-      >
-        <source src="src/textures/SonneVideo.mp4" type="video/mp4" />
-      </video>
-    </canvas>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="earth.html">Erde</a></li>
-      </ul>
-    </nav>
+    <body>
+      <canvas>
+        <video
+          id="video01"
+          loop
+          crossorigin="anonymous"
+          playsinline
+          style="display: none"
+        >
+          <source
+            src="src/textures/SonneVideo.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </canvas>
+      <nav>
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="earth.html">Erde</a>
+          </li>
+      </nav>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="css/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script type="module" src="src/app.js"></script>
   </body>
 </html>

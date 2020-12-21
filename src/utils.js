@@ -19,7 +19,7 @@ export const getSideralOrbit = (element) => {
   // the earth rotates 360deg = 2*phi (rad) in 24h.
   const earthOrbit = data.earth.sideralOrbit;
   // The orbit of earth is set to 3.65
-  const orbitConst = 3.65;
+  const orbitConst = 1.0;
   // the orbits of all other planets is then calculated from earth orbit like this:
   // (earthOrbit/sideralOrbit) * rotationConst
   return (earthOrbit / elementOrbit) * orbitConst;
