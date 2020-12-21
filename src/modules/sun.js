@@ -3,8 +3,7 @@
  */
 
 import {
-  ConeGeometry,
-  MeshBasicMaterial,
+  VideoTexture,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
@@ -24,24 +23,32 @@ const createSunMesh = () => {
     64,
     64,
   );
-  const sunMap = new TextureLoader().load(
-    BASIC_URL + 'suncolor2.jpg',
-  );
-  // const sunDisp = new TextureLoader().load(
-  //   BASIC_URL + 'suncolor2New_DISP.png',
+  // const sunMap = new TextureLoader().load(
+  //   BASIC_URL + 'suncolor2.jpg',
   // );
-  const sunNormal = new TextureLoader().load(
-    BASIC_URL + 'suncolor2New_NRM.jpg',
-  );
-  const sunSpec = new TextureLoader().load(
-    BASIC_URL + 'suncolor2New_SPEC.png',
-  );
+  // // const sunDisp = new TextureLoader().load(
+  // //   BASIC_URL + 'suncolor2New_DISP.png',
+  // // );
+  // const sunNormal = new TextureLoader().load(
+  //   BASIC_URL + 'suncolor2New_NRM.jpg',
+  // );
+  // const sunSpec = new TextureLoader().load(
+  //   BASIC_URL + 'suncolor2New_SPEC.png',
+  // );
+  // const material = new MeshPhongMaterial({
+  //    map: sunMap,
+  //   displacementMap: sunDisp,
+  //   normalMap: sunNormal,
+  //   specularMap: sunSpec,
+  //   bumpScale: 0.2,
+  // });
+
+  const video01 = document.getElementById('video01');
+  video01.play();
+  const videoTexture = new VideoTexture(video01);
+
   const material = new MeshPhongMaterial({
-    map: sunMap,
-    // displacementMap: sunDisp,
-    normalMap: sunNormal,
-    specularMap: sunSpec,
-    bumpScale: 0.2,
+    map: videoTexture,
   });
 
   const mesh = new Mesh(geometry, material);
@@ -49,44 +56,44 @@ const createSunMesh = () => {
   return mesh;
 };
 
-//create SunCloud1
-const createSunCloudMesh1 = () => {
-  const geometry = new SphereGeometry(
-    getElementDiameter('sun') + 2,
-    64,
-    64,
-  );
-  const venusatmos = new TextureLoader().load(
-    BASIC_URL + 'suncolor2.jpg',
-  );
-  const material = new MeshPhongMaterial({
-    map: venusatmos,
-    transparent: true,
-    opacity: 0.7,
-  });
-  const mesh = new Mesh(geometry, material);
-  mesh.rotation.x = getAxialTiltInRad('sun');
-  return mesh;
-};
+export { createSunMesh };
 
-//create SunCloud2
-const createSunCloudMesh2 = () => {
-  const geometry = new SphereGeometry(
-    getElementDiameter('sun') + 3,
-    64,
-    64,
-  );
-  const venusatmos = new TextureLoader().load(
-    BASIC_URL + 'suncolor2.jpg',
-  );
-  const material = new MeshPhongMaterial({
-    map: venusatmos,
-    transparent: true,
-    opacity: 0.6,
-  });
-  const mesh = new Mesh(geometry, material);
-  mesh.rotation.x = getAxialTiltInRad('sun');
-  return mesh;
-};
+// //create SunCloud1
+// const createSunCloudMesh1 = () => {
+//   const geometry = new SphereGeometry(
+//     getElementDiameter('sun') + 2,
+//     64,
+//     64,
+//   );
+//   const venusatmos = new TextureLoader().load(
+//     BASIC_URL + 'suncolor2.jpg',
+//   );
+//   const material = new MeshPhongMaterial({
+//     map: venusatmos,
+//     transparent: true,
+//     opacity: 0.7,
+//   });
+//   const mesh = new Mesh(geometry, material);
+//   mesh.rotation.x = getAxialTiltInRad('sun');
+//   return mesh;
+// };
 
-export { createSunMesh, createSunCloudMesh1, createSunCloudMesh2 };
+// //create SunCloud2
+// const createSunCloudMesh2 = () => {
+//   const geometry = new SphereGeometry(
+//     getElementDiameter('sun') + 3,
+//     64,
+//     64,
+//   );
+//   const venusatmos = new TextureLoader().load(
+//     BASIC_URL + 'suncolor2.jpg',
+//   );
+//   const material = new MeshPhongMaterial({
+//     map: venusatmos,
+//     transparent: true,
+//     opacity: 0.6,
+//   });
+//   const mesh = new Mesh(geometry, material);
+//   mesh.rotation.x = getAxialTiltInRad('sun');
+//   return mesh;
+// };

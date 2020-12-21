@@ -36,12 +36,6 @@ const createMercuryMesh = () => {
   const mercuryMap = new TextureLoader().load(
     BASIC_URL + 'merkurcolorNew_COLOR.png',
   );
-  // const mercuryBump = new TextureLoader().load(
-  //   BASIC_URL + 'mercurybump.jpg',
-  // );
-  // const merkurDisp = new TextureLoader().load(
-  //   BASIC_URL + 'merkurcolorNEW_DISP.png',
-  // );
   const merkurNormal = new TextureLoader().load(
     BASIC_URL + 'merkurcolorNew_NRM.png',
   );
@@ -50,10 +44,8 @@ const createMercuryMesh = () => {
   );
   const material = new MeshPhongMaterial({
     map: mercuryMap,
-    // displacementMap: merkurDisp,
     normalMap: merkurNormal,
     specularMap: merkurSpec,
-    // bumpMap: mercuryBump,
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
@@ -82,12 +74,13 @@ const createMercuryEllipse = () => {
     false, // aClockwise
     0, // aRotation
   );
-  const mercurypoints = mercurycurve.getPoints(500000);
+  const mercurypoints = mercurycurve.getPoints(50);
   const mercurygeometry = new BufferGeometry().setFromPoints(
     mercurypoints,
   );
   const mercurymaterial = new LineBasicMaterial({
     color: 0xffffff,
+    opacity: 0.8,
   });
   const mercuryellipse = new Line(mercurygeometry, mercurymaterial);
   return mercuryellipse;

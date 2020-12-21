@@ -34,8 +34,9 @@ import {
 } from './modules/saturn.js';
 import {
   createSunMesh,
-  createSunCloudMesh1,
-  createSunCloudMesh2,
+  // createSunVideo,
+  // 'createSunCloudMesh1,
+  // createSunCloudMesh2,'
 } from './modules/sun.js';
 import {
   createUranusMesh,
@@ -93,10 +94,10 @@ const ellipseposition = 1.5707963268;
 
 // Add Sun to Scene
 const sunMesh = createSunMesh();
-const sunCloud1 = createSunCloudMesh1();
-const sunCloud2 = createSunCloudMesh2();
+// const sunVideo = createSunVideo();
+// const sunCloud2 = createSunCloudMesh2();
 sunMesh.position.set(-20, 0, 100);
-sunMesh.add(sunCloud1, sunCloud2);
+// sunMesh.add(sunVideo);
 scene.add(sunMesh);
 
 // Add Mercury to Scene
@@ -236,8 +237,8 @@ const render = () => {
   mercuryMesh.rotation.y += getRotationSpeed('mercury');
   mercuryMark.rotation.x = markRotation;
   // sun does not rotate, but this should show some better effects on sun
-  sunCloud1.rotation.y += 0.001;
-  sunCloud2.rotation.y -= 0.0001;
+  // sunCloud1.rotation.y += 0.001;
+  // sunCloud2.rotation.y -= 0.0001;
   jupiterMesh.rotation.y += getRotationSpeed('jupiter');
   jupiterMark.rotation.x = markRotation;
   neptuneMesh.rotation.y += getRotationSpeed('neptune');
