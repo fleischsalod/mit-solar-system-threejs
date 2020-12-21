@@ -3,6 +3,10 @@
  */
 
 import {
+  Line,
+  BufferGeometry,
+  LineBasicMaterial,
+  EllipseCurve,
   ConeGeometry,
   MeshBasicMaterial,
   Color,
@@ -13,7 +17,11 @@ import {
   Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
+import {
+  getAxialTiltInRad,
+  getElementDiameter,
+  getElementDistanceFromSun,
+} from '../utils.js';
 
 // basic url to textures of earth
 const BASIC_URL = 'src/textures/earth/';
@@ -176,9 +184,35 @@ const createEarthMark = () => {
   return cone;
 };
 
+//earth ellipse
+const createEarthEllipse = () => {
+  const earthDistance = getElementDistanceFromSun('earth');
+  const earthcurve = new EllipseCurve(
+    0,
+    0, // ax, aY
+    earthDistance.perihelion,
+    earthDistance.aphelion, // xRadius, yRadius
+    0,
+    2 * Math.PI, // aStartAngle, aEndAngle
+    false, // aClockwise
+    0, // aRotation
+  );
+
+  const earthpoints = earthcurve.getPoints(500000);
+  const earthgeometry = new BufferGeometry().setFromPoints(
+    earthpoints,
+  );
+  const earthmaterial = new LineBasicMaterial({
+    color: 0xffffff,
+  });
+  const earthellipse = new Line(earthgeometry, earthmaterial);
+  return earthellipse;
+};
+
 export {
   createEarthCloud,
   createEarthMesh,
   createEarthMoon,
   createEarthMark,
+  createEarthEllipse,
 };

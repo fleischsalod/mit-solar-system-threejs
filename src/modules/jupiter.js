@@ -3,6 +3,10 @@
  */
 
 import {
+  BufferGeometry,
+  Line,
+  LineBasicMaterial,
+  EllipseCurve,
   ConeGeometry,
   MeshBasicMaterial,
   Mesh,
@@ -10,7 +14,11 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
+import {
+  getAxialTiltInRad,
+  getElementDiameter,
+  getElementDistanceFromSun,
+} from '../utils.js';
 
 // basic url to textures of jupiter
 const BASIC_URL = 'src/textures/jupiter/';
@@ -18,7 +26,7 @@ const BASIC_URL = 'src/textures/jupiter/';
 /**
  * Create mesh of jupiter
  */
-const createjupiterMesh = () => {
+const createJupiterMesh = () => {
   const geometry = new SphereGeometry(
     getElementDiameter('jupiter'),
     64,
@@ -56,4 +64,28 @@ const createJupiterMark = () => {
   return cone;
 };
 
-export { createjupiterMesh, createJupiterMark };
+//jupiter ellipse
+const createJupiterEllipse = () => {
+  const jupiterDistance = getElementDistanceFromSun('jupiter');
+  const jupitercurve = new EllipseCurve(
+    0,
+    0, // ax, aY
+    jupiterDistance.perihelion,
+    jupiterDistance.aphelion, // xRadius, yRadius
+    0,
+    2 * Math.PI, // aStartAngle, aEndAngle
+    false, // aClockwise
+    0, // aRotation
+  );
+  const jupiterpoints = jupitercurve.getPoints(500000);
+  const jupitergeometry = new BufferGeometry().setFromPoints(
+    jupiterpoints,
+  );
+  const jupitermaterial = new LineBasicMaterial({
+    color: 0xffffff,
+  });
+  const jupiterellipse = new Line(jupitergeometry, jupitermaterial);
+  return jupiterellipse;
+};
+
+export { createJupiterMesh, createJupiterMark, createJupiterEllipse };

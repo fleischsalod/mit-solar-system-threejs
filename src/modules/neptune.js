@@ -3,6 +3,10 @@
  */
 
 import {
+  BufferGeometry,
+  Line,
+  LineBasicMaterial,
+  EllipseCurve,
   ConeGeometry,
   MeshBasicMaterial,
   Mesh,
@@ -10,7 +14,11 @@ import {
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
+import {
+  getAxialTiltInRad,
+  getElementDiameter,
+  getElementDistanceFromSun,
+} from '../utils.js';
 
 // basic url to textures of neptune
 const BASIC_URL = 'src/textures/neptune/';
@@ -57,4 +65,28 @@ const createNeptuneMark = () => {
   return cone;
 };
 
-export { createNeptuneMesh, createNeptuneMark };
+//neptune ellipse
+const createNeptuneEllipse = () => {
+  const neptuneDistance = getElementDistanceFromSun('neptune');
+  const neptunecurve = new EllipseCurve(
+    0,
+    0, // ax, aY
+    neptuneDistance.perihelion,
+    neptuneDistance.aphelion, // xRadius, yRadius
+    0,
+    2 * Math.PI, // aStartAngle, aEndAngle
+    false, // aClockwise
+    0, // aRotation
+  );
+  const neptunepoints = neptunecurve.getPoints(500000);
+  const neptunegeometry = new BufferGeometry().setFromPoints(
+    neptunepoints,
+  );
+  const neptunematerial = new LineBasicMaterial({
+    color: 0xffffff,
+  });
+  const neptuneellipse = new Line(neptunegeometry, neptunematerial);
+  return neptuneellipse;
+};
+
+export { createNeptuneMesh, createNeptuneMark, createNeptuneEllipse };

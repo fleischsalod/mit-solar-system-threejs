@@ -3,6 +3,10 @@
  */
 
 import {
+  Line,
+  LineBasicMaterial,
+  EllipseCurve,
+  BufferGeometry,
   ConeGeometry,
   MeshBasicMaterial,
   DoubleSide,
@@ -17,6 +21,7 @@ import {
   getAxialTiltInRad,
   getElementDiameter,
   getRingsDiameter,
+  getElementDistanceFromSun,
 } from '../utils.js';
 
 // basic url to textures of Saturn
@@ -104,4 +109,28 @@ const createSaturnMark = () => {
   return cone;
 };
 
-export { createSaturnMesh, createSaturnMark };
+//saturn ellipse
+const createSaturnEllipse = () => {
+  const saturnDistance = getElementDistanceFromSun('saturn');
+  const saturncurve = new EllipseCurve(
+    0,
+    0, // ax, aY
+    saturnDistance.perihelion,
+    saturnDistance.aphelion, // xRadius, yRadius
+    0,
+    2 * Math.PI, // aStartAngle, aEndAngle
+    false, // aClockwise
+    0, // aRotation
+  );
+  const saturnpoints = saturncurve.getPoints(500000);
+  const saturngeometry = new BufferGeometry().setFromPoints(
+    saturnpoints,
+  );
+  const saturnmaterial = new LineBasicMaterial({
+    color: 0xffffff,
+  });
+  const saturnellipse = new Line(saturngeometry, saturnmaterial);
+  return saturnellipse;
+};
+
+export { createSaturnMesh, createSaturnMark, createSaturnEllipse };

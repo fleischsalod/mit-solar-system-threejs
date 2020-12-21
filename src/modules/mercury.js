@@ -3,14 +3,23 @@
  */
 
 import {
+  EllipseCurve,
+  Line,
+  LineBasicMaterial,
+  BufferGeometry,
   ConeGeometry,
   MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
   TextureLoader,
+  Scene,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
+import {
+  getAxialTiltInRad,
+  getElementDiameter,
+  getElementDistanceFromSun,
+} from '../utils.js';
 
 // basic url to textures of mercury
 const BASIC_URL = 'src/textures/mercury/';
@@ -60,4 +69,27 @@ const createMercuryMark = () => {
   return cone;
 };
 
-export { createMercuryMesh, createMercuryMark };
+//mercury ellipse
+const createMercuryEllipse = () => {
+  const mercuryDistance = getElementDistanceFromSun('mercury');
+  const mercurycurve = new EllipseCurve(
+    0,
+    0, // ax, aY
+    mercuryDistance.perihelion,
+    mercuryDistance.aphelion, // xRadius, yRadius
+    0,
+    2 * Math.PI, // aStartAngle, aEndAngle
+    false, // aClockwise
+    0, // aRotation
+  );
+  const mercurypoints = mercurycurve.getPoints(500000);
+  const mercurygeometry = new BufferGeometry().setFromPoints(
+    mercurypoints,
+  );
+  const mercurymaterial = new LineBasicMaterial({
+    color: 0xffffff,
+  });
+  const mercuryellipse = new Line(mercurygeometry, mercurymaterial);
+  return mercuryellipse;
+};
+export { createMercuryMesh, createMercuryMark, createMercuryEllipse };

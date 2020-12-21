@@ -3,6 +3,10 @@
  */
 
 import {
+  Line,
+  BufferGeometry,
+  LineBasicMaterial,
+  EllipseCurve,
   MeshBasicMaterial,
   ConeGeometry,
   DoubleSide,
@@ -14,6 +18,7 @@ import {
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
 import {
+  getElementDistanceFromSun,
   getAxialTiltInRad,
   getElementDiameter,
   getRingsDiameter,
@@ -106,4 +111,28 @@ const createUranusMark = () => {
   return cone;
 };
 
-export { createUranusMesh, createUranusMark };
+//uranus ellipse
+const createUranusEllipse = () => {
+  const uranusDistance = getElementDistanceFromSun('uranus');
+  const uranuscurve = new EllipseCurve(
+    0,
+    0, // ax, aY
+    uranusDistance.perihelion,
+    uranusDistance.aphelion, // xRadius, yRadius
+    0,
+    2 * Math.PI, // aStartAngle, aEndAngle
+    false, // aClockwise
+    0, // aRotation
+  );
+  const uranuspoints = uranuscurve.getPoints(500000);
+  const uranusgeometry = new BufferGeometry().setFromPoints(
+    uranuspoints,
+  );
+  const uranusmaterial = new LineBasicMaterial({
+    color: 0xffffff,
+  });
+  const uranusellipse = new Line(uranusgeometry, uranusmaterial);
+  return uranusellipse;
+};
+
+export { createUranusMesh, createUranusMark, createUranusEllipse };

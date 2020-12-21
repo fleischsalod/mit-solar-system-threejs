@@ -5,23 +5,32 @@ import {
   createEarthMesh,
   createEarthMoon,
   createEarthMark,
+  createEarthEllipse,
 } from './modules/earth.js';
 import {
-  createjupiterMesh,
+  createJupiterMesh,
   createJupiterMark,
+  createJupiterEllipse,
 } from './modules/jupiter.js';
-import { createMarsMesh, createMarsMark } from './modules/mars.js';
+import {
+  createMarsMesh,
+  createMarsMark,
+  createMarsEllipse,
+} from './modules/mars.js';
 import {
   createMercuryMesh,
   createMercuryMark,
+  createMercuryEllipse,
 } from './modules/mercury.js';
 import {
   createNeptuneMesh,
   createNeptuneMark,
+  createNeptuneEllipse,
 } from './modules/neptune.js';
 import {
   createSaturnMesh,
   createSaturnMark,
+  createSaturnEllipse,
 } from './modules/saturn.js';
 import {
   createSunMesh,
@@ -31,11 +40,13 @@ import {
 import {
   createUranusMesh,
   createUranusMark,
+  createUranusEllipse,
 } from './modules/uranus.js';
 import {
   createVenusMesh,
   createVenusCloudMesh,
   createVenusMark,
+  createVenusEllipse,
 } from './modules/venus.js';
 import {
   getElementDistanceFromSun,
@@ -77,45 +88,49 @@ const controls = new OrbitControls(camera, canvas);
 controls.target.set(1, 0, 0);
 controls.update();
 
+//Add const vor 90° rotation
+const ellipseposition = 1.5707963268;
+
 // Add Sun to Scene
 const sunMesh = createSunMesh();
 const sunCloud1 = createSunCloudMesh1();
 const sunCloud2 = createSunCloudMesh2();
-// sunMark.position.z = 5;
 sunMesh.position.set(-20, 0, 100);
-// sunMark.rotation.y = 1.5707963268;
 sunMesh.add(sunCloud1, sunCloud2);
 scene.add(sunMesh);
 
 // Add Mercury to Scene
 const mercuryMesh = createMercuryMesh();
 const mercuryMark = createMercuryMark();
-// mercuryMesh.position.set(-30, 0, 0);
+const mercuryEllipseMesh = createMercuryEllipse();
+mercuryEllipseMesh.rotation.x = ellipseposition;
 mercuryMark.position.y = 20;
 mercuryMesh.add(mercuryMark);
-scene.add(mercuryMesh);
+scene.add(mercuryMesh, mercuryEllipseMesh);
 
 // Add Venus to Scene
 const venusMesh = createVenusMesh();
 const venusAtmos = createVenusCloudMesh();
 const venusMark = createVenusMark();
-(venusMark.position.y = -20),
-  // venusMesh.position.set(-15, 0, 0);
-  venusMesh.add(venusAtmos, venusMark);
-scene.add(venusMesh);
+const venusEllipseMesh = createVenusEllipse();
+venusEllipseMesh.rotation.x = ellipseposition;
+(venusMark.position.y = -20), venusMesh.add(venusAtmos, venusMark);
+scene.add(venusMesh, venusEllipseMesh);
 
 // Add group for earth and moon
 const earthGroup = new THREE.Group();
 earthGroup.position.set(0, 0, 0);
-scene.add(earthGroup);
 
 // Add earth with clouds to scene
 const eartMark = createEarthMark();
 const earthMesh = createEarthMesh();
 const cloudMesh = createEarthCloud();
+const earthEllipseMesh = createEarthEllipse();
+earthEllipseMesh.rotation.x = ellipseposition;
 eartMark.position.y = 20;
 earthMesh.add(cloudMesh);
 earthGroup.add(earthMesh, eartMark);
+scene.add(earthGroup, earthEllipseMesh);
 
 // Add Moon to scene
 const moonMesh = createEarthMoon();
@@ -127,47 +142,52 @@ earthGroup.add(moonMesh);
 const marsGroup = new THREE.Group();
 const marsMesh = createMarsMesh();
 const marsMark = createMarsMark();
+const marsEllipseMesh = createMarsEllipse();
+marsEllipseMesh.rotation.x = ellipseposition;
 marsMark.position.y = 20;
 marsGroup.position.set(0, 0, 0);
 marsGroup.add(marsMark, marsMesh);
-// marsMesh.position.set(10, 0, 0);
-scene.add(marsGroup);
+scene.add(marsGroup, marsEllipseMesh);
 
 // Add Jupiter to scene
 const jupiterGroup = new THREE.Group();
 const jupiterMark = createJupiterMark();
-const jupiterMesh = createjupiterMesh();
+const jupiterMesh = createJupiterMesh();
+const jupiterEllipseMesh = createJupiterEllipse();
+jupiterEllipseMesh.rotation.x = ellipseposition;
 jupiterMark.position.y = 70;
 jupiterGroup.add(jupiterMesh, jupiterMark);
-// jupiterMesh.position.set(40, 0, 0);
-scene.add(jupiterGroup);
+scene.add(jupiterGroup, jupiterEllipseMesh);
 
 // Add Saturn so Scene
 const saturnGroup = new THREE.Group();
 const saturnMark = createSaturnMark();
 const saturnMesh = createSaturnMesh();
+const saturnEllipseMesh = createSaturnEllipse();
+saturnEllipseMesh.rotation.x = ellipseposition;
 saturnMark.position.y = 70;
 saturnGroup.add(saturnMark, saturnMesh);
-// saturnMesh.position.set(100, 0, 0);
-scene.add(saturnGroup);
+scene.add(saturnGroup, saturnEllipseMesh);
 
 // Add Uranus to Scene
 const uranusGroup = new THREE.Group();
 const uranusMark = createUranusMark();
 const uranusMesh = createUranusMesh();
+const uranusEllipseMesh = createUranusEllipse();
+uranusEllipseMesh.rotation.x = ellipseposition;
 uranusMark.position.y = 110;
 uranusGroup.add(uranusMark, uranusMesh);
-// uranusMesh.position.set(160, 0, 0);
-scene.add(uranusGroup);
+scene.add(uranusGroup, uranusEllipseMesh);
 
 // Add Neptune to Scene
 const neptuneGroup = new THREE.Group();
+const neptuneEllipseMesh = createNeptuneEllipse();
 const neptuneMark = createNeptuneMark();
 const neptuneMesh = createNeptuneMesh();
+neptuneEllipseMesh.rotation.x = ellipseposition;
 neptuneMark.position.y = 110;
 neptuneGroup.add(neptuneMark, neptuneMesh);
-// neptuneMesh.position.set(200, 0, 0);
-scene.add(neptuneGroup);
+scene.add(neptuneGroup, neptuneEllipseMesh);
 
 // handle browser resize
 function resizeRendererToDisplaySize(renderer) {
@@ -198,194 +218,6 @@ const uranusDistance = getElementDistanceFromSun('uranus');
 const uranusOrbit = getSideralOrbit('uranus');
 const neptuneDistance = getElementDistanceFromSun('neptune');
 const neptuneOrbit = getSideralOrbit('neptune');
-
-//create Ellipse Rings
-const color = 0xfffff;
-const ellipseposition = 1.5707963268;
-const curvepoints = 500000;
-
-//mercury ellipse
-const mercurycurve = new THREE.EllipseCurve(
-  0,
-  0, // ax, aY
-  mercuryDistance.perihelion,
-  mercuryDistance.aphelion, // xRadius, yRadius
-  0,
-  2 * Math.PI, // aStartAngle, aEndAngle
-  false, // aClockwise
-  0, // aRotation
-);
-
-//venus ellipse
-const venuscurve = new THREE.EllipseCurve(
-  0,
-  0, // ax, aY
-  venusDistance.perihelion,
-  venusDistance.aphelion, // xRadius, yRadius
-  0,
-  2 * Math.PI, // aStartAngle, aEndAngle
-  false, // aClockwise
-  0, // aRotation
-);
-
-//earth ellipse
-const earthcurve = new THREE.EllipseCurve(
-  0,
-  0, // ax, aY
-  earthDistance.perihelion,
-  earthDistance.aphelion, // xRadius, yRadius
-  0,
-  2 * Math.PI, // aStartAngle, aEndAngle
-  false, // aClockwise
-  0, // aRotation
-);
-
-//mars ellipse
-const marscurve = new THREE.EllipseCurve(
-  0,
-  0, // ax, aY
-  marsDistance.perihelion,
-  marsDistance.aphelion, // xRadius, yRadius
-  0,
-  2 * Math.PI, // aStartAngle, aEndAngle
-  false, // aClockwise
-  0, // aRotation
-);
-
-//jupiter ellipse
-const jupitercurve = new THREE.EllipseCurve(
-  0,
-  0, // ax, aY
-  jupiterDistance.perihelion,
-  jupiterDistance.aphelion, // xRadius, yRadius
-  0,
-  2 * Math.PI, // aStartAngle, aEndAngle
-  false, // aClockwise
-  0, // aRotation
-);
-
-//saturn ellipse
-const saturncurve = new THREE.EllipseCurve(
-  0,
-  0, // ax, aY
-  saturnDistance.perihelion,
-  saturnDistance.aphelion, // xRadius, yRadius
-  0,
-  2 * Math.PI, // aStartAngle, aEndAngle
-  false, // aClockwise
-  0, // aRotation
-);
-
-//uranus ellipse
-const uranuscurve = new THREE.EllipseCurve(
-  0,
-  0, // ax, aY
-  uranusDistance.perihelion,
-  uranusDistance.aphelion, // xRadius, yRadius
-  0,
-  2 * Math.PI, // aStartAngle, aEndAngle
-  false, // aClockwise
-  0, // aRotation
-);
-
-//neptune ellipse
-const neptunecurve = new THREE.EllipseCurve(
-  0,
-  0, // ax, aY
-  neptuneDistance.perihelion,
-  neptuneDistance.aphelion, // xRadius, yRadius
-  0,
-  2 * Math.PI, // aStartAngle, aEndAngle
-  false, // aClockwise
-  0, // aRotation
-);
-
-const mercurypoints = mercurycurve.getPoints(curvepoints);
-const venuspoints = venuscurve.getPoints(curvepoints);
-const earthpoints = earthcurve.getPoints(curvepoints);
-const marspoints = marscurve.getPoints(curvepoints);
-const jupiterpoints = jupitercurve.getPoints(curvepoints);
-const saturnpoints = saturncurve.getPoints(curvepoints);
-const uranuspoints = uranuscurve.getPoints(curvepoints);
-const neptunepoints = neptunecurve.getPoints(curvepoints);
-
-const mercurygeometry = new THREE.BufferGeometry().setFromPoints(
-  mercurypoints,
-);
-const venusgeometry = new THREE.BufferGeometry().setFromPoints(
-  venuspoints,
-);
-const earthgeometry = new THREE.BufferGeometry().setFromPoints(
-  earthpoints,
-);
-const marsgeometry = new THREE.BufferGeometry().setFromPoints(
-  marspoints,
-);
-const jupitergeometry = new THREE.BufferGeometry().setFromPoints(
-  jupiterpoints,
-);
-const saturngeometry = new THREE.BufferGeometry().setFromPoints(
-  saturnpoints,
-);
-const uranusgeometry = new THREE.BufferGeometry().setFromPoints(
-  uranuspoints,
-);
-const neptunegeometry = new THREE.BufferGeometry().setFromPoints(
-  neptunepoints,
-);
-
-const {
-  mercurymaterial,
-  venusmaterial,
-  earthmaterial,
-  marsmaterial,
-  jupitermaterial,
-  saturnmaterial,
-  neptunematerial,
-  uranusmaterial,
-} = new THREE.LineBasicMaterial({
-  color: color,
-});
-
-// Create the final object to add to the scene
-const mercuryellipse = new THREE.Line(
-  mercurygeometry,
-  mercurymaterial,
-);
-const venusellipse = new THREE.Line(venusgeometry, venusmaterial);
-const earthellipse = new THREE.Line(earthgeometry, earthmaterial);
-const marsellipse = new THREE.Line(marsgeometry, marsmaterial);
-const jupiterellipse = new THREE.Line(
-  jupitergeometry,
-  jupitermaterial,
-);
-const saturnellipse = new THREE.Line(saturngeometry, saturnmaterial);
-const uranusellipse = new THREE.Line(uranusgeometry, uranusmaterial);
-const neptuneellipse = new THREE.Line(
-  neptunegeometry,
-  neptunematerial,
-);
-
-//Set Ellipse positions and add to Scene
-mercuryellipse.rotation.x = ellipseposition;
-venusellipse.rotation.x = ellipseposition;
-earthellipse.rotation.x = ellipseposition;
-marsellipse.rotation.x = ellipseposition;
-jupiterellipse.rotation.x = ellipseposition;
-saturnellipse.rotation.x = ellipseposition;
-uranusellipse.rotation.x = ellipseposition;
-neptuneellipse.rotation.x = ellipseposition;
-
-scene.add(
-  mercuryellipse,
-  earthellipse,
-  venusellipse,
-  marsellipse,
-  jupiterellipse,
-  saturnellipse,
-  neptuneellipse,
-  uranusellipse,
-);
 
 let time = 0;
 const markRotation = 1.5707963268 * 2;
