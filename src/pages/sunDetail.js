@@ -49,7 +49,7 @@ function resizeRendererToDisplaySize(renderer) {
 
 // Add animations to elements in scene
 const render = () => {
-  sunMesh.rotation.y += 0.002;
+  // sunMesh.rotation.y += 0.002;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
