@@ -28,7 +28,7 @@ const texture = loader.load('src/textures/background.jpg', () => {
 
 // Add Light
 const light = new THREE.AmbientLight(0x404040); // soft white light
-const directionalLight = new THREE.DirectionalLight(0xf39f8f, 0.75);
+const directionalLight = new THREE.DirectionalLight(0xf39f8f, 1.5);
 directionalLight.position.set(-1, 0, 0);
 scene.add(light, directionalLight);
 

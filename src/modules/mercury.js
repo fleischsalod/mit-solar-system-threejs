@@ -74,7 +74,7 @@ const createMercuryEllipse = () => {
     false, // aClockwise
     0, // aRotation
   );
-  const mercurypoints = mercurycurve.getPoints(50);
+  const mercurypoints = mercurycurve.getPoints(50000);
   const mercurygeometry = new BufferGeometry().setFromPoints(
     mercurypoints,
   );

@@ -66,7 +66,7 @@ const createEarthMoon = () => {
     64,
   );
   const map = new TextureLoader().load(
-    BASIC_URL + 'moon/moonNew_COLOR.png',
+    BASIC_URL + 'moon/8k_moon.jpg',
   );
   // const bumpMap = new TextureLoader().load(
   //   BASIC_URL + 'moon/moonbump1k.jpg',
@@ -74,17 +74,17 @@ const createEarthMoon = () => {
   // const moonDisp = new TextureLoader().load(
   //   BASIC_URL + 'moon/moonNEW_DISP.png',
   // );
-  const moonNormal = new TextureLoader().load(
-    BASIC_URL + 'moon/moonNew_NRM.png',
-  );
-  const moonSpec = new TextureLoader().load(
-    BASIC_URL + 'moon/moonNew_SPEC.png',
-  );
+  // const moonNormal = new TextureLoader().load(
+  //   BASIC_URL + 'moon/moonNew_NRM.png',
+  // );
+  // const moonSpec = new TextureLoader().load(
+  //   BASIC_URL + 'moon/moonNew_SPEC.png',
+  // );
   const material = new MeshPhongMaterial({
     map: map,
     // displacementMap: moonDisp,
-    normalMap: moonNormal,
-    specularMap: moonSpec,
+    // normalMap: moonNormal,
+    // specularMap: moonSpec,
     //bumpMap: bumpMap,
     bumpScale: 0.2,
   });
