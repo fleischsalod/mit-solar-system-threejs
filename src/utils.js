@@ -13,6 +13,36 @@ export const getRotationSpeed = (element) => {
   return (earthRotation / elementRotation) * rotationConst;
 };
 
+export const getSideralOrbit = (element) => {
+  const elementOrbit = data[element].sideralOrbit;
+  // the sideralOrbit of a planet is set in days.
+  // the earth rotates 360deg = 2*phi (rad) in 24h.
+  const earthOrbit = data.earth.sideralOrbit;
+  // The orbit of earth is set to 3.65
+  const orbitConst = 1.0;
+  // the orbits of all other planets is then calculated from earth orbit like this:
+  // (earthOrbit/sideralOrbit) * rotationConst
+  return (earthOrbit / elementOrbit) * orbitConst;
+};
+
+export const getElementDistanceFromSun = (element) => {
+  const elementPerihelion = data[element].perihelion;
+  const elementAphelion = data[element].aphelion;
+
+  const earthPerihelion = data.earth.perihelion;
+  const earthAphelion = data.earth.aphelion;
+
+  const perihelionConst = 900;
+  const AphelionConst =
+    perihelionConst * (elementAphelion / elementPerihelion);
+
+  const perihelion =
+    (elementPerihelion / earthPerihelion) * perihelionConst;
+  const aphelion = (elementAphelion / earthAphelion) * AphelionConst;
+
+  return { perihelion, aphelion };
+};
+
 export const getElementDiameter = (element) => {
   const earthRadius = data.earth.equaRadius;
   const elementRadius = data[element].equaRadius;

@@ -3,12 +3,22 @@
  */
 
 import {
+  EllipseCurve,
+  BufferGeometry,
+  Line,
+  LineBasicMaterial,
+  ConeGeometry,
+  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
+import {
+  getAxialTiltInRad,
+  getElementDiameter,
+  getElementDistanceFromSun,
+} from '../utils.js';
 
 // basic url to textures of venus
 const BASIC_URL = 'src/textures/venus/';
@@ -73,4 +83,41 @@ const createVenusCloudMesh = () => {
   mesh.rotation.x = getAxialTiltInRad('venus');
   return mesh;
 };
-export { createVenusMesh, createVenusCloudMesh };
+
+//create VenusMark
+const createVenusMark = () => {
+  const geometry = new ConeGeometry(12, 24, 64, 1, 0, 6.3);
+  const material = new MeshBasicMaterial({ color: 0xfffff });
+  const cone = new Mesh(geometry, material);
+  return cone;
+};
+
+//venus ellipse
+const createVenusEllipse = () => {
+  const venusDistance = getElementDistanceFromSun('venus');
+  const venuscurve = new EllipseCurve(
+    0,
+    0, // ax, aY
+    venusDistance.perihelion,
+    venusDistance.aphelion, // xRadius, yRadius
+    0,
+    2 * Math.PI, // aStartAngle, aEndAngle
+    false, // aClockwise
+    0, // aRotation
+  );
+  const venuspoints = venuscurve.getPoints(500000);
+  const venusgeometry = new BufferGeometry().setFromPoints(
+    venuspoints,
+  );
+  const venusmaterial = new LineBasicMaterial({
+    color: 0xffffff,
+  });
+  const venusellipse = new Line(venusgeometry, venusmaterial);
+  return venusellipse;
+};
+export {
+  createVenusMesh,
+  createVenusCloudMesh,
+  createVenusMark,
+  createVenusEllipse,
+};

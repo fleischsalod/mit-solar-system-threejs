@@ -3,6 +3,12 @@
  */
 
 import {
+  Line,
+  BufferGeometry,
+  LineBasicMaterial,
+  EllipseCurve,
+  ConeGeometry,
+  MeshBasicMaterial,
   Color,
   DoubleSide,
   Mesh,
@@ -11,7 +17,11 @@ import {
   Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
+import {
+  getAxialTiltInRad,
+  getElementDiameter,
+  getElementDistanceFromSun,
+} from '../utils.js';
 
 // basic url to textures of earth
 const BASIC_URL = 'src/textures/earth/';
@@ -26,13 +36,13 @@ const createEarthMesh = () => {
     64,
   );
   const earthMap = new TextureLoader().load(
-    BASIC_URL + 'earthmap1k.jpg',
+    BASIC_URL + '8k_earth_daymap.jpg',
   );
   const earthBump = new TextureLoader().load(
-    BASIC_URL + 'earthbump1k.jpg',
+    BASIC_URL + '2k_earth_normal_map.png',
   );
   const earthSpec = new TextureLoader().load(
-    BASIC_URL + 'earthspec1k.jpg',
+    BASIC_URL + '2k_earth_specular.png',
   );
   const material = new MeshPhongMaterial({
     map: earthMap,
@@ -56,7 +66,7 @@ const createEarthMoon = () => {
     64,
   );
   const map = new TextureLoader().load(
-    BASIC_URL + 'moon/moonNew_COLOR.png',
+    BASIC_URL + 'moon/8k_moon.jpg',
   );
   // const bumpMap = new TextureLoader().load(
   //   BASIC_URL + 'moon/moonbump1k.jpg',
@@ -64,17 +74,17 @@ const createEarthMoon = () => {
   // const moonDisp = new TextureLoader().load(
   //   BASIC_URL + 'moon/moonNEW_DISP.png',
   // );
-  const moonNormal = new TextureLoader().load(
-    BASIC_URL + 'moon/moonNew_NRM.png',
-  );
-  const moonSpec = new TextureLoader().load(
-    BASIC_URL + 'moon/moonNew_SPEC.png',
-  );
+  // const moonNormal = new TextureLoader().load(
+  //   BASIC_URL + 'moon/moonNew_NRM.png',
+  // );
+  // const moonSpec = new TextureLoader().load(
+  //   BASIC_URL + 'moon/moonNew_SPEC.png',
+  // );
   const material = new MeshPhongMaterial({
     map: map,
     // displacementMap: moonDisp,
-    normalMap: moonNormal,
-    specularMap: moonSpec,
+    // normalMap: moonNormal,
+    // specularMap: moonSpec,
     //bumpMap: bumpMap,
     bumpScale: 0.2,
   });
@@ -166,4 +176,43 @@ const createEarthCloud = () => {
   return mesh;
 };
 
-export { createEarthCloud, createEarthMesh, createEarthMoon };
+//create EarthMark
+const createEarthMark = () => {
+  const geometry = new ConeGeometry(12, 24, 64, 1, 0, 6.3);
+  const material = new MeshBasicMaterial({ color: 0xfffff });
+  const cone = new Mesh(geometry, material);
+  return cone;
+};
+
+//earth ellipse
+const createEarthEllipse = () => {
+  const earthDistance = getElementDistanceFromSun('earth');
+  const earthcurve = new EllipseCurve(
+    0,
+    0, // ax, aY
+    earthDistance.perihelion,
+    earthDistance.aphelion, // xRadius, yRadius
+    0,
+    2 * Math.PI, // aStartAngle, aEndAngle
+    false, // aClockwise
+    0, // aRotation
+  );
+
+  const earthpoints = earthcurve.getPoints(500000);
+  const earthgeometry = new BufferGeometry().setFromPoints(
+    earthpoints,
+  );
+  const earthmaterial = new LineBasicMaterial({
+    color: 0xffffff,
+  });
+  const earthellipse = new Line(earthgeometry, earthmaterial);
+  return earthellipse;
+};
+
+export {
+  createEarthCloud,
+  createEarthMesh,
+  createEarthMoon,
+  createEarthMark,
+  createEarthEllipse,
+};

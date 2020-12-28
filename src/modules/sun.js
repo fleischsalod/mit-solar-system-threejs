@@ -3,15 +3,34 @@
  */
 
 import {
+  WebGLRenderer,
+  RepeatWrapping,
+  TextureLoader,
+  Vector3,
+  Vector2,
+  ShaderMaterial,
+  RingBufferGeometry,
+  VideoTexture,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
-  TextureLoader,
+  DoubleSide,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { getElementDiameter, getAxialTiltInRad } from '../utils.js';
+
+import { EffectComposer } from '../../lib/threejs/r122/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from '../../lib/threejs/r122/examples/jsm/postprocessing/RenderPass.js';
+import { FilmPass } from '../../lib/threejs/r122/examples/jsm/postprocessing/FilmPass.js';
+import { BloomPass } from '../../lib/threejs/r122/examples/jsm/postprocessing/BloomPass.js';
+
+import {
+  getElementDiameter,
+  getAxialTiltInRad,
+  getRingsDiameter,
+} from '../utils.js';
 
 // basic url to textures of sun
 const BASIC_URL = 'src/textures/sun/';
+// const BASIC_URL2 = 'src/textures/lava';
 
 /**
  * Create mesh of sun
@@ -22,69 +41,53 @@ const createSunMesh = () => {
     64,
     64,
   );
-  const sunMap = new TextureLoader().load(
-    BASIC_URL + 'suncolor2.jpg',
-  );
-  // const sunDisp = new TextureLoader().load(
-  //   BASIC_URL + 'suncolor2New_DISP.png',
-  // );
-  const sunNormal = new TextureLoader().load(
-    BASIC_URL + 'suncolor2New_NRM.jpg',
-  );
-  const sunSpec = new TextureLoader().load(
-    BASIC_URL + 'suncolor2New_SPEC.png',
-  );
+
+  const video01 = document.getElementById('video01');
+  video01.play();
+  const videoTexture = new VideoTexture(video01);
+
   const material = new MeshPhongMaterial({
-    map: sunMap,
-    // displacementMap: sunDisp,
-    normalMap: sunNormal,
-    specularMap: sunSpec,
-    bumpScale: 0.2,
+    map: videoTexture,
   });
 
   const mesh = new Mesh(geometry, material);
   mesh.rotation.x = getAxialTiltInRad('sun');
+  // const fireRing = createSunFireRing();
+  // mesh.add(fireRing);
   return mesh;
 };
 
-//create SunCloud1
-const createSunCloudMesh1 = () => {
-  const geometry = new SphereGeometry(
-    getElementDiameter('sun') + 1,
-    64,
-    64,
-  );
-  const venusatmos = new TextureLoader().load(
-    BASIC_URL + 'suncolor2.jpg',
-  );
-  const material = new MeshPhongMaterial({
-    map: venusatmos,
-    transparent: true,
-    opacity: 0.7,
-  });
-  const mesh = new Mesh(geometry, material);
-  mesh.rotation.x = getAxialTiltInRad('sun');
-  return mesh;
-};
+// const createSunFireRing = () => {
+//   const ringsInnerDiameter = getElementDiameter('sun');
+//   const ringsOuterDiameter = ringsInnerDiameter + 30;
+//   const geometry = new RingBufferGeometry(
+//     ringsInnerDiameter,
+//     ringsOuterDiameter,
+//     64,
+//   );
+//   var uvs = geometry.attributes.uv.array;
+//   // loop and initialization taken from RingBufferGeometry
+//   var phiSegments = geometry.parameters.phiSegments || 0;
+//   var thetaSegments = geometry.parameters.thetaSegments || 0;
+//   phiSegments =
+//     phiSegments !== undefined ? Math.max(1, phiSegments) : 1;
+//   thetaSegments =
+//     thetaSegments !== undefined ? Math.max(3, thetaSegments) : 8;
+//   for (var c = 0, j = 0; j <= phiSegments; j++) {
+//     for (var i = 0; i <= thetaSegments; i++) {
+//       (uvs[c++] = i / thetaSegments), (uvs[c++] = j / phiSegments);
+//     }
+//   }
+//   const video02 = document.getElementById('video02');
+//   video02.play();
+//   const videoTexture = new VideoTexture(video02);
+//   const material = new MeshPhongMaterial({
+//     map: videoTexture,
+//     side: DoubleSide,
+//     transparent: true,
+//   });
+//   const ringMesh = new Mesh(geometry, material);
+//   return ringMesh;
+// };
 
-//create SunCloud2
-const createSunCloudMesh2 = () => {
-  const geometry = new SphereGeometry(
-    getElementDiameter('sun') + 2,
-    64,
-    64,
-  );
-  const venusatmos = new TextureLoader().load(
-    BASIC_URL + 'suncolor2.jpg',
-  );
-  const material = new MeshPhongMaterial({
-    map: venusatmos,
-    transparent: true,
-    opacity: 0.6,
-  });
-  const mesh = new Mesh(geometry, material);
-  mesh.rotation.x = getAxialTiltInRad('sun');
-  return mesh;
-};
-
-export { createSunMesh, createSunCloudMesh1, createSunCloudMesh2 };
+export { createSunMesh };

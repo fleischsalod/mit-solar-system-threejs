@@ -3,15 +3,22 @@
  */
 
 import {
-  Color,
-  DoubleSide,
+  Line,
+  BufferGeometry,
+  EllipseCurve,
+  LineBasicMaterial,
+  ConeGeometry,
+  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
-  Texture,
   TextureLoader,
 } from '../../lib/threejs/r122/build/three.module.js';
-import { getAxialTiltInRad, getElementDiameter } from '../utils.js';
+import {
+  getAxialTiltInRad,
+  getElementDiameter,
+  getElementDistanceFromSun,
+} from '../utils.js';
 
 // basic url to textures of mars
 const BASIC_URL = 'src/textures/mars/';
@@ -50,4 +57,34 @@ const createMarsMesh = () => {
   return mesh;
 };
 
-export { createMarsMesh };
+//create MarsMark
+const createMarsMark = () => {
+  const geometry = new ConeGeometry(14, 28, 64, 1, 0, 6.3);
+  const material = new MeshBasicMaterial({ color: 0xfffff });
+  const cone = new Mesh(geometry, material);
+  return cone;
+};
+
+//mars ellipse
+const createMarsEllipse = () => {
+  const marsDistance = getElementDistanceFromSun('mars');
+  const marscurve = new EllipseCurve(
+    0,
+    0, // ax, aY
+    marsDistance.perihelion,
+    marsDistance.aphelion, // xRadius, yRadius
+    0,
+    2 * Math.PI, // aStartAngle, aEndAngle
+    false, // aClockwise
+    0, // aRotation
+  );
+  const marspoints = marscurve.getPoints(500000);
+  const marsgeometry = new BufferGeometry().setFromPoints(marspoints);
+  const marsmaterial = new LineBasicMaterial({
+    color: 0xffffff,
+  });
+  const marsellipse = new Line(marsgeometry, marsmaterial);
+  return marsellipse;
+};
+
+export { createMarsMesh, createMarsMark, createMarsEllipse };

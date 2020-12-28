@@ -4,23 +4,51 @@ import {
   createEarthCloud,
   createEarthMesh,
   createEarthMoon,
+  createEarthMark,
+  createEarthEllipse,
 } from './modules/earth.js';
-import { createjupiterMesh } from './modules/jupiter.js';
-import { createMarsMesh } from './modules/mars.js';
-import { createMercuryMesh } from './modules/mercury.js';
-import { createNeptuneMesh } from './modules/neptune.js';
-import { createSaturnMesh } from './modules/saturn.js';
 import {
-  createSunMesh,
-  createSunCloudMesh1,
-  createSunCloudMesh2,
-} from './modules/sun.js';
-import { createUranusMesh } from './modules/uranus.js';
+  createJupiterMesh,
+  createJupiterMark,
+  createJupiterEllipse,
+} from './modules/jupiter.js';
+import {
+  createMarsMesh,
+  createMarsMark,
+  createMarsEllipse,
+} from './modules/mars.js';
+import {
+  createMercuryMesh,
+  createMercuryMark,
+  createMercuryEllipse,
+} from './modules/mercury.js';
+import {
+  createNeptuneMesh,
+  createNeptuneMark,
+  createNeptuneEllipse,
+} from './modules/neptune.js';
+import {
+  createSaturnMesh,
+  createSaturnMark,
+  createSaturnEllipse,
+} from './modules/saturn.js';
+import { createSunMesh } from './modules/sun.js';
+import {
+  createUranusMesh,
+  createUranusMark,
+  createUranusEllipse,
+} from './modules/uranus.js';
 import {
   createVenusMesh,
   createVenusCloudMesh,
+  createVenusMark,
+  createVenusEllipse,
 } from './modules/venus.js';
-import { getRotationSpeed } from './utils.js';
+import {
+  getElementDistanceFromSun,
+  getRotationSpeed,
+  getSideralOrbit,
+} from './utils.js';
 
 // renderer
 const canvas = document.querySelector('canvas');
@@ -32,9 +60,9 @@ const scene = new THREE.Scene();
 const fov = 45;
 const aspect = canvas.innerWidth / canvas.innerHeight; // the canvas default
 const near = 0.1;
-const far = 1000;
+const far = 1000000;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(0, 0, 10);
+camera.position.set(800, 0, 0);
 camera.lookAt(scene.position);
 
 // Add Background
@@ -56,35 +84,46 @@ const controls = new OrbitControls(camera, canvas);
 controls.target.set(1, 0, 0);
 controls.update();
 
+//Add const vor 90° rotation
+const ellipseposition = 1.5707963268;
+
 // Add Sun to Scene
 const sunMesh = createSunMesh();
-const sunCloud1 = createSunCloudMesh1();
-const sunCloud2 = createSunCloudMesh2();
-sunMesh.position.set(-280, 0, 0);
-sunMesh.add(sunCloud1, sunCloud2);
+sunMesh.position.set(-20, 0, 100);
 scene.add(sunMesh);
 
 // Add Mercury to Scene
 const mercuryMesh = createMercuryMesh();
-mercuryMesh.position.set(-30, 0, 0);
-scene.add(mercuryMesh);
+const mercuryMark = createMercuryMark();
+const mercuryEllipseMesh = createMercuryEllipse();
+mercuryEllipseMesh.rotation.x = ellipseposition;
+mercuryMark.position.y = 20;
+mercuryMesh.add(mercuryMark);
+scene.add(mercuryMesh, mercuryEllipseMesh);
 
 // Add Venus to Scene
 const venusMesh = createVenusMesh();
 const venusAtmos = createVenusCloudMesh();
-venusMesh.position.set(-15, 0, 0);
-venusMesh.add(venusAtmos);
-scene.add(venusMesh);
+const venusMark = createVenusMark();
+const venusEllipseMesh = createVenusEllipse();
+venusEllipseMesh.rotation.x = ellipseposition;
+(venusMark.position.y = -20), venusMesh.add(venusAtmos, venusMark);
+scene.add(venusMesh, venusEllipseMesh);
 
 // Add group for earth and moon
 const earthGroup = new THREE.Group();
-scene.add(earthGroup);
+earthGroup.position.set(0, 0, 0);
 
 // Add earth with clouds to scene
+const eartMark = createEarthMark();
 const earthMesh = createEarthMesh();
 const cloudMesh = createEarthCloud();
+const earthEllipseMesh = createEarthEllipse();
+earthEllipseMesh.rotation.x = ellipseposition;
+eartMark.position.y = 20;
 earthMesh.add(cloudMesh);
-earthGroup.add(earthMesh);
+earthGroup.add(earthMesh, eartMark);
+scene.add(earthGroup, earthEllipseMesh);
 
 // Add Moon to scene
 const moonMesh = createEarthMoon();
@@ -93,29 +132,55 @@ moonMesh.position.z = 5;
 earthGroup.add(moonMesh);
 
 // Add Mars to Scene
+const marsGroup = new THREE.Group();
 const marsMesh = createMarsMesh();
-marsMesh.position.set(10, 0, 0);
-scene.add(marsMesh);
+const marsMark = createMarsMark();
+const marsEllipseMesh = createMarsEllipse();
+marsEllipseMesh.rotation.x = ellipseposition;
+marsMark.position.y = 20;
+marsGroup.position.set(0, 0, 0);
+marsGroup.add(marsMark, marsMesh);
+scene.add(marsGroup, marsEllipseMesh);
 
 // Add Jupiter to scene
-const jupiterMesh = createjupiterMesh();
-jupiterMesh.position.set(40, 0, 0);
-scene.add(jupiterMesh);
+const jupiterGroup = new THREE.Group();
+const jupiterMark = createJupiterMark();
+const jupiterMesh = createJupiterMesh();
+const jupiterEllipseMesh = createJupiterEllipse();
+jupiterEllipseMesh.rotation.x = ellipseposition;
+jupiterMark.position.y = 70;
+jupiterGroup.add(jupiterMesh, jupiterMark);
+scene.add(jupiterGroup, jupiterEllipseMesh);
 
 // Add Saturn so Scene
+const saturnGroup = new THREE.Group();
+const saturnMark = createSaturnMark();
 const saturnMesh = createSaturnMesh();
-saturnMesh.position.set(100, 0, 0);
-scene.add(saturnMesh);
+const saturnEllipseMesh = createSaturnEllipse();
+saturnEllipseMesh.rotation.x = ellipseposition;
+saturnMark.position.y = 70;
+saturnGroup.add(saturnMark, saturnMesh);
+scene.add(saturnGroup, saturnEllipseMesh);
 
 // Add Uranus to Scene
+const uranusGroup = new THREE.Group();
+const uranusMark = createUranusMark();
 const uranusMesh = createUranusMesh();
-uranusMesh.position.set(160, 0, 0);
-scene.add(uranusMesh);
+const uranusEllipseMesh = createUranusEllipse();
+uranusEllipseMesh.rotation.x = ellipseposition;
+uranusMark.position.y = 110;
+uranusGroup.add(uranusMark, uranusMesh);
+scene.add(uranusGroup, uranusEllipseMesh);
 
 // Add Neptune to Scene
+const neptuneGroup = new THREE.Group();
+const neptuneEllipseMesh = createNeptuneEllipse();
+const neptuneMark = createNeptuneMark();
 const neptuneMesh = createNeptuneMesh();
-neptuneMesh.position.set(200, 0, 0);
-scene.add(neptuneMesh);
+neptuneEllipseMesh.rotation.x = ellipseposition;
+neptuneMark.position.y = 110;
+neptuneGroup.add(neptuneMark, neptuneMesh);
+scene.add(neptuneGroup, neptuneEllipseMesh);
 
 // handle browser resize
 function resizeRendererToDisplaySize(renderer) {
@@ -130,9 +195,28 @@ function resizeRendererToDisplaySize(renderer) {
   return needResize;
 }
 
-// Add animations to elements in scene
+const mercuryDistance = getElementDistanceFromSun('mercury');
+const mercuryOrbit = getSideralOrbit('mercury');
+const venusDistance = getElementDistanceFromSun('venus');
+const venusOrbit = getSideralOrbit('venus');
+const earthDistance = getElementDistanceFromSun('earth');
+const earthOrbit = getSideralOrbit('earth');
+const marsDistance = getElementDistanceFromSun('mars');
+const marsOrbit = getSideralOrbit('mars');
+const jupiterDistance = getElementDistanceFromSun('jupiter');
+const jupiterOrbit = getSideralOrbit('jupiter');
+const saturnDistance = getElementDistanceFromSun('saturn');
+const saturnOrbit = getSideralOrbit('saturn');
+const uranusDistance = getElementDistanceFromSun('uranus');
+const uranusOrbit = getSideralOrbit('uranus');
+const neptuneDistance = getElementDistanceFromSun('neptune');
+const neptuneOrbit = getSideralOrbit('neptune');
+
+let time = 0;
+const markRotation = 1.5707963268 * 2;
 const render = () => {
   earthMesh.rotation.y += getRotationSpeed('earth');
+  eartMark.rotation.x = markRotation;
   // clouds should move 5 times as fast as earth
   cloudMesh.rotation.y += getRotationSpeed('earth') * 5;
   moonMesh.rotation.y += getRotationSpeed('moon');
@@ -140,17 +224,63 @@ const render = () => {
   // Should be changed to elliptic rotation around earth
   earthGroup.rotation.y += getRotationSpeed('moon');
   marsMesh.rotation.y += getRotationSpeed('mars');
+  marsMark.rotation.x = markRotation;
   mercuryMesh.rotation.y += getRotationSpeed('mercury');
-  // sun does not rotate, but this should show some better effects on sun
-  sunCloud1.rotation.y += 0.001;
-  sunCloud2.rotation.y -= 0.0001;
+  mercuryMark.rotation.x = markRotation;
   jupiterMesh.rotation.y += getRotationSpeed('jupiter');
+  jupiterMark.rotation.x = markRotation;
   neptuneMesh.rotation.y += getRotationSpeed('neptune');
+  neptuneMark.rotation.x = markRotation;
   saturnMesh.rotation.y += getRotationSpeed('saturn');
+  saturnMark.rotation.x = markRotation;
   uranusMesh.rotation.y += getRotationSpeed('uranus');
+  uranusMark.rotation.x = markRotation;
   venusMesh.rotation.y += getRotationSpeed('venus');
   // venus atmosphere should rotate 100 times as fast as venus
   venusAtmos.rotation.y += getRotationSpeed('venus') * 100;
+
+  // requestAnimationFrame(render);
+  time += 0.001;
+
+  mercuryMesh.position.x =
+    Math.sin(time * mercuryOrbit) * mercuryDistance.perihelion;
+  mercuryMesh.position.z =
+    Math.cos(time * mercuryOrbit) * mercuryDistance.aphelion;
+
+  venusMesh.position.x =
+    Math.sin(time * venusOrbit) * venusDistance.perihelion;
+  venusMesh.position.z =
+    Math.cos(time * venusOrbit) * venusDistance.aphelion;
+
+  earthGroup.position.x =
+    Math.sin(time * earthOrbit) * earthDistance.perihelion;
+  earthGroup.position.z =
+    Math.cos(time * earthOrbit) * earthDistance.aphelion;
+
+  marsGroup.position.x =
+    Math.sin(time * marsOrbit) * marsDistance.perihelion;
+  marsGroup.position.z =
+    Math.cos(time * marsOrbit) * marsDistance.aphelion;
+
+  jupiterGroup.position.x =
+    Math.sin(time * jupiterOrbit) * jupiterDistance.perihelion;
+  jupiterGroup.position.z =
+    Math.cos(time * jupiterOrbit) * jupiterDistance.aphelion;
+
+  saturnGroup.position.x =
+    Math.sin(time * saturnOrbit) * saturnDistance.perihelion;
+  saturnGroup.position.z =
+    Math.cos(time * saturnOrbit) * saturnDistance.aphelion;
+
+  uranusGroup.position.x =
+    Math.sin(time * uranusOrbit) * uranusDistance.perihelion;
+  uranusGroup.position.z =
+    Math.cos(time * uranusOrbit) * uranusDistance.aphelion;
+
+  neptuneGroup.position.x =
+    Math.sin(time * neptuneOrbit) * neptuneDistance.perihelion;
+  neptuneGroup.position.z =
+    Math.cos(time * neptuneOrbit) * neptuneDistance.aphelion;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
