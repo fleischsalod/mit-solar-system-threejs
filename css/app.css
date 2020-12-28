@@ -37,6 +37,50 @@ h3 {
   width: 100%;
 }
 
+/*
+MAIN NAVIGATION
+*/
+.main-nav {
+  font-family: 'Abel', serif;
+  color: white;
+  font-size: 16px;
+  background-color: black;
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem 0;
+}
+
+.main-nav-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  text-decoration: none;
+}
+
+.home {
+  border-right: 1px solid white;
+}
+
+.main-nav-item.active {
+  background-color: #333333;
+}
+
+.main-nav-item:hover {
+  background-color: #333333;
+}
+
+.main-nav-item:link,
+.main-nav-item:visited,
+.main-nav-item:focus {
+  color: white;
+}
+
 #moon {
   position: absolute;
   top: 85px;

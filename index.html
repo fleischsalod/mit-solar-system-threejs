@@ -6,10 +6,10 @@
       name="viewport"
       content="width=device-width, initial-scale=1"
     />
-    <link
+    <!-- <link
       href="/css/bootstrap-3.3.5-dist/css/bootstrap.min.css"
       rel="stylesheet"
-    />
+    /> -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Abel&display=swap"
@@ -19,51 +19,147 @@
     <title>Solar System</title>
   </head>
   <body>
-    <body>
-      <canvas>
-        <video
-          id="video01"
-          loop
-          crossorigin="anonymous"
-          playsinline
-          style="display: none"
-        >
-          <source
-            src="src/textures/SonneVideoNew.mp4"
-            type="video/mp4"
-          />
-        </video>
-        <video
-          id="video02"
-          loop
-          crossorigin="anonymous"
-          playsinline
-          style="display: none"
-        >
-          <source
-            src="src/textures/Torch-.mp4"
-            type="video/mp4"
-          />
-        </video>
-      </canvas>
-      <nav>
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="sun.html">Sonne</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="earth.html">Erde</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="moon.html">Mond</a>
-          </li>
-      </nav>
-    </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="css/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <canvas>
+      <video
+        id="video01"
+        loop
+        crossorigin="anonymous"
+        playsinline
+        style="display: none"
+      >
+        <source
+          src="src/textures/SonneVideoNew.mp4"
+          type="video/mp4"
+        />
+      </video>
+      <video
+        id="video02"
+        loop
+        crossorigin="anonymous"
+        playsinline
+        style="display: none"
+      >
+        <source src="src/textures/Torch-.mp4" type="video/mp4" />
+      </video>
+    </canvas>
+    <nav class="main-nav">
+      <a class="main-nav-item home active" href="index.html">
+        <img
+          src="images/navigation/home.svg"
+          width="48px"
+          height="48px"
+        />
+        <label>Startseite</label>
+      </a>
+      <a class="main-nav-item" href="sun.html">
+        <img
+          src="images/navigation/sun.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Sonne</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/mercury.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Merkur</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/venus.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Venus</label>
+      </a>
+      <a class="main-nav-item" href="earth.html">
+        <img
+          src="images/navigation/earth.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Erde</label>
+      </a>
+      <a class="main-nav-item" href="moon.html">
+        <img
+          src="images/navigation/moon.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Mond</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/mars.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Mars</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/jupiter.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Jupiter</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/saturn.jpg"
+          width="92px"
+          height="48px"
+        />
+        <label>Saturn</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/uranus.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Uranus</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/neptune.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Neptun</label>
+      </a>
+    </nav>
     <script type="module" src="src/app.js"></script>
   </body>
 </html>
