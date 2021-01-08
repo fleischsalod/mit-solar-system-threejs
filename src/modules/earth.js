@@ -36,18 +36,18 @@ const createEarthMesh = () => {
     64,
   );
   const earthMap = new TextureLoader().load(
-    BASIC_URL + '8k_earth_daymap.jpg',
+    BASIC_URL + 'earthmap4k.jpg',
   );
   const earthBump = new TextureLoader().load(
-    BASIC_URL + '2k_earth_normal_map.png',
+    BASIC_URL + 'earthbump4k.jpg',
   );
   const earthSpec = new TextureLoader().load(
-    BASIC_URL + '2k_earth_specular.png',
+    BASIC_URL + 'earthspec4k.jpg',
   );
   const material = new MeshPhongMaterial({
     map: earthMap,
     bumpMap: earthBump,
-    bumpScale: 0.2,
+    bumpScale: 0.1,
     specularMap: earthSpec,
     specular: new Color('grey'),
   });
