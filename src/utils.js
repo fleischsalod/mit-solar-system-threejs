@@ -13,7 +13,7 @@ export const getRotationSpeed = (element) => {
   return (earthRotation / elementRotation) * rotationConst;
 };
 
-export const getSideralOrbit = (element) => {
+const getSideralOrbit = (element) => {
   const elementOrbit = data[element].sideralOrbit;
   // the sideralOrbit of a planet is set in days.
   // the earth rotates 360deg = 2*phi (rad) in 24h.
@@ -62,4 +62,11 @@ export const getAxialTiltInRad = (element) => {
   const tiltDeg = data[element].axialTilt;
   const tiltRad = tiltDeg * (Math.PI / 180);
   return tiltRad;
+};
+
+export const getElementData = (element) => {
+  const distance = getElementDistanceFromSun(element);
+  const orbit = getSideralOrbit(element);
+  const rotation = getRotationSpeed(element);
+  return { distance, orbit, rotation };
 };
