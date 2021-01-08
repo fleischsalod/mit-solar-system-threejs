@@ -74,10 +74,10 @@ const texture = loader.load('src/textures/background.jpg', () => {
 });
 
 // Add Light
-const light = new THREE.AmbientLight(0x404040); // soft white light
-const directionalLight = new THREE.DirectionalLight(0xf39f8f, 0.75);
-directionalLight.position.set(1, 0, 0);
-scene.add(light, directionalLight);
+const ambientLight = new THREE.AmbientLight(0x404040); // soft white light
+const sunLight = new THREE.PointLight(0xf39f8f);
+sunLight.position.set(0, 0, 0);
+scene.add(ambientLight, sunLight);
 
 // Orbit Controls
 const controls = new OrbitControls(camera, canvas);
@@ -89,7 +89,7 @@ const ellipseposition = 1.5707963268;
 
 // Add Sun to Scene
 const sunMesh = createSunMesh();
-sunMesh.position.set(-20, 0, 100);
+sunMesh.position.set(0, 0, 0);
 scene.add(sunMesh);
 
 // Add Mercury to Scene

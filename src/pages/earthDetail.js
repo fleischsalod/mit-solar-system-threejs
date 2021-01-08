@@ -14,9 +14,9 @@ const scene = new THREE.Scene();
 const fov = 45;
 const aspect = canvas.innerWidth / canvas.innerHeight; // the canvas default
 const near = 0.1;
-const far = 1000;
+const far = 200;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(-2.5, 0, 4);
+camera.position.set(-2.5, -0.25, 5);
 
 // Add Background
 const loader = new THREE.TextureLoader();
@@ -28,7 +28,7 @@ const texture = loader.load('src/textures/background.jpg', () => {
 
 // Add Light
 const light = new THREE.AmbientLight(0x404040); // soft white light
-const directionalLight = new THREE.DirectionalLight(0xf39f8f, 1.5);
+const directionalLight = new THREE.DirectionalLight(0xf39f8f, 0.75);
 directionalLight.position.set(-1, 0, 0);
 scene.add(light, directionalLight);
 
@@ -178,6 +178,7 @@ const line4 = Line4();
 const line5 = Line5();
 const line6 = Line6();
 const line7 = Line7();
+// set initial rotation position
 earthMesh.rotation.set(0, Math.PI, 0);
 const cloudMesh = createEarthCloud();
 earthMesh.add(cloudMesh);

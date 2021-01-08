@@ -3,34 +3,16 @@
  */
 
 import {
-  WebGLRenderer,
-  RepeatWrapping,
-  TextureLoader,
-  Vector3,
-  Vector2,
-  ShaderMaterial,
-  RingBufferGeometry,
   VideoTexture,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
-  DoubleSide,
 } from '../../lib/threejs/r122/build/three.module.js';
 
-import { EffectComposer } from '../../lib/threejs/r122/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from '../../lib/threejs/r122/examples/jsm/postprocessing/RenderPass.js';
-import { FilmPass } from '../../lib/threejs/r122/examples/jsm/postprocessing/FilmPass.js';
-import { BloomPass } from '../../lib/threejs/r122/examples/jsm/postprocessing/BloomPass.js';
-
-import {
-  getElementDiameter,
-  getAxialTiltInRad,
-  getRingsDiameter,
-} from '../utils.js';
+import { getElementDiameter, getAxialTiltInRad } from '../utils.js';
 
 // basic url to textures of sun
 const BASIC_URL = 'src/textures/sun/';
-// const BASIC_URL2 = 'src/textures/lava';
 
 /**
  * Create mesh of sun
@@ -52,42 +34,7 @@ const createSunMesh = () => {
 
   const mesh = new Mesh(geometry, material);
   mesh.rotation.x = getAxialTiltInRad('sun');
-  // const fireRing = createSunFireRing();
-  // mesh.add(fireRing);
   return mesh;
 };
-
-// const createSunFireRing = () => {
-//   const ringsInnerDiameter = getElementDiameter('sun');
-//   const ringsOuterDiameter = ringsInnerDiameter + 30;
-//   const geometry = new RingBufferGeometry(
-//     ringsInnerDiameter,
-//     ringsOuterDiameter,
-//     64,
-//   );
-//   var uvs = geometry.attributes.uv.array;
-//   // loop and initialization taken from RingBufferGeometry
-//   var phiSegments = geometry.parameters.phiSegments || 0;
-//   var thetaSegments = geometry.parameters.thetaSegments || 0;
-//   phiSegments =
-//     phiSegments !== undefined ? Math.max(1, phiSegments) : 1;
-//   thetaSegments =
-//     thetaSegments !== undefined ? Math.max(3, thetaSegments) : 8;
-//   for (var c = 0, j = 0; j <= phiSegments; j++) {
-//     for (var i = 0; i <= thetaSegments; i++) {
-//       (uvs[c++] = i / thetaSegments), (uvs[c++] = j / phiSegments);
-//     }
-//   }
-//   const video02 = document.getElementById('video02');
-//   video02.play();
-//   const videoTexture = new VideoTexture(video02);
-//   const material = new MeshPhongMaterial({
-//     map: videoTexture,
-//     side: DoubleSide,
-//     transparent: true,
-//   });
-//   const ringMesh = new Mesh(geometry, material);
-//   return ringMesh;
-// };
 
 export { createSunMesh };
