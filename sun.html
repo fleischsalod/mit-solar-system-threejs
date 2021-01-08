@@ -6,118 +6,212 @@
       name="viewport"
       content="width=device-width, initial-scale=1"
     />
-    <link
-      href="/css/bootstrap-3.3.5-dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Abel&display=swap"
       rel="stylesheet"
     />
     <link type="text/css" rel="stylesheet" href="/css/app.css" />
-    <script type="module" src="src/pages/sunDetail.js"></script>
     <title>Sonne</title>
   </head>
   <body>
-    <body>
-      <canvas>
-        <video
-          id="video01"
-          loop
-          crossorigin="anonymous"
-          playsinline
-          style="display: none"
-        >
-          <source
-            src="src/textures/SonneVideoNew.mp4"
-            type="video/mp4"
-          />
-        </video>
-        <video
-          id="video02"
-          loop
-          crossorigin="anonymous"
-          playsinline
-          style="display: none"
-        >
-          <source src="src/textures/Torch-.mp4" type="video/mp4" />
-        </video>
-      </canvas>
-      <ul class="flex-container">
-        <div>
-          <h1>Die Sonne</h1>
-          <h3>Der hellste Stern unseres Sonnensystems</h3>
-        </div>
-      </ul>
-      <ul class="flex-container">
-        <div id="info">
-          Die Sonne ist ein Stern. Sie ist in der Mitte unseres
-          Sonnensystems. Unsere Erde ist einer der acht Planeten, die
-          um die Sonne kreisen. Die Sonne ist von der Erde 150
-          Millionen Kilometer entfernt. Selbst das Licht braucht dafür
-          etwa 8 Minuten. Im Vergleich zur Sonne sind alle Planeten
-          winzig klein. Wenn man alles Material im ganzen Sonnensystem
-          zusammen nimmt, dann ist fast alles davon die Sonne. Die
-          Erde würde mit ihrer Größe weit mehr als eine Million mal in
-          die Sonne hineinpassen. Damit ist die Sonne ähnlich groß wie
-          viele andere Sterne. Die Sonne besteht fast nur aus Gasen.
-          Sie ist heißer, als man sich das irgendwie vorstellen kann.
-          Wenn ein Satellit der Sonne auch nur ein bisschen zu nahe
-          kommt, verglüht er. Wegen dieser Hitze strahlt die Sonne wie
-          andere Sterne Licht und Wärme aus. Manches davon kommt auf
-          der Erde an. Dank der Sonne ist es auf der Erde am Tag hell.
-          Unser Mond und auch die Planeten leuchten, weil sie von der
-          Sonne angestrahlt werden. Manchmal befindet sich der Mond
-          genau zwischen Erde und Sonne, sodass er die Sonne verdeckt:
-          Das ergibt eine Sonnenfinsternis. Von der Sonne gehen aber
-          auch viele Strahlen aus, die alles Leben auf der Erde töten
-          würden, wenn sie nicht abgehalten werden. Das Magnetfeld der
-          Erde schützt uns aber vor dieser gefährlichen Strahlung.
-        </div>
-      </ul>
-      <ul class="flex-container">
-        <div id="info2">
-          Durchmesser:
-          <p>1.400.000 Kilometer (Mio.)</p>
-        </div>
-      </ul>
-      <ul class="flex-container">
-        <div id="info3">
-          Alter:
-          <p>4.570.000.000 Jahre (Mrd.)</p>
-        </div>
-      </ul>
-      <ul class="flex-container">
-        <div id="info4">
-          Temperatur:
-          <p>Oberfläche: 6.000° Celsius</p>
-        </div>
-      </ul>
-      <ul class="flex-container">
-        <div id="info5">
-          Schwerkraft:
-          <p>27,98 g (= 28x höher, als auf der Erde)</p>
-        </div>
-      </ul>
-      <nav>
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sonne</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="earth.html">Erde</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="moon.html">Mond</a>
-          </li>
-        </ul>
-      </nav>
-    </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="css/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <canvas>
+      <video
+        id="video01"
+        loop
+        crossorigin="anonymous"
+        playsinline
+        style="display: none"
+      >
+        <source
+          src="src/textures/SonneVideoNew.mp4"
+          type="video/mp4"
+        />
+      </video>
+      <video
+        id="video02"
+        loop
+        crossorigin="anonymous"
+        playsinline
+        style="display: none"
+      >
+        <source src="src/textures/Torch-.mp4" type="video/mp4" />
+      </video>
+    </canvas>
+    <ul class="flex-container">
+      <div>
+        <h1>Die Sonne</h1>
+        <h3>Der hellste Stern unseres Sonnensystems</h3>
+      </div>
+    </ul>
+    <ul class="flex-container">
+      <div id="info">
+        Die Sonne ist ein Stern. Sie ist in der Mitte unseres
+        Sonnensystems. Unsere Erde ist einer der acht Planeten, die um
+        die Sonne kreisen. Die Sonne ist von der Erde 150 Millionen
+        Kilometer entfernt. Selbst das Licht braucht dafür etwa 8
+        Minuten. Im Vergleich zur Sonne sind alle Planeten winzig
+        klein. Wenn man alles Material im ganzen Sonnensystem zusammen
+        nimmt, dann ist fast alles davon die Sonne. Die Erde würde mit
+        ihrer Größe weit mehr als eine Million mal in die Sonne
+        hineinpassen. Damit ist die Sonne ähnlich groß wie viele
+        andere Sterne. Die Sonne besteht fast nur aus Gasen. Sie ist
+        heißer, als man sich das irgendwie vorstellen kann. Wenn ein
+        Satellit der Sonne auch nur ein bisschen zu nahe kommt,
+        verglüht er. Wegen dieser Hitze strahlt die Sonne wie andere
+        Sterne Licht und Wärme aus. Manches davon kommt auf der Erde
+        an. Dank der Sonne ist es auf der Erde am Tag hell. Unser Mond
+        und auch die Planeten leuchten, weil sie von der Sonne
+        angestrahlt werden. Manchmal befindet sich der Mond genau
+        zwischen Erde und Sonne, sodass er die Sonne verdeckt: Das
+        ergibt eine Sonnenfinsternis. Von der Sonne gehen aber auch
+        viele Strahlen aus, die alles Leben auf der Erde töten würden,
+        wenn sie nicht abgehalten werden. Das Magnetfeld der Erde
+        schützt uns aber vor dieser gefährlichen Strahlung.
+      </div>
+    </ul>
+    <ul class="flex-container">
+      <div id="info2">
+        Durchmesser:
+        <p>1.400.000 Kilometer (Mio.)</p>
+      </div>
+    </ul>
+    <ul class="flex-container">
+      <div id="info3">
+        Alter:
+        <p>4.570.000.000 Jahre (Mrd.)</p>
+      </div>
+    </ul>
+    <ul class="flex-container">
+      <div id="info4">
+        Temperatur:
+        <p>Oberfläche: 6.000° Celsius</p>
+      </div>
+    </ul>
+    <ul class="flex-container">
+      <div id="info5">
+        Schwerkraft:
+        <p>27,98 g (= 28x höher, als auf der Erde)</p>
+      </div>
+    </ul>
+    <nav class="main-nav">
+      <a class="main-nav-item home" href="index.html">
+        <img
+          src="images/navigation/home.svg"
+          width="48px"
+          height="48px"
+        />
+        <label>Startseite</label>
+      </a>
+      <a class="main-nav-item active" href="sun.html">
+        <img
+          src="images/navigation/sun.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Sonne</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/mercury.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Merkur</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/venus.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Venus</label>
+      </a>
+      <a class="main-nav-item" href="earth.html">
+        <img
+          src="images/navigation/earth.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Erde</label>
+      </a>
+      <a class="main-nav-item" href="moon.html">
+        <img
+          src="images/navigation/moon.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Mond</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/mars.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Mars</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/jupiter.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Jupiter</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/saturn.jpg"
+          width="92px"
+          height="48px"
+        />
+        <label>Saturn</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/uranus.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Uranus</label>
+      </a>
+      <a
+        class="main-nav-item"
+        aria-disabled="true"
+        href="javascript:void(0)"
+      >
+        <img
+          src="images/navigation/neptune.jpg"
+          width="48px"
+          height="48px"
+        />
+        <label>Neptun</label>
+      </a>
+    </nav>
+    <script type="module" src="src/pages/sunDetail.js"></script>
   </body>
 </html>
