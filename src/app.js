@@ -44,11 +44,7 @@ import {
   createVenusMark,
   createVenusEllipse,
 } from './modules/venus.js';
-import {
-  getElementDistanceFromSun,
-  getRotationSpeed,
-  getSideralOrbit,
-} from './utils.js';
+import { getElementData, getRotationSpeed } from './utils.js';
 
 // renderer
 const canvas = document.querySelector('canvas');
@@ -62,7 +58,7 @@ const aspect = canvas.innerWidth / canvas.innerHeight; // the canvas default
 const near = 0.1;
 const far = 1000000;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(800, 0, 0);
+camera.position.set(800, 200, 0);
 camera.lookAt(scene.position);
 
 // Add Background
@@ -195,52 +191,78 @@ function resizeRendererToDisplaySize(renderer) {
   return needResize;
 }
 
-const mercuryDistance = getElementDistanceFromSun('mercury');
-const mercuryOrbit = getSideralOrbit('mercury');
-const venusDistance = getElementDistanceFromSun('venus');
-const venusOrbit = getSideralOrbit('venus');
-const earthDistance = getElementDistanceFromSun('earth');
-const earthOrbit = getSideralOrbit('earth');
-const marsDistance = getElementDistanceFromSun('mars');
-const marsOrbit = getSideralOrbit('mars');
-const jupiterDistance = getElementDistanceFromSun('jupiter');
-const jupiterOrbit = getSideralOrbit('jupiter');
-const saturnDistance = getElementDistanceFromSun('saturn');
-const saturnOrbit = getSideralOrbit('saturn');
-const uranusDistance = getElementDistanceFromSun('uranus');
-const uranusOrbit = getSideralOrbit('uranus');
-const neptuneDistance = getElementDistanceFromSun('neptune');
-const neptuneOrbit = getSideralOrbit('neptune');
+const {
+  distance: mercuryDistance,
+  orbit: mercuryOrbit,
+  rotation: mercuryRotation,
+} = getElementData('mercury');
+const {
+  distance: venusDistance,
+  orbit: venusOrbit,
+  rotation: venusRotation,
+} = getElementData('venus');
+const {
+  distance: earthDistance,
+  orbit: earthOrbit,
+  rotation: earthRotation,
+} = getElementData('earth');
+const {
+  distance: marsDistance,
+  orbit: marsOrbit,
+  rotation: marsRotation,
+} = getElementData('mars');
+const {
+  distance: jupiterDistance,
+  orbit: jupiterOrbit,
+  rotation: jupiterRotation,
+} = getElementData('jupiter');
+const {
+  distance: saturnDistance,
+  orbit: saturnOrbit,
+  rotation: saturnRotation,
+} = getElementData('saturn');
+const {
+  distance: uranusDistance,
+  orbit: uranusOrbit,
+  rotation: uranusRotation,
+} = getElementData('uranus');
+const {
+  distance: neptuneDistance,
+  orbit: neptuneOrbit,
+  rotation: neptuneRotation,
+} = getElementData('neptune');
+const moonRotation = getRotationSpeed('moon');
 
-let time = 0;
 const markRotation = 1.5707963268 * 2;
-const render = () => {
-  earthMesh.rotation.y += getRotationSpeed('earth');
+// requestAnimationFrame forwards the time since first render in ms to the render-function
+const render = (time) => {
+  // converts time to seconds
+  time *= 0.0001;
+  // pickHelper.pick(pickPosition, scene, camera, time);
+
+  earthMesh.rotation.y += earthRotation;
   eartMark.rotation.x = markRotation;
   // clouds should move 5 times as fast as earth
-  cloudMesh.rotation.y += getRotationSpeed('earth') * 5;
-  moonMesh.rotation.y += getRotationSpeed('moon');
+  cloudMesh.rotation.y += earthRotation * 5;
+  moonMesh.rotation.y += moonRotation;
   // This one defines how fast moon is surrounding the earth
   // Should be changed to elliptic rotation around earth
-  earthGroup.rotation.y += getRotationSpeed('moon');
-  marsMesh.rotation.y += getRotationSpeed('mars');
+  earthGroup.rotation.y += moonRotation;
+  marsMesh.rotation.y += marsRotation;
   marsMark.rotation.x = markRotation;
-  mercuryMesh.rotation.y += getRotationSpeed('mercury');
+  mercuryMesh.rotation.y += mercuryRotation;
   mercuryMark.rotation.x = markRotation;
-  jupiterMesh.rotation.y += getRotationSpeed('jupiter');
+  jupiterMesh.rotation.y += jupiterRotation;
   jupiterMark.rotation.x = markRotation;
-  neptuneMesh.rotation.y += getRotationSpeed('neptune');
+  neptuneMesh.rotation.y += neptuneRotation;
   neptuneMark.rotation.x = markRotation;
-  saturnMesh.rotation.y += getRotationSpeed('saturn');
+  saturnMesh.rotation.y += saturnRotation;
   saturnMark.rotation.x = markRotation;
-  uranusMesh.rotation.y += getRotationSpeed('uranus');
+  uranusMesh.rotation.y += uranusRotation;
   uranusMark.rotation.x = markRotation;
-  venusMesh.rotation.y += getRotationSpeed('venus');
+  venusMesh.rotation.y += venusRotation;
   // venus atmosphere should rotate 100 times as fast as venus
-  venusAtmos.rotation.y += getRotationSpeed('venus') * 100;
-
-  // requestAnimationFrame(render);
-  time += 0.001;
+  venusAtmos.rotation.y += venusRotation * 100;
 
   mercuryMesh.position.x =
     Math.sin(time * mercuryOrbit) * mercuryDistance.perihelion;
@@ -289,6 +311,7 @@ const render = () => {
   }
 
   renderer.render(scene, camera);
+  requestAnimationFrame(render);
 };
 
-renderer.setAnimationLoop(render);
+requestAnimationFrame(render);
