@@ -44,11 +44,7 @@ import {
   createVenusMark,
   createVenusEllipse,
 } from './modules/venus.js';
-import {
-  getElementData,
-  getRotationSpeed,
-  getSideralOrbit,
-} from './utils.js';
+import { getElementData, getRotationSpeed } from './utils.js';
 
 // renderer
 const canvas = document.querySelector('canvas');
