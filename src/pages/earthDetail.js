@@ -171,18 +171,18 @@ const Line7 = () => {
 
 // Add earth with clouds to scene
 const earthMesh = createEarthMesh();
-const line1 = Line1();
-const line2 = Line2();
-const line3 = Line3();
-const line4 = Line4();
-const line5 = Line5();
-const line6 = Line6();
-const line7 = Line7();
+// const line1 = Line1();
+// const line2 = Line2();
+// const line3 = Line3();
+// const line4 = Line4();
+// const line5 = Line5();
+// const line6 = Line6();
+// const line7 = Line7();
 // set initial rotation position
 earthMesh.rotation.set(0, Math.PI, 0);
 const cloudMesh = createEarthCloud();
 earthMesh.add(cloudMesh);
-scene.add(earthMesh, line1, line2, line3, line4, line5, line6, line7);
+scene.add(earthMesh);
 
 // handle browser resize
 function resizeRendererToDisplaySize(renderer) {

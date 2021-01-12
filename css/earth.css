@@ -1,0 +1,152 @@
+/*
+THREEJS Stylings
+*/
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Abel', sans-serif;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/*
+CONTENT
+*/
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 104px;
+  width: 100%;
+  display: flex;
+}
+
+.content {
+  flex: 1 60%;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.model {
+  flex: 1 40%;
+  background: transparent;
+}
+
+.heading {
+  flex: 1 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainheading {
+  font-size: 64px;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+}
+
+.subheading {
+  font-size: 32px;
+}
+
+.information {
+  flex: 1 80%;
+  display: flex;
+}
+
+.information-left {
+  background-color: rgba(0, 0, 0, 0.6);
+  flex: 1 50%;
+  font-size: 20px;
+  line-height: 140%;
+  margin: 16px;
+  padding: 16px;
+  border-right: 1px solid white;
+}
+
+.information-right {
+  flex: 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.detail {
+  display: flex;
+}
+
+.empty {
+  flex: 1 20%;
+}
+
+.detail-information {
+  padding: 8px;
+  flex: 1 80%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid white;
+}
+
+.detail-header {
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.detail-content {
+  font-size: 16px;
+}
+
+/*
+MAIN NAVIGATION
+*/
+.main-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-family: 'Abel', serif;
+  color: white;
+  font-size: 16px;
+  background-color: black;
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 16px 0;
+}
+
+.main-nav-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  text-decoration: none;
+  height: 72px;
+}
+
+.home {
+  border-right: 1px solid white;
+}
+
+.main-nav-item.active {
+  background-color: #333333;
+}
+
+.main-nav-item:hover {
+  background-color: #333333;
+}
+
+.main-nav-item:link,
+.main-nav-item:visited,
+.main-nav-item:focus {
+  color: white;
+}
