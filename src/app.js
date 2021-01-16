@@ -70,7 +70,7 @@ const texture = loader.load('src/textures/background.jpg', () => {
 });
 
 // Add Light
-const ambientLight = new THREE.AmbientLight(0x404040); // soft white light
+const ambientLight = new THREE.AmbientLight(0x404040, 5); // soft white light
 const sunLight = new THREE.PointLight(0xf39f8f);
 sunLight.position.set(0, 0, 0);
 scene.add(ambientLight, sunLight);

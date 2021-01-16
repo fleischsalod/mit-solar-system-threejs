@@ -1,195 +1,140 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta content="text/javascript" charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Abel&display=swap"
-      rel="stylesheet"
-    />
-    <link type="text/css" rel="stylesheet" href="/css/app.css" />
-    <title>Erde</title>
-  </head>
-  <body>
-    <canvas></canvas>
-    <ul class="flex-container">
-      <div>
-        <h1>Die Erde</h1>
-        <h3 id="earth">Unser blauer Planet</h3>
+
+<head>
+  <meta content="text/javascript" charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet" />
+  <link type="text/css" rel="stylesheet" href="/css/detail.css" />
+  <link type="text/css" rel="stylesheet" href="/css/nav.css" />
+  <title>Erde</title>
+</head>
+
+<body>
+  <canvas></canvas>
+  <div class="container">
+    <div class="content">
+      <div class="heading">
+        <div class="mainheading">Unsere Erde</div>
+        <div class="subheading">Der blaue Planet</div>
       </div>
-    </ul>
-    <ul class="flex-container">
-      <div id="info">
-        Die Erde ist der Planet, auf dem wir leben. Wie die anderen
-        Planeten umkreist die Erde die Sonne, dafür benötigt sie ein
-        Jahr. Einmal am Tag dreht sich die Erde um die eigene Achse,
-        dadurch entsteht für uns Tag und Nacht, weil je nachdem
-        unterschiedliche Teile der Erde von der Sonne beleuchtet
-        werden. Die Erde hat die Form einer Kugel, die an den Polen
-        ein wenig abgeflacht ist. Die Kugelform sieht man gut, wen man
-        an der Küste ist. Mit einem Fernglas kann man beobachten, dass
-        ein Schiff hinter dem Horizont „versinkt“, je weiter es sich
-        von der Küste entfernt. Die Masten sieht man am längsten.
-        Damit man Orte auf der Erde genau angeben kann, hat man ein
-        Netz aus gedachten Linien festgelegt: Die Längengrade und
-        Breitengrade. Die Nordhalbkugel liegt über dem Äquator und die
-        Südhalbkugel darunter. Die Jahreszeiten sind entgegengesetzt:
-        Wenn auf der Nordhalbkugel Sommer ist, dann ist auf der
-        Südhalbkugel Winter. In der Nähe des Äquators merkt man das
-        allerdings nicht. Um die Erde kreist der Mond. Er ist wie ein
-        natürlicher Satellit. Im Vergleich zum Planeten Erde selbst
-        ist er ziemlich groß. Das ist für Monde eher unüblich.
-        Zwischen der Erde und der Sonne liegen etwa 150 Millionen
-        Kilometer. Bei ihrem Umlauf um die Sonne fliegt die Erde in
-        nur einer Sekunde fast 30 Kilometer weit.
+      <div class="information">
+        <div class="information-left">
+          <p>Die Erde umkreist, wie die
+            anderen Planeten, die Sonne, dafür benötigt sie ein Jahr.
+            Einmal am Tag dreht sich die Erde
+            um die eigene Achse, so entsteht für uns Tag und
+            Nacht, weil unterschiedliche Teile der Erde von
+            der Sonne beleuchtet werden.</p>
+          <p>Um die Erde kreist der Mond, er ist wie ein natürlicher Satellit.
+            Zwischen der Erde und der Sonne liegen etwa 150 Millionen Kilometer.
+            Bei ihrem Umlauf um die Sonne fliegt die Erde in nur einer Sekunde
+            fast 30 Kilometer weit.</p>
+          <p>Damit man Orte auf der Erde genau angeben kann, hat man ein Netz aus
+            gedachten Linien festgelegt:
+            Die Längen- und Breitengrade.</p>
+          <p>Die Nordhalbkugel liegt über dem Äquator, die Südhalbkugel darunter.
+            Die Jahreszeiten sind entgegengesetzt:</br>
+            Wenn auf der Nordhalbkugel Sommer ist,
+            ist auf der Südhalbkugel Winter</p>
+        </div>
+        <div class="information-right">
+          <div class="detail">
+            <div class="empty"></div>
+            <div class="detail-information">
+              <div class="detail-header">Durchmesser</div>
+              <div class="detail-content">
+                Mehr als 12.700 Kilometer
+              </div>
+            </div>
+          </div>
+          <div class="detail">
+            <div class="detail-information">
+              <div class="detail-header">Alter</div>
+              <div class="detail-content">
+                Etwa 4,6 Milliarden Jahre
+              </div>
+            </div>
+            <div class="empty"></div>
+          </div>
+          <div class="detail">
+            <div class="empty"></div>
+            <div class="detail-information">
+              <div class="detail-header">Temperatur</div>
+              <div class="detail-content">
+                Min. -93°C<br />
+                Min. 15°C<br />
+                Min. 58°C<br />
+              </div>
+            </div>
+          </div>
+          <div class="detail">
+            <div class="detail-information">
+              <div class="detail-header">Hauptbestandteile</div>
+              <div class="detail-content">
+                Stickstoff: 78,08 %<br />
+                Sauerstoff: 20,95 %<br />
+                Argon: 0,93 %<br />
+                Kohlenstoffdioxid: 0,042 %<br />
+                Neon: 0,002 %<br />
+              </div>
+            </div>
+            <div class="empty"></div>
+          </div>
+        </div>
       </div>
-    </ul>
-    <ul class="flex-container">
-      <div id="info2">
-        Durchmesser:
-        <p>12.757 Kilometer</p>
-      </div>
-    </ul>
-    <ul class="flex-container">
-      <div id="info3">
-        Alter:
-        <p>4.600.000.000 Jahre</p>
-      </div>
-    </ul>
-    <ul class="flex-container">
-      <div id="info4">
-        Temperatur:
-        <p>Oberfläche: -93° bis +58° Celsius</p>
-      </div>
-    </ul>
-    <ul class="flex-container">
-      <div id="info5">
-        Schwerkraft:
-        <p>1 g (= 9.81 Meter / Sekunde im Quadrat)</p>
-      </div>
-    </ul>
-    <nav class="main-nav">
-      <a class="main-nav-item home" href="index.html">
-        <img
-          src="images/navigation/home.svg"
-          width="48px"
-          height="48px"
-        />
-        <label>Startseite</label>
-      </a>
-      <a class="main-nav-item" href="sun.html">
-        <img
-          src="images/navigation/sun.jpg"
-          width="48px"
-          height="48px"
-        />
-        <label>Sonne</label>
-      </a>
-      <a
-        class="main-nav-item"
-        aria-disabled="true"
-        href="javascript:void(0)"
-      >
-        <img
-          src="images/navigation/mercury.jpg"
-          width="48px"
-          height="48px"
-        />
-        <label>Merkur</label>
-      </a>
-      <a
-        class="main-nav-item"
-        aria-disabled="true"
-        href="javascript:void(0)"
-      >
-        <img
-          src="images/navigation/venus.jpg"
-          width="48px"
-          height="48px"
-        />
-        <label>Venus</label>
-      </a>
-      <a class="main-nav-item active" href="earth.html">
-        <img
-          src="images/navigation/earth.jpg"
-          width="48px"
-          height="48px"
-        />
-        <label>Erde</label>
-      </a>
-      <a class="main-nav-item" href="moon.html">
-        <img
-          src="images/navigation/moon.jpg"
-          width="48px"
-          height="48px"
-        />
-        <label>Mond</label>
-      </a>
-      <a
-        class="main-nav-item"
-        aria-disabled="true"
-        href="javascript:void(0)"
-      >
-        <img
-          src="images/navigation/mars.jpg"
-          width="48px"
-          height="48px"
-        />
-        <label>Mars</label>
-      </a>
-      <a
-        class="main-nav-item"
-        aria-disabled="true"
-        href="javascript:void(0)"
-      >
-        <img
-          src="images/navigation/jupiter.jpg"
-          width="48px"
-          height="48px"
-        />
-        <label>Jupiter</label>
-      </a>
-      <a
-        class="main-nav-item"
-        aria-disabled="true"
-        href="javascript:void(0)"
-      >
-        <img
-          src="images/navigation/saturn.jpg"
-          width="92px"
-          height="48px"
-        />
-        <label>Saturn</label>
-      </a>
-      <a
-        class="main-nav-item"
-        aria-disabled="true"
-        href="javascript:void(0)"
-      >
-        <img
-          src="images/navigation/uranus.jpg"
-          width="48px"
-          height="48px"
-        />
-        <label>Uranus</label>
-      </a>
-      <a
-        class="main-nav-item"
-        aria-disabled="true"
-        href="javascript:void(0)"
-      >
-        <img
-          src="images/navigation/neptune.jpg"
-          width="48px"
-          height="48px"
-        />
-        <label>Neptun</label>
-      </a>
-    </nav>
-    <script type="module" src="src/pages/earthDetail.js"></script>
-  </body>
+    </div>
+    <div class="model"></div>
+  </div>
+
+  <nav class="main-nav">
+    <a class="main-nav-item home" href="index.html">
+      <img src="images/navigation/home.svg" width="48px" height="48px" />
+      <label>Startseite</label>
+    </a>
+    <a class="main-nav-item" href="sun.html">
+      <img src="images/navigation/sun.jpg" width="48px" height="48px" />
+      <label>Sonne</label>
+    </a>
+    <a class="main-nav-item" aria-disabled="true" href="javascript:void(0)">
+      <img src="images/navigation/mercury.jpg" width="48px" height="48px" />
+      <label>Merkur</label>
+    </a>
+    <a class="main-nav-item" aria-disabled="true" href="javascript:void(0)">
+      <img src="images/navigation/venus.jpg" width="48px" height="48px" />
+      <label>Venus</label>
+    </a>
+    <a class="main-nav-item active" href="earth.html">
+      <img src="images/navigation/earth.jpg" width="48px" height="48px" />
+      <label>Erde</label>
+    </a>
+    <a class="main-nav-item" href="moon.html">
+      <img src="images/navigation/moon.jpg" width="48px" height="48px" />
+      <label>Mond</label>
+    </a>
+    <a class="main-nav-item" aria-disabled="true" href="javascript:void(0)">
+      <img src="images/navigation/mars.jpg" width="48px" height="48px" />
+      <label>Mars</label>
+    </a>
+    <a class="main-nav-item" aria-disabled="true" href="javascript:void(0)">
+      <img src="images/navigation/jupiter.jpg" width="48px" height="48px" />
+      <label>Jupiter</label>
+    </a>
+    <a class="main-nav-item" aria-disabled="true" href="javascript:void(0)">
+      <img src="images/navigation/saturn.jpg" width="92px" height="48px" />
+      <label>Saturn</label>
+    </a>
+    <a class="main-nav-item" aria-disabled="true" href="javascript:void(0)">
+      <img src="images/navigation/uranus.jpg" width="48px" height="48px" />
+      <label>Uranus</label>
+    </a>
+    <a class="main-nav-item" aria-disabled="true" href="javascript:void(0)">
+      <img src="images/navigation/neptune.jpg" width="48px" height="48px" />
+      <label>Neptun</label>
+    </a>
+  </nav>
+  <script type="module" src="src/pages/earthDetail.js"></script>
+</body>
+
 </html>
