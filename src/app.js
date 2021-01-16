@@ -104,13 +104,16 @@ controls.update();
 // GUI Setup
 const gui = new GUI({ width: 300 });
 
-let guiControls = { realDiameter: false };
+let guiControls = { realDiameter: false, speedUp: 10000 };
 
 const folder = gui.addFolder('Einstellungen');
 folder
   .add(guiControls, 'realDiameter')
   .name('Reale Planetengrößen')
   .onChange(requestRenderIfNotRequested);
+folder
+  .add(guiControls, 'speedUp', [1, 100, 10000, 1000000])
+  .name('Zeitmultiplikator');
 folder.open();
 
 //Add const for 90° rotation
@@ -234,7 +237,6 @@ const createPlanets = (realDiameter) => {
   moonMesh = createEarthMoon(realDiameter);
   // gets moons distance from earth
   const moonDistance = getElementDistanceFromSun('moon');
-  moonMesh.position.x = moonDistance;
   earthGroup.add(moonMesh);
 
   // Add Mars to Scene
@@ -343,11 +345,15 @@ const {
   orbit: neptuneOrbit,
   rotation: neptuneRotation,
 } = getElementData('neptune');
-const moonRotation = getRotationSpeed('moon');
+const {
+  distance: moonDistance,
+  orbit: moonOrbit,
+  rotation: moonRotation,
+} = getElementData('moon');
 
 const updatePlanetSizes = (realDiameter) => {
   scene.remove(venusMesh, mercuryMesh);
-  earthGroup.remove(earthMesh);
+  earthGroup.remove(earthMesh, moonMesh);
   marsGroup.remove(marsMesh);
   jupiterGroup.remove(jupiterMesh);
   saturnGroup.remove(saturnMesh);
@@ -375,58 +381,111 @@ const render = (time) => {
     moonMark.lookAt(camera.position);
   }
   // converts time to seconds
-  time = 1; // *= 0.0001
+  time *= 0.001;
 
-  earthMesh.rotation.y += earthRotation;
+  // time in seconds / 24h * 360deg is real time (earth needs 24h to rotate around axis 1 time)
+  earthMesh.rotation.y =
+    (time / earthRotation) * Math.PI * 2 * guiControls.speedUp;
   // clouds should move 5 times as fast as earth
-  cloudMesh.rotation.y += earthRotation * 5;
-  moonMesh.rotation.y += moonRotation;
-  // This one defines how fast moon is surrounding the earth
-  // Should be changed to elliptic rotation around earth
-  earthGroup.rotation.y += moonRotation;
-  marsMesh.rotation.y += marsRotation;
-  mercuryMesh.rotation.y += mercuryRotation;
-  jupiterMesh.rotation.y += jupiterRotation;
-  neptuneMesh.rotation.y += neptuneRotation;
-  saturnMesh.rotation.y += saturnRotation;
-  uranusMesh.rotation.y += uranusRotation;
-  venusMesh.rotation.y += venusRotation;
+  cloudMesh.rotation.y =
+    (time / earthRotation) * Math.PI * 2 * guiControls.speedUp * 5;
+  moonMesh.rotation.y =
+    (time / moonRotation) * Math.PI * 2 * guiControls.speedUp;
+  mercuryMesh.rotation.y =
+    (time / mercuryRotation) * Math.PI * 2 * guiControls.speedUp;
+  venusMesh.rotation.y =
+    -(time / venusRotation) * Math.PI * 2 * guiControls.speedUp;
   // venus atmosphere should rotate 100 times as fast as venus
-  venusAtmos.rotation.y += venusRotation * 100;
+  venusAtmos.rotation.y =
+    (time / venusRotation) * Math.PI * 2 * guiControls.speedUp * 100;
+  marsMesh.rotation.y =
+    (time / marsRotation) * Math.PI * 2 * guiControls.speedUp;
+  jupiterMesh.rotation.y =
+    (time / jupiterRotation) * Math.PI * 2 * guiControls.speedUp;
+  saturnMesh.rotation.y =
+    (time / saturnRotation) * Math.PI * 2 * guiControls.speedUp;
+  uranusMesh.rotation.y =
+    (time / uranusRotation) * Math.PI * 2 * guiControls.speedUp;
+  neptuneMesh.rotation.y =
+    (time / neptuneRotation) * Math.PI * 2 * guiControls.speedUp;
+
+  // time in s / 365 days * 360deg * 1 (1x speedUp) is real-time (earth need 356 day to orbit the sun 1 time)
+  earthGroup.position.x =
+    Math.sin(
+      (time / earthOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * earthDistance;
+  earthGroup.position.z =
+    Math.cos(
+      (time / earthOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * earthDistance;
+
+  moonMesh.position.x =
+    Math.sin((time / moonOrbit) * Math.PI * 2 * guiControls.speedUp) *
+    moonDistance;
+  moonMesh.position.z =
+    Math.cos((time / moonOrbit) * Math.PI * 2 * guiControls.speedUp) *
+    moonDistance;
 
   mercuryMesh.position.x =
-    Math.sin(time * mercuryOrbit) * mercuryDistance;
+    Math.sin(
+      (time / mercuryOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * mercuryDistance;
   mercuryMesh.position.z =
-    Math.cos(time * mercuryOrbit) * mercuryDistance;
+    Math.cos(
+      (time / mercuryOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * mercuryDistance;
 
-  venusMesh.position.x = Math.sin(time * venusOrbit) * venusDistance;
-  venusMesh.position.z = Math.cos(time * venusOrbit) * venusDistance;
+  venusMesh.position.x =
+    Math.sin(
+      (time / venusOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * venusDistance;
+  venusMesh.position.z =
+    Math.cos(
+      (time / venusOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * venusDistance;
 
-  earthGroup.position.x = Math.sin(time * earthOrbit) * earthDistance;
-  earthGroup.position.z = Math.cos(time * earthOrbit) * earthDistance;
-
-  marsGroup.position.x = Math.sin(time * marsOrbit) * marsDistance;
-  marsGroup.position.z = Math.cos(time * marsOrbit) * marsDistance;
+  marsGroup.position.x =
+    Math.sin((time / marsOrbit) * Math.PI * 2 * guiControls.speedUp) *
+    marsDistance;
+  marsGroup.position.z =
+    Math.cos((time / marsOrbit) * Math.PI * 2 * guiControls.speedUp) *
+    marsDistance;
 
   jupiterGroup.position.x =
-    Math.sin(time * jupiterOrbit) * jupiterDistance;
+    Math.sin(
+      (time / jupiterOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * jupiterDistance;
   jupiterGroup.position.z =
-    Math.cos(time * jupiterOrbit) * jupiterDistance;
+    Math.cos(
+      (time / jupiterOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * jupiterDistance;
 
   saturnGroup.position.x =
-    Math.sin(time * saturnOrbit) * saturnDistance;
+    Math.sin(
+      (time / saturnOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * saturnDistance;
   saturnGroup.position.z =
-    Math.cos(time * saturnOrbit) * saturnDistance;
+    Math.cos(
+      (time / saturnOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * saturnDistance;
 
   uranusGroup.position.x =
-    Math.sin(time * uranusOrbit) * uranusDistance;
+    Math.sin(
+      (time / uranusOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * uranusDistance;
   uranusGroup.position.z =
-    Math.cos(time * uranusOrbit) * uranusDistance;
+    Math.cos(
+      (time / uranusOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * uranusDistance;
 
   neptuneGroup.position.x =
-    Math.sin(time * neptuneOrbit) * neptuneDistance;
+    Math.sin(
+      (time / neptuneOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * neptuneDistance;
   neptuneGroup.position.z =
-    Math.cos(time * neptuneOrbit) * neptuneDistance;
+    Math.cos(
+      (time / neptuneOrbit) * Math.PI * 2 * guiControls.speedUp,
+    ) * neptuneDistance;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;

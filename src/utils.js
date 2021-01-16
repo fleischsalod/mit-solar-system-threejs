@@ -4,25 +4,16 @@ export const getRotationSpeed = (element) => {
   const elementRotation = data[element].sideralRotation;
   // the sideralRotation of a planet is set in hours.
   // the earth rotates 360deg = 2*phi (rad) in 24h.
-  const earthRotation = data.earth.sideralRotation;
-  // The rotation of earth is set to 0.01
-  const rotationConst = 0.01;
-  // the rotation of all other planets is then calculated from earth rotation like this:
-  // (earthRotation/sideralRotation) * rotationConst
-  // Example Mars: (23.9345/24.6229) * 0.01 = 0.00972
-  return (earthRotation / elementRotation) * rotationConst;
+  // hours in seconds = hours * 3600
+  return elementRotation * 3600;
 };
 
 const getSideralOrbit = (element) => {
   const elementOrbit = data[element].sideralOrbit;
   // the sideralOrbit of a planet is set in days.
-  // the earth rotates 360deg = 2*phi (rad) in 24h.
-  const earthOrbit = data.earth.sideralOrbit;
-  // The orbit of earth is set to 3.65
-  const orbitConst = 1.0;
-  // the orbits of all other planets is then calculated from earth orbit like this:
-  // (earthOrbit/sideralOrbit) * rotationConst
-  return (earthOrbit / elementOrbit) * orbitConst;
+  // the earth orbits around the sun (360deg = 2*phi (rad)) in 365days.
+  // days in seconds = days * 86400
+  return elementOrbit * 86400;
 };
 
 export const getElementDistanceFromSun = (element, realDistance) => {
