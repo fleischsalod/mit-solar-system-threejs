@@ -13,7 +13,7 @@ const aspect = canvas.innerWidth / canvas.innerHeight; // the canvas default
 const near = 0.1;
 const far = 1000;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(-250, 0, 400);
+camera.position.set(-50, 0, 100);
 
 // Add Background
 const loader = new THREE.TextureLoader();

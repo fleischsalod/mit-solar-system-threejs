@@ -144,7 +144,7 @@ const createEarthCloud = (realDiameter) => {
   imageMap.src = BASIC_URL + 'earthcloudmap.jpg';
 
   const geometry = new SphereGeometry(
-    getElementDiameter('earth', realDiameter) + 0.01,
+    getElementDiameter('earth', realDiameter) + 0.1,
     64,
     64,
   );
