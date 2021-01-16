@@ -7,8 +7,6 @@ import {
   BufferGeometry,
   Line,
   LineBasicMaterial,
-  ConeGeometry,
-  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
@@ -76,14 +74,6 @@ const createVenusCloudMesh = (realDiameter) => {
   return mesh;
 };
 
-//create VenusMark
-const createVenusMark = () => {
-  const geometry = new ConeGeometry(12, 24, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //venus ellipse
 const createVenusEllipse = (realDistance) => {
   const venusDistance = getElementDistanceFromSun(
@@ -110,9 +100,4 @@ const createVenusEllipse = (realDistance) => {
   const venusellipse = new Line(venusgeometry, venusmaterial);
   return venusellipse;
 };
-export {
-  createVenusMesh,
-  createVenusCloudMesh,
-  createVenusMark,
-  createVenusEllipse,
-};
+export { createVenusMesh, createVenusCloudMesh, createVenusEllipse };

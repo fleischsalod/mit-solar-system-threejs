@@ -7,8 +7,6 @@ import {
   Line,
   LineBasicMaterial,
   EllipseCurve,
-  ConeGeometry,
-  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
@@ -53,14 +51,6 @@ const createNeptuneMesh = (realDiameter) => {
   return mesh;
 };
 
-//create NeptuneMark
-const createNeptuneMark = () => {
-  const geometry = new ConeGeometry(96, 192, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //neptune ellipse
 const createNeptuneEllipse = (realDistance) => {
   const neptuneDistance = getElementDistanceFromSun(
@@ -88,4 +78,4 @@ const createNeptuneEllipse = (realDistance) => {
   return neptuneellipse;
 };
 
-export { createNeptuneMesh, createNeptuneMark, createNeptuneEllipse };
+export { createNeptuneMesh, createNeptuneEllipse };

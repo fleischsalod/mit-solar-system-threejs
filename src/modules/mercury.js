@@ -7,13 +7,10 @@ import {
   Line,
   LineBasicMaterial,
   BufferGeometry,
-  ConeGeometry,
-  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
   TextureLoader,
-  Scene,
 } from '../../lib/threejs/r122/build/three.module.js';
 import {
   getAxialTiltInRad,
@@ -48,14 +45,6 @@ const createMercuryMesh = (realDiameter) => {
   return mesh;
 };
 
-//create MercuryMark
-const createMercuryMark = () => {
-  const geometry = new ConeGeometry(12, 24, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //mercury ellipse
 const createMercuryEllipse = (realDistance) => {
   const mercuryDistance = getElementDistanceFromSun(
@@ -83,4 +72,4 @@ const createMercuryEllipse = (realDistance) => {
   const mercuryellipse = new Line(mercurygeometry, mercurymaterial);
   return mercuryellipse;
 };
-export { createMercuryMesh, createMercuryMark, createMercuryEllipse };
+export { createMercuryMesh, createMercuryEllipse };

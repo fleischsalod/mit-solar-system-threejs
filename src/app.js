@@ -1,48 +1,38 @@
 import * as THREE from '../lib/threejs/r122/build/three.module.js';
 import { OrbitControls } from '../lib/threejs/r122/examples/jsm/controls/OrbitControls.js';
+import { GUI } from '../lib/util/gui/dat.gui.module.js';
 import { SIZE_CONST } from './data.js';
 import {
   createEarthCloud,
   createEarthMesh,
   createEarthMoon,
-  createEarthMark,
   createEarthEllipse,
 } from './modules/earth.js';
 import {
   createJupiterMesh,
-  createJupiterMark,
   createJupiterEllipse,
 } from './modules/jupiter.js';
-import {
-  createMarsMesh,
-  createMarsMark,
-  createMarsEllipse,
-} from './modules/mars.js';
+import { createMarsMesh, createMarsEllipse } from './modules/mars.js';
 import {
   createMercuryMesh,
-  createMercuryMark,
   createMercuryEllipse,
 } from './modules/mercury.js';
 import {
   createNeptuneMesh,
-  createNeptuneMark,
   createNeptuneEllipse,
 } from './modules/neptune.js';
 import {
   createSaturnMesh,
-  createSaturnMark,
   createSaturnEllipse,
 } from './modules/saturn.js';
 import { createSunMesh } from './modules/sun.js';
 import {
   createUranusMesh,
-  createUranusMark,
   createUranusEllipse,
 } from './modules/uranus.js';
 import {
   createVenusMesh,
   createVenusCloudMesh,
-  createVenusMark,
   createVenusEllipse,
 } from './modules/venus.js';
 import {
@@ -111,7 +101,19 @@ const controls = new OrbitControls(camera, canvas);
 controls.target.set(1, 0, 0);
 controls.update();
 
-//Add const vor 90° rotation
+// GUI Setup
+const gui = new GUI({ width: 300 });
+
+let guiControls = { realDiameter: false };
+
+const folder = gui.addFolder('Einstellungen');
+folder
+  .add(guiControls, 'realDiameter')
+  .name('Reale Planetengrößen')
+  .onChange(requestRenderIfNotRequested);
+folder.open();
+
+//Add const for 90° rotation
 const ellipseposition = 1.5707963268;
 
 // Add Sun to Scene
@@ -119,97 +121,174 @@ const sunMesh = createSunMesh();
 sunMesh.position.set(0, 0, 0);
 scene.add(sunMesh);
 
-// Add Mercury to Scene
-const mercuryMesh = createMercuryMesh();
-const mercuryMark = createMercuryMark();
 const mercuryEllipseMesh = createMercuryEllipse();
 mercuryEllipseMesh.rotation.x = ellipseposition;
-mercuryMark.position.y = 20;
-// mercuryMesh.add(mercuryMark);
-scene.add(mercuryMesh, mercuryEllipseMesh);
-
-// Add Venus to Scene
-const venusMesh = createVenusMesh();
-const venusAtmos = createVenusCloudMesh();
-const venusMark = createVenusMark();
 const venusEllipseMesh = createVenusEllipse();
 venusEllipseMesh.rotation.x = ellipseposition;
-// (venusMark.position.y = -20)
-venusMesh.add(venusAtmos);
-scene.add(venusMesh, venusEllipseMesh);
-
-// Add group for earth and moon
-const earthGroup = new THREE.Group();
-earthGroup.position.set(0, 0, 0);
-
-// Add earth with clouds to scene
-const eartMark = createEarthMark();
-const earthMesh = createEarthMesh();
-const cloudMesh = createEarthCloud();
 const earthEllipseMesh = createEarthEllipse();
 earthEllipseMesh.rotation.x = ellipseposition;
-eartMark.position.y = 20;
-earthMesh.add(cloudMesh);
-earthGroup.add(earthMesh);
-scene.add(earthGroup, earthEllipseMesh);
-
-// Add Moon to scene
-const moonMesh = createEarthMoon();
-// gets moons distance from earth
-const moonDistance = getElementDistanceFromSun('moon');
-moonMesh.position.x = moonDistance;
-earthGroup.add(moonMesh);
-
-// Add Mars to Scene
-const marsGroup = new THREE.Group();
-const marsMesh = createMarsMesh();
-const marsMark = createMarsMark();
 const marsEllipseMesh = createMarsEllipse();
 marsEllipseMesh.rotation.x = ellipseposition;
-marsMark.position.y = 20;
-marsGroup.position.set(0, 0, 0);
-marsGroup.add(marsMesh);
-scene.add(marsGroup, marsEllipseMesh);
-
-// Add Jupiter to scene
-const jupiterGroup = new THREE.Group();
-const jupiterMark = createJupiterMark();
-const jupiterMesh = createJupiterMesh();
 const jupiterEllipseMesh = createJupiterEllipse();
 jupiterEllipseMesh.rotation.x = ellipseposition;
-jupiterMark.position.y = 70;
-jupiterGroup.add(jupiterMesh);
-scene.add(jupiterGroup, jupiterEllipseMesh);
-
-// Add Saturn so Scene
-const saturnGroup = new THREE.Group();
-const saturnMark = createSaturnMark();
-const saturnMesh = createSaturnMesh();
 const saturnEllipseMesh = createSaturnEllipse();
 saturnEllipseMesh.rotation.x = ellipseposition;
-saturnMark.position.y = 70;
-saturnGroup.add(saturnMesh);
-scene.add(saturnGroup, saturnEllipseMesh);
-
-// Add Uranus to Scene
-const uranusGroup = new THREE.Group();
-const uranusMark = createUranusMark();
-const uranusMesh = createUranusMesh();
 const uranusEllipseMesh = createUranusEllipse();
 uranusEllipseMesh.rotation.x = ellipseposition;
-uranusMark.position.y = 110;
-uranusGroup.add(uranusMesh);
-scene.add(uranusGroup, uranusEllipseMesh);
-
-// Add Neptune to Scene
-const neptuneGroup = new THREE.Group();
 const neptuneEllipseMesh = createNeptuneEllipse();
-const neptuneMark = createNeptuneMark();
-const neptuneMesh = createNeptuneMesh();
 neptuneEllipseMesh.rotation.x = ellipseposition;
-neptuneMark.position.y = 110;
-neptuneGroup.add(neptuneMesh);
-scene.add(neptuneGroup, neptuneEllipseMesh);
+
+scene.add(
+  mercuryEllipseMesh,
+  venusEllipseMesh,
+  earthEllipseMesh,
+  marsEllipseMesh,
+  jupiterEllipseMesh,
+  saturnEllipseMesh,
+  uranusEllipseMesh,
+  neptuneEllipseMesh,
+);
+
+const earthGroup = new THREE.Group();
+const marsGroup = new THREE.Group();
+const jupiterGroup = new THREE.Group();
+const saturnGroup = new THREE.Group();
+const uranusGroup = new THREE.Group();
+const neptuneGroup = new THREE.Group();
+
+let mercuryMesh,
+  venusMesh,
+  venusAtmos,
+  earthMesh,
+  cloudMesh,
+  moonMesh,
+  marsMesh,
+  jupiterMesh,
+  saturnMesh,
+  uranusMesh,
+  neptuneMesh,
+  mercuryMark,
+  venusMark,
+  earthMark,
+  marsMark,
+  jupiterMark,
+  saturnMark,
+  uranusMark,
+  neptuneMark,
+  moonMark;
+
+const createMark = (text, small) => {
+  const material = new THREE.LineBasicMaterial({
+    color: 0xffffff,
+  });
+
+  const points = [];
+  points.push(new THREE.Vector3(0, 0, 0));
+  points.push(new THREE.Vector3(0, small ? 50 : 100, 0));
+
+  const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+  const line = new THREE.Line(geometry, material);
+
+  const loader = new THREE.FontLoader();
+  loader.load('src/fonts/Abel_Regular.json', function (font) {
+    var geometry = new THREE.TextGeometry(text, {
+      font: font,
+      size: 16,
+      height: 1,
+      curveSegments: 4,
+      bevelEnabled: false,
+    });
+    geometry.center();
+    var material = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+    });
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(0, small ? 60 : 110, 0);
+    line.add(mesh);
+  });
+
+  return line;
+};
+
+const createPlanets = (realDiameter) => {
+  // Add Mercury to Scene
+  mercuryMesh = createMercuryMesh(realDiameter);
+  scene.add(mercuryMesh);
+
+  // Add Venus to Scene
+  venusMesh = createVenusMesh(realDiameter);
+  venusAtmos = createVenusCloudMesh(realDiameter);
+  venusMesh.add(venusAtmos);
+  scene.add(venusMesh);
+
+  // Add group for earth and moon
+
+  // Add earth with clouds to scene
+  earthMesh = createEarthMesh(realDiameter);
+  cloudMesh = createEarthCloud(realDiameter);
+  earthMesh.add(cloudMesh);
+  earthGroup.add(earthMesh);
+
+  // Add Moon to scene
+  moonMesh = createEarthMoon(realDiameter);
+  // gets moons distance from earth
+  const moonDistance = getElementDistanceFromSun('moon');
+  moonMesh.position.x = moonDistance;
+  earthGroup.add(moonMesh);
+
+  // Add Mars to Scene
+  marsMesh = createMarsMesh(realDiameter);
+  marsGroup.add(marsMesh);
+
+  // Add Jupiter to scene
+  jupiterMesh = createJupiterMesh(realDiameter);
+  jupiterGroup.add(jupiterMesh);
+
+  // Add Saturn so Scene
+  saturnMesh = createSaturnMesh(realDiameter);
+  saturnGroup.add(saturnMesh);
+
+  // Add Uranus to Scene
+  uranusMesh = createUranusMesh(realDiameter);
+  uranusGroup.add(uranusMesh);
+
+  // Add Neptune to Scene
+  neptuneMesh = createNeptuneMesh(realDiameter);
+  neptuneGroup.add(neptuneMesh);
+
+  if (realDiameter) {
+    mercuryMark = createMark('Merkur');
+    venusMark = createMark('Venus');
+    earthMark = createMark('Erde');
+    marsMark = createMark('Mars');
+    jupiterMark = createMark('Jupiter');
+    saturnMark = createMark('Saturn');
+    uranusMark = createMark('Uranus');
+    neptuneMark = createMark('Neptun');
+    moonMark = createMark('Mond', 'small');
+
+    mercuryMesh.add(mercuryMark);
+    venusMesh.add(venusMark);
+    earthMesh.add(earthMark);
+    marsMesh.add(marsMark);
+    jupiterMesh.add(jupiterMark);
+    saturnMesh.add(saturnMark);
+    uranusMesh.add(uranusMark);
+    neptuneMesh.add(neptuneMark);
+    moonMesh.add(moonMark);
+  }
+};
+
+createPlanets(guiControls.realDiameter);
+scene.add(
+  earthGroup,
+  marsGroup,
+  jupiterGroup,
+  saturnGroup,
+  uranusGroup,
+  neptuneGroup,
+);
 
 // handle browser resize
 function resizeRendererToDisplaySize(renderer) {
@@ -266,15 +345,39 @@ const {
 } = getElementData('neptune');
 const moonRotation = getRotationSpeed('moon');
 
-const markRotation = 1.5707963268 * 2;
+const updatePlanetSizes = (realDiameter) => {
+  scene.remove(venusMesh, mercuryMesh);
+  earthGroup.remove(earthMesh);
+  marsGroup.remove(marsMesh);
+  jupiterGroup.remove(jupiterMesh);
+  saturnGroup.remove(saturnMesh);
+  uranusGroup.remove(uranusMesh);
+  neptuneGroup.remove(neptuneMesh);
+  createPlanets(realDiameter);
+};
+
+let renderRequested = false;
 // requestAnimationFrame forwards the time since first render in ms to the render-function
 const render = (time) => {
+  if (renderRequested) {
+    updatePlanetSizes(guiControls.realDiameter);
+  }
+  renderRequested = false;
+  if (guiControls.realDiameter) {
+    mercuryMark.lookAt(camera.position);
+    venusMark.lookAt(camera.position);
+    earthMark.lookAt(camera.position);
+    marsMark.lookAt(camera.position);
+    jupiterMark.lookAt(camera.position);
+    saturnMark.lookAt(camera.position);
+    uranusMark.lookAt(camera.position);
+    neptuneMark.lookAt(camera.position);
+    moonMark.lookAt(camera.position);
+  }
   // converts time to seconds
   time = 1; // *= 0.0001
-  // pickHelper.pick(pickPosition, scene, camera, time);
 
   earthMesh.rotation.y += earthRotation;
-  eartMark.rotation.x = markRotation;
   // clouds should move 5 times as fast as earth
   cloudMesh.rotation.y += earthRotation * 5;
   moonMesh.rotation.y += moonRotation;
@@ -282,17 +385,11 @@ const render = (time) => {
   // Should be changed to elliptic rotation around earth
   earthGroup.rotation.y += moonRotation;
   marsMesh.rotation.y += marsRotation;
-  marsMark.rotation.x = markRotation;
   mercuryMesh.rotation.y += mercuryRotation;
-  mercuryMark.rotation.x = markRotation;
   jupiterMesh.rotation.y += jupiterRotation;
-  jupiterMark.rotation.x = markRotation;
   neptuneMesh.rotation.y += neptuneRotation;
-  neptuneMark.rotation.x = markRotation;
   saturnMesh.rotation.y += saturnRotation;
-  saturnMark.rotation.x = markRotation;
   uranusMesh.rotation.y += uranusRotation;
-  uranusMark.rotation.x = markRotation;
   venusMesh.rotation.y += venusRotation;
   // venus atmosphere should rotate 100 times as fast as venus
   venusAtmos.rotation.y += venusRotation * 100;
@@ -342,3 +439,10 @@ const render = (time) => {
 };
 
 requestAnimationFrame(render);
+
+function requestRenderIfNotRequested() {
+  if (!renderRequested) {
+    renderRequested = true;
+    requestAnimationFrame(render);
+  }
+}

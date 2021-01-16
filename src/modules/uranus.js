@@ -7,8 +7,6 @@ import {
   BufferGeometry,
   LineBasicMaterial,
   EllipseCurve,
-  MeshBasicMaterial,
-  ConeGeometry,
   DoubleSide,
   MathUtils,
   Mesh,
@@ -100,14 +98,6 @@ const createUranusRing = (realDiameter) => {
   return ringMesh;
 };
 
-//create UranusMark
-const createUranusMark = () => {
-  const geometry = new ConeGeometry(96, 192, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //uranus ellipse
 const createUranusEllipse = (realDistance) => {
   const uranusDistance = getElementDistanceFromSun(
@@ -135,4 +125,4 @@ const createUranusEllipse = (realDistance) => {
   return uranusellipse;
 };
 
-export { createUranusMesh, createUranusMark, createUranusEllipse };
+export { createUranusMesh, createUranusEllipse };
