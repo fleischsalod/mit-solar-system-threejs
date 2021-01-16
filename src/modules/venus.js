@@ -59,7 +59,7 @@ const createVenusMesh = (realDiameter) => {
  */
 const createVenusCloudMesh = (realDiameter) => {
   const geometry = new SphereGeometry(
-    getElementDiameter('venus', realDiameter) + 0.01,
+    getElementDiameter('venus', realDiameter) + 0.1,
     64,
     64,
   );

@@ -13,7 +13,7 @@ const aspect = canvas.innerWidth / canvas.innerHeight; // the canvas default
 const near = 0.1;
 const far = 1000;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(-0.75, -0.075, 1.25);
+camera.position.set(-3, -0.075, 5);
 
 // Add Background
 const loader = new THREE.TextureLoader();
@@ -29,7 +29,7 @@ const directionalLight = new THREE.DirectionalLight(0xf39f8f, 1.5);
 directionalLight.position.set(-1, 0, 0);
 scene.add(light, directionalLight);
 
- // Add moon
+// Add moon
 const moonMesh = createEarthMoon();
 moonMesh.rotation.set(0, Math.PI, 0);
 scene.add(moonMesh);
