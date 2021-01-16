@@ -16,45 +16,127 @@ canvas {
 
 .container {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   display: flex;
 }
 
 .content {
-  flex: 1 50%;
+  flex: 1 45%;
   display: flex;
   flex-direction: column;
   color: white;
-  background-color: aqua;
 }
 
 .model {
-  flex: 1 50%;
+  flex: 1 55%;
+  background-color: transparent;
+}
+
+.empty {
+  height: 200px;
   display: flex;
-  background-color: blue;
 }
 
 .mainheading {
-  flex: 1 60%;
+  display: flex;
+  text-align: center;
+  align-items: center;
   font-size: 50px;
   letter-spacing: 10px;
   text-transform: uppercase;
 }
 
+.navigation {
+  display: flex;
+  top: 200px;
+}
+
 .main-nav {
   font-size: 42px;
+  align-items: center;
   display: flex;
 }
 
-.main-nav-item {
+.main-nav-item1 {
+  height: 50px;
   padding: 40px;
   flex-direction: column;
   text-decoration: none;
-  border-right: 1px solid white;
+  border-right: 3px solid white;
 }
 
-.main-nav-item:link,
-.main-nav-item:visited,
-.main-nav-item:focus {
+.main-nav-item1:link,
+.main-nav-item1:visited,
+.main-nav-item1:focus {
   color: white;
+}
+
+.main-nav-item2 {
+  padding: 40px;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.main-nav-item2:link,
+.main-nav-item2:visited,
+.main-nav-item2:focus {
+  color: white;
+}
+
+.empty2 {
+  display: flex;
+  height: 200px;
+}
+
+@keyframes changeText {
+  0% {
+    color: white;
+    opacity: 0;
+  }
+  12.5% {
+    content: 'Wenn du nachts in den Himmel schaust, kannst du viele Sterne entdecken...';
+    opacity: 1;
+  }
+  25% {
+    color: white;
+    opacity: 0;
+  }
+  37.5% {
+    content: '...unter ihnen sind abertausende Sonnensysteme und unsere Sonne und ihre Planeten sind ein Teil davon... ';
+    opacity: 1;
+  }
+  50% {
+    color: white;
+    opacity: 0;
+  }
+  62.5% {
+    content: '... erlebe und entdecke die Planeten unseres Sonnensystems...';
+    opacity: 1;
+  }
+  75% {
+    color: white;
+    opacity: 0;
+  }
+  87.5% {
+    content: '...lerne sie im Detail kennen und erlebe wie unterschiedlich sie alle sind!';
+    opacity: 1;
+  }
+  100% {
+    color: white;
+    opacity: 0;
+  }
+}
+
+.element::before {
+  display: block;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  animation: changeText 30s linear infinite;
+  font-size: 30px;
+  content: '';
+  opacity: 1;
+  height: 60px;
 }
