@@ -29,9 +29,9 @@ const BASIC_URL = 'src/textures/earth/';
 /**
  * Create mesh of earth
  */
-const createEarthMesh = () => {
+const createEarthMesh = (realDiameter) => {
   const geometry = new SphereGeometry(
-    getElementDiameter('earth'),
+    getElementDiameter('earth', realDiameter),
     64,
     64,
   );
@@ -59,34 +59,17 @@ const createEarthMesh = () => {
 /**
  * Create mesh of moon
  */
-const createEarthMoon = () => {
+const createEarthMoon = (realDiameter) => {
   const geometry = new SphereGeometry(
-    getElementDiameter('moon'),
+    getElementDiameter('moon', realDiameter),
     64,
     64,
   );
   const map = new TextureLoader().load(
     BASIC_URL + 'moon/8k_moon.jpg',
   );
-  // const bumpMap = new TextureLoader().load(
-  //   BASIC_URL + 'moon/moonbump1k.jpg',
-  // );
-  // const moonDisp = new TextureLoader().load(
-  //   BASIC_URL + 'moon/moonNEW_DISP.png',
-  // );
-  // const moonNormal = new TextureLoader().load(
-  //   BASIC_URL + 'moon/moonNew_NRM.png',
-  // );
-  // const moonSpec = new TextureLoader().load(
-  //   BASIC_URL + 'moon/moonNew_SPEC.png',
-  // );
   const material = new MeshPhongMaterial({
     map: map,
-    // displacementMap: moonDisp,
-    // normalMap: moonNormal,
-    // specularMap: moonSpec,
-    //bumpMap: bumpMap,
-    bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
   mesh.rotation.x = getAxialTiltInRad('moon');
@@ -96,7 +79,7 @@ const createEarthMoon = () => {
 /**
  * Create mesh of transparent cloud-layer
  */
-const createEarthCloud = () => {
+const createEarthCloud = (realDiameter) => {
   // create destination canvas
   const canvasResult = document.createElement('canvas');
   canvasResult.width = 1024;
@@ -161,7 +144,7 @@ const createEarthCloud = () => {
   imageMap.src = BASIC_URL + 'earthcloudmap.jpg';
 
   const geometry = new SphereGeometry(
-    getElementDiameter('earth') + 0.01,
+    getElementDiameter('earth', realDiameter) + 0.01,
     64,
     64,
   );
@@ -185,13 +168,16 @@ const createEarthMark = () => {
 };
 
 //earth ellipse
-const createEarthEllipse = () => {
-  const earthDistance = getElementDistanceFromSun('earth');
+const createEarthEllipse = (realDistance) => {
+  const earthDistance = getElementDistanceFromSun(
+    'earth',
+    realDistance,
+  );
   const earthcurve = new EllipseCurve(
     0,
     0, // ax, aY
-    earthDistance.perihelion,
-    earthDistance.aphelion, // xRadius, yRadius
+    earthDistance,
+    earthDistance, // xRadius, yRadius
     0,
     2 * Math.PI, // aStartAngle, aEndAngle
     false, // aClockwise

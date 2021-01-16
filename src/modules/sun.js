@@ -8,21 +8,15 @@ import {
   MeshPhongMaterial,
   SphereGeometry,
 } from '../../lib/threejs/r122/build/three.module.js';
+import { SIZE_CONST } from '../data.js';
 
-import { getElementDiameter, getAxialTiltInRad } from '../utils.js';
-
-// basic url to textures of sun
-const BASIC_URL = 'src/textures/sun/';
+import { getAxialTiltInRad } from '../utils.js';
 
 /**
  * Create mesh of sun
  */
 const createSunMesh = () => {
-  const geometry = new SphereGeometry(
-    getElementDiameter('sun'),
-    64,
-    64,
-  );
+  const geometry = new SphereGeometry(SIZE_CONST, 64, 64);
 
   const video01 = document.getElementById('video01');
   video01.play();

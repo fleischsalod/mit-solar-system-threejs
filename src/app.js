@@ -1,5 +1,6 @@
 import * as THREE from '../lib/threejs/r122/build/three.module.js';
 import { OrbitControls } from '../lib/threejs/r122/examples/jsm/controls/OrbitControls.js';
+import { SIZE_CONST } from './data.js';
 import {
   createEarthCloud,
   createEarthMesh,
@@ -70,31 +71,36 @@ const texture = loader.load('src/textures/background.jpg', () => {
 });
 
 // Add Lights
-const ambientLight = new THREE.AmbientLight(0x404040); // soft white light
-const sunLight = new THREE.PointLight(0xf39f8f, 0.5); // sunlight colored
+const ambientLight = new THREE.AmbientLight(0x404040, 0.5); // soft white light
+const sunLight = new THREE.PointLight(0xf39f8f); // sunlight colored
 sunLight.position.set(0, 0, 0);
 scene.add(ambientLight, sunLight);
-// Add spotlights to light up sun
-const frontSunSpotlight = new THREE.SpotLight(0xf39f8f, 4, 800); // sunlight colored
-frontSunSpotlight.position.set(500, 0, 0);
-const backSunSpotlight = new THREE.SpotLight(0xf39f8f, 4, 800); // sunlight colored
-backSunSpotlight.position.set(-500, 0, 0);
-const upperLeftSunSpotlight = new THREE.SpotLight(0xf39f8f, 5, 800); // sunlight colored
-upperLeftSunSpotlight.position.set(0, 500, 500);
-const upperRightSunSpotlight = new THREE.SpotLight(0xf39f8f, 5, 800); // sunlight colored
-upperRightSunSpotlight.position.set(0, 500, -500);
-const lowerRightSunSpotlight = new THREE.SpotLight(0xf39f8f, 5, 800); // sunlight colored
-lowerRightSunSpotlight.position.set(0, -500, -500);
-const lowerLeftSunSpotlight = new THREE.SpotLight(0xf39f8f, 5, 800); // sunlight colored
-lowerLeftSunSpotlight.position.set(0, -500, 500);
-scene.add(
-  frontSunSpotlight,
-  backSunSpotlight,
-  upperLeftSunSpotlight,
-  upperRightSunSpotlight,
-  lowerRightSunSpotlight,
-  lowerLeftSunSpotlight,
-);
+
+const createSunSpotlight = (x, y, z) => {
+  let spotlight = new THREE.SpotLight(
+    0xf39f8f, // sunlight-colored
+    5, // intensity
+    SIZE_CONST * 3, // distance: how far the light shines
+    Math.PI / 2, //angle: angle of the light, max is Math.PI/2
+  );
+  spotlight.position.set(x, y, z);
+  scene.add(spotlight);
+  return spotlight;
+};
+
+const spotlightPositions = [
+  { x: SIZE_CONST * 2, y: 0, z: 0 },
+  { x: -SIZE_CONST * 2, y: 0, z: 0 },
+  { x: 0, y: SIZE_CONST * 2, z: 0 },
+  { x: 0, y: -SIZE_CONST * 2, z: 0 },
+  { x: 0, y: 0, z: SIZE_CONST * 2 },
+  { x: 0, y: 0, z: -SIZE_CONST * 2 },
+];
+
+spotlightPositions.map((position) => {
+  const { x, y, z } = position;
+  return createSunSpotlight(x, y, z);
+});
 
 // Orbit Controls
 const controls = new OrbitControls(camera, canvas);
@@ -115,7 +121,7 @@ const mercuryMark = createMercuryMark();
 const mercuryEllipseMesh = createMercuryEllipse();
 mercuryEllipseMesh.rotation.x = ellipseposition;
 mercuryMark.position.y = 20;
-mercuryMesh.add(mercuryMark);
+// mercuryMesh.add(mercuryMark);
 scene.add(mercuryMesh, mercuryEllipseMesh);
 
 // Add Venus to Scene
@@ -124,7 +130,8 @@ const venusAtmos = createVenusCloudMesh();
 const venusMark = createVenusMark();
 const venusEllipseMesh = createVenusEllipse();
 venusEllipseMesh.rotation.x = ellipseposition;
-(venusMark.position.y = -20), venusMesh.add(venusAtmos, venusMark);
+// (venusMark.position.y = -20)
+venusMesh.add(venusAtmos);
 scene.add(venusMesh, venusEllipseMesh);
 
 // Add group for earth and moon
@@ -139,7 +146,7 @@ const earthEllipseMesh = createEarthEllipse();
 earthEllipseMesh.rotation.x = ellipseposition;
 eartMark.position.y = 20;
 earthMesh.add(cloudMesh);
-earthGroup.add(earthMesh, eartMark);
+earthGroup.add(earthMesh);
 scene.add(earthGroup, earthEllipseMesh);
 
 // Add Moon to scene
@@ -156,7 +163,7 @@ const marsEllipseMesh = createMarsEllipse();
 marsEllipseMesh.rotation.x = ellipseposition;
 marsMark.position.y = 20;
 marsGroup.position.set(0, 0, 0);
-marsGroup.add(marsMark, marsMesh);
+marsGroup.add(marsMesh);
 scene.add(marsGroup, marsEllipseMesh);
 
 // Add Jupiter to scene
@@ -166,7 +173,7 @@ const jupiterMesh = createJupiterMesh();
 const jupiterEllipseMesh = createJupiterEllipse();
 jupiterEllipseMesh.rotation.x = ellipseposition;
 jupiterMark.position.y = 70;
-jupiterGroup.add(jupiterMesh, jupiterMark);
+jupiterGroup.add(jupiterMesh);
 scene.add(jupiterGroup, jupiterEllipseMesh);
 
 // Add Saturn so Scene
@@ -176,7 +183,7 @@ const saturnMesh = createSaturnMesh();
 const saturnEllipseMesh = createSaturnEllipse();
 saturnEllipseMesh.rotation.x = ellipseposition;
 saturnMark.position.y = 70;
-saturnGroup.add(saturnMark, saturnMesh);
+saturnGroup.add(saturnMesh);
 scene.add(saturnGroup, saturnEllipseMesh);
 
 // Add Uranus to Scene
@@ -186,7 +193,7 @@ const uranusMesh = createUranusMesh();
 const uranusEllipseMesh = createUranusEllipse();
 uranusEllipseMesh.rotation.x = ellipseposition;
 uranusMark.position.y = 110;
-uranusGroup.add(uranusMark, uranusMesh);
+uranusGroup.add(uranusMesh);
 scene.add(uranusGroup, uranusEllipseMesh);
 
 // Add Neptune to Scene
@@ -196,7 +203,7 @@ const neptuneMark = createNeptuneMark();
 const neptuneMesh = createNeptuneMesh();
 neptuneEllipseMesh.rotation.x = ellipseposition;
 neptuneMark.position.y = 110;
-neptuneGroup.add(neptuneMark, neptuneMesh);
+neptuneGroup.add(neptuneMesh);
 scene.add(neptuneGroup, neptuneEllipseMesh);
 
 // handle browser resize
@@ -258,7 +265,7 @@ const markRotation = 1.5707963268 * 2;
 // requestAnimationFrame forwards the time since first render in ms to the render-function
 const render = (time) => {
   // converts time to seconds
-  time *= 0.0001;
+  time = 1; // *= 0.0001
   // pickHelper.pick(pickPosition, scene, camera, time);
 
   earthMesh.rotation.y += earthRotation;
@@ -286,44 +293,38 @@ const render = (time) => {
   venusAtmos.rotation.y += venusRotation * 100;
 
   mercuryMesh.position.x =
-    Math.sin(time * mercuryOrbit) * mercuryDistance.perihelion;
+    Math.sin(time * mercuryOrbit) * mercuryDistance;
   mercuryMesh.position.z =
-    Math.cos(time * mercuryOrbit) * mercuryDistance.aphelion;
+    Math.cos(time * mercuryOrbit) * mercuryDistance;
 
-  venusMesh.position.x =
-    Math.sin(time * venusOrbit) * venusDistance.perihelion;
-  venusMesh.position.z =
-    Math.cos(time * venusOrbit) * venusDistance.aphelion;
+  venusMesh.position.x = Math.sin(time * venusOrbit) * venusDistance;
+  venusMesh.position.z = Math.cos(time * venusOrbit) * venusDistance;
 
-  earthGroup.position.x =
-    Math.sin(time * earthOrbit) * earthDistance.perihelion;
-  earthGroup.position.z =
-    Math.cos(time * earthOrbit) * earthDistance.aphelion;
+  earthGroup.position.x = Math.sin(time * earthOrbit) * earthDistance;
+  earthGroup.position.z = Math.cos(time * earthOrbit) * earthDistance;
 
-  marsGroup.position.x =
-    Math.sin(time * marsOrbit) * marsDistance.perihelion;
-  marsGroup.position.z =
-    Math.cos(time * marsOrbit) * marsDistance.aphelion;
+  marsGroup.position.x = Math.sin(time * marsOrbit) * marsDistance;
+  marsGroup.position.z = Math.cos(time * marsOrbit) * marsDistance;
 
   jupiterGroup.position.x =
-    Math.sin(time * jupiterOrbit) * jupiterDistance.perihelion;
+    Math.sin(time * jupiterOrbit) * jupiterDistance;
   jupiterGroup.position.z =
-    Math.cos(time * jupiterOrbit) * jupiterDistance.aphelion;
+    Math.cos(time * jupiterOrbit) * jupiterDistance;
 
   saturnGroup.position.x =
-    Math.sin(time * saturnOrbit) * saturnDistance.perihelion;
+    Math.sin(time * saturnOrbit) * saturnDistance;
   saturnGroup.position.z =
-    Math.cos(time * saturnOrbit) * saturnDistance.aphelion;
+    Math.cos(time * saturnOrbit) * saturnDistance;
 
   uranusGroup.position.x =
-    Math.sin(time * uranusOrbit) * uranusDistance.perihelion;
+    Math.sin(time * uranusOrbit) * uranusDistance;
   uranusGroup.position.z =
-    Math.cos(time * uranusOrbit) * uranusDistance.aphelion;
+    Math.cos(time * uranusOrbit) * uranusDistance;
 
   neptuneGroup.position.x =
-    Math.sin(time * neptuneOrbit) * neptuneDistance.perihelion;
+    Math.sin(time * neptuneOrbit) * neptuneDistance;
   neptuneGroup.position.z =
-    Math.cos(time * neptuneOrbit) * neptuneDistance.aphelion;
+    Math.cos(time * neptuneOrbit) * neptuneDistance;
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
