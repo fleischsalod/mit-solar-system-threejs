@@ -55,7 +55,7 @@ export const getElementDistanceFromSun = (element, realDistance) => {
     neptune: realDistance
       ? sizeRatio * data.neptune.semimajorAxis
       : SIZE_CONST * 3 + 551,
-    moon: realDistance ? sizeRatio * data.moon.semimajorAxis : 15, // moons distance from earth
+    moon: realDistance ? sizeRatio * data.moon.semimajorAxis : 20, // moons distance from earth
   };
   return elementsDistance[element];
 };

@@ -45,7 +45,11 @@ import {
   createVenusMark,
   createVenusEllipse,
 } from './modules/venus.js';
-import { getElementData, getRotationSpeed } from './utils.js';
+import {
+  getElementData,
+  getElementDistanceFromSun,
+  getRotationSpeed,
+} from './utils.js';
 
 // renderer
 const canvas = document.querySelector('canvas');
@@ -151,8 +155,9 @@ scene.add(earthGroup, earthEllipseMesh);
 
 // Add Moon to scene
 const moonMesh = createEarthMoon();
-moonMesh.position.x = -5;
-moonMesh.position.z = 5;
+// gets moons distance from earth
+const moonDistance = getElementDistanceFromSun('moon');
+moonMesh.position.x = moonDistance;
 earthGroup.add(moonMesh);
 
 // Add Mars to Scene
