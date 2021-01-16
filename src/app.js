@@ -69,11 +69,32 @@ const texture = loader.load('src/textures/background.jpg', () => {
   scene.background = rt;
 });
 
-// Add Light
-const ambientLight = new THREE.AmbientLight(0x404040, 5); // soft white light
-const sunLight = new THREE.PointLight(0xf39f8f);
+// Add Lights
+const ambientLight = new THREE.AmbientLight(0x404040); // soft white light
+const sunLight = new THREE.PointLight(0xf39f8f, 0.5); // sunlight colored
 sunLight.position.set(0, 0, 0);
 scene.add(ambientLight, sunLight);
+// Add spotlights to light up sun
+const frontSunSpotlight = new THREE.SpotLight(0xf39f8f, 4, 800); // sunlight colored
+frontSunSpotlight.position.set(500, 0, 0);
+const backSunSpotlight = new THREE.SpotLight(0xf39f8f, 4, 800); // sunlight colored
+backSunSpotlight.position.set(-500, 0, 0);
+const upperLeftSunSpotlight = new THREE.SpotLight(0xf39f8f, 5, 800); // sunlight colored
+upperLeftSunSpotlight.position.set(0, 500, 500);
+const upperRightSunSpotlight = new THREE.SpotLight(0xf39f8f, 5, 800); // sunlight colored
+upperRightSunSpotlight.position.set(0, 500, -500);
+const lowerRightSunSpotlight = new THREE.SpotLight(0xf39f8f, 5, 800); // sunlight colored
+lowerRightSunSpotlight.position.set(0, -500, -500);
+const lowerLeftSunSpotlight = new THREE.SpotLight(0xf39f8f, 5, 800); // sunlight colored
+lowerLeftSunSpotlight.position.set(0, -500, 500);
+scene.add(
+  frontSunSpotlight,
+  backSunSpotlight,
+  upperLeftSunSpotlight,
+  upperRightSunSpotlight,
+  lowerRightSunSpotlight,
+  lowerLeftSunSpotlight,
+);
 
 // Orbit Controls
 const controls = new OrbitControls(camera, canvas);
