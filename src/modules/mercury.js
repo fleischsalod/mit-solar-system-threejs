@@ -27,26 +27,21 @@ const BASIC_URL = 'src/textures/mercury/';
 /**
  * Create mesh of mercury
  */
-const createMercuryMesh = () => {
+const createMercuryMesh = (realDiameter) => {
   const geometry = new SphereGeometry(
-    getElementDiameter('mercury'),
+    getElementDiameter('mercury', realDiameter),
     64,
     64,
   );
   const mercuryMap = new TextureLoader().load(
     BASIC_URL + 'merkurcolorNew_COLOR.png',
   );
-  const merkurNormal = new TextureLoader().load(
-    BASIC_URL + 'merkurcolorNew_NRM.png',
-  );
   const merkurSpec = new TextureLoader().load(
     BASIC_URL + 'merkurcolorNew_SPEC.png',
   );
   const material = new MeshPhongMaterial({
     map: mercuryMap,
-    normalMap: merkurNormal,
     specularMap: merkurSpec,
-    bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
   mesh.rotation.x = getAxialTiltInRad('mercury');
@@ -62,13 +57,16 @@ const createMercuryMark = () => {
 };
 
 //mercury ellipse
-const createMercuryEllipse = () => {
-  const mercuryDistance = getElementDistanceFromSun('mercury');
+const createMercuryEllipse = (realDistance) => {
+  const mercuryDistance = getElementDistanceFromSun(
+    'mercury',
+    realDistance,
+  );
   const mercurycurve = new EllipseCurve(
     0,
     0, // ax, aY
-    mercuryDistance.perihelion,
-    mercuryDistance.aphelion, // xRadius, yRadius
+    mercuryDistance,
+    mercuryDistance, // xRadius, yRadius
     0,
     2 * Math.PI, // aStartAngle, aEndAngle
     false, // aClockwise
