@@ -7,8 +7,6 @@ import {
   Line,
   LineBasicMaterial,
   EllipseCurve,
-  ConeGeometry,
-  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
@@ -47,14 +45,6 @@ const createJupiterMesh = (realDiameter) => {
   return mesh;
 };
 
-//create JupiterMark
-const createJupiterMark = () => {
-  const geometry = new ConeGeometry(48, 96, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //jupiter ellipse
 const createJupiterEllipse = (realDistance) => {
   const jupiterDistance = getElementDistanceFromSun(
@@ -82,4 +72,4 @@ const createJupiterEllipse = (realDistance) => {
   return jupiterellipse;
 };
 
-export { createJupiterMesh, createJupiterMark, createJupiterEllipse };
+export { createJupiterMesh, createJupiterEllipse };

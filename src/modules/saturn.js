@@ -7,8 +7,6 @@ import {
   LineBasicMaterial,
   EllipseCurve,
   BufferGeometry,
-  ConeGeometry,
-  MeshBasicMaterial,
   DoubleSide,
   Mesh,
   MeshPhongMaterial,
@@ -98,14 +96,6 @@ const createSaturnRing = (realDiameter) => {
   return ringMesh;
 };
 
-//create SaturnMark
-const createSaturnMark = () => {
-  const geometry = new ConeGeometry(48, 96, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //saturn ellipse
 const createSaturnEllipse = (realDistance) => {
   const saturnDistance = getElementDistanceFromSun(
@@ -133,4 +123,4 @@ const createSaturnEllipse = (realDistance) => {
   return saturnellipse;
 };
 
-export { createSaturnMesh, createSaturnMark, createSaturnEllipse };
+export { createSaturnMesh, createSaturnEllipse };

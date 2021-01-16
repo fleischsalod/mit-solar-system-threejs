@@ -7,8 +7,6 @@ import {
   BufferGeometry,
   EllipseCurve,
   LineBasicMaterial,
-  ConeGeometry,
-  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
@@ -49,14 +47,6 @@ const createMarsMesh = (realDiameter) => {
   return mesh;
 };
 
-//create MarsMark
-const createMarsMark = () => {
-  const geometry = new ConeGeometry(14, 28, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //mars ellipse
 const createMarsEllipse = (realDistance) => {
   const marsDistance = getElementDistanceFromSun(
@@ -82,4 +72,4 @@ const createMarsEllipse = (realDistance) => {
   return marsellipse;
 };
 
-export { createMarsMesh, createMarsMark, createMarsEllipse };
+export { createMarsMesh, createMarsEllipse };

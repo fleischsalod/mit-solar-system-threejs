@@ -7,8 +7,6 @@ import {
   BufferGeometry,
   LineBasicMaterial,
   EllipseCurve,
-  ConeGeometry,
-  MeshBasicMaterial,
   Color,
   DoubleSide,
   Mesh,
@@ -159,14 +157,6 @@ const createEarthCloud = (realDiameter) => {
   return mesh;
 };
 
-//create EarthMark
-const createEarthMark = () => {
-  const geometry = new ConeGeometry(12, 24, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //earth ellipse
 const createEarthEllipse = (realDistance) => {
   const earthDistance = getElementDistanceFromSun(
@@ -199,6 +189,5 @@ export {
   createEarthCloud,
   createEarthMesh,
   createEarthMoon,
-  createEarthMark,
   createEarthEllipse,
 };

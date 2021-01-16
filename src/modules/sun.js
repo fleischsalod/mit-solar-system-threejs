@@ -9,7 +9,6 @@ import {
   SphereGeometry,
 } from '../../lib/threejs/r122/build/three.module.js';
 import { SIZE_CONST } from '../data.js';
-
 import { getAxialTiltInRad } from '../utils.js';
 
 /**
