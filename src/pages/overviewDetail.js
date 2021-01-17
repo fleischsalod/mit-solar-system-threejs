@@ -1,45 +1,48 @@
-import * as THREE from '../lib/threejs/r122/build/three.module.js';
-import { OrbitControls } from '../lib/threejs/r122/examples/jsm/controls/OrbitControls.js';
-import { GUI } from '../lib/util/gui/dat.gui.module.js';
-import { SIZE_CONST } from './data.js';
+import * as THREE from '../../lib/threejs/r122/build/three.module.js';
+import { OrbitControls } from '../../lib/threejs/r122/examples/jsm/controls/OrbitControls.js';
+import { GUI } from '../../lib/util/gui/dat.gui.module.js';
+import { SIZE_CONST } from '../data.js';
 import {
   createEarthCloud,
   createEarthMesh,
   createEarthMoon,
   createEarthEllipse,
-} from './modules/earth.js';
+} from '../modules/earth.js';
 import {
   createJupiterMesh,
   createJupiterEllipse,
-} from './modules/jupiter.js';
-import { createMarsMesh, createMarsEllipse } from './modules/mars.js';
+} from '../modules/jupiter.js';
+import {
+  createMarsMesh,
+  createMarsEllipse,
+} from '../modules/mars.js';
 import {
   createMercuryMesh,
   createMercuryEllipse,
-} from './modules/mercury.js';
+} from '../modules/mercury.js';
 import {
   createNeptuneMesh,
   createNeptuneEllipse,
-} from './modules/neptune.js';
+} from '../modules/neptune.js';
 import {
   createSaturnMesh,
   createSaturnEllipse,
-} from './modules/saturn.js';
-import { createSunMesh } from './modules/sun.js';
+} from '../modules/saturn.js';
+import { createSunMesh } from '../modules/sun.js';
 import {
   createUranusMesh,
   createUranusEllipse,
-} from './modules/uranus.js';
+} from '../modules/uranus.js';
 import {
   createVenusMesh,
   createVenusCloudMesh,
   createVenusEllipse,
-} from './modules/venus.js';
+} from '../modules/venus.js';
 import {
   getElementData,
   getElementDistanceFromSun,
   getRotationSpeed,
-} from './utils.js';
+} from '../utils.js';
 
 // renderer
 const canvas = document.querySelector('canvas');
