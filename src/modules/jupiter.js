@@ -7,8 +7,6 @@ import {
   Line,
   LineBasicMaterial,
   EllipseCurve,
-  ConeGeometry,
-  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
@@ -26,52 +24,38 @@ const BASIC_URL = 'src/textures/jupiter/';
 /**
  * Create mesh of jupiter
  */
-const createJupiterMesh = () => {
+const createJupiterMesh = (realDiameter) => {
   const geometry = new SphereGeometry(
-    getElementDiameter('jupiter'),
+    getElementDiameter('jupiter', realDiameter),
     64,
     64,
   );
   const jupiterMap = new TextureLoader().load(
     BASIC_URL + 'jupitermapNew_COLOR.png',
   );
-  // const jupiterDisp = new TextureLoader().load(
-  //   BASIC_URL + 'jupitermapNEW_DISP.png',
-  // );
-  // const jupiterNormal = new TextureLoader().load(
-  //   BASIC_URL + 'jupitermapNew_NRM.png',
-  // );
   const jupiterSpec = new TextureLoader().load(
     BASIC_URL + 'jupitermapNew_SPEC.png',
   );
   const material = new MeshPhongMaterial({
     map: jupiterMap,
-    //displacementMap: jupiterDisp,
-    //normalMap: jupiterNormal,
     specularMap: jupiterSpec,
-    bumpScale: 0.1,
   });
   const mesh = new Mesh(geometry, material);
   mesh.rotation.x = getAxialTiltInRad('jupiter');
   return mesh;
 };
 
-//create JupiterMark
-const createJupiterMark = () => {
-  const geometry = new ConeGeometry(48, 96, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //jupiter ellipse
-const createJupiterEllipse = () => {
-  const jupiterDistance = getElementDistanceFromSun('jupiter');
+const createJupiterEllipse = (realDistance) => {
+  const jupiterDistance = getElementDistanceFromSun(
+    'jupiter',
+    realDistance,
+  );
   const jupitercurve = new EllipseCurve(
     0,
     0, // ax, aY
-    jupiterDistance.perihelion,
-    jupiterDistance.aphelion, // xRadius, yRadius
+    jupiterDistance,
+    jupiterDistance, // xRadius, yRadius
     0,
     2 * Math.PI, // aStartAngle, aEndAngle
     false, // aClockwise
@@ -88,4 +72,4 @@ const createJupiterEllipse = () => {
   return jupiterellipse;
 };
 
-export { createJupiterMesh, createJupiterMark, createJupiterEllipse };
+export { createJupiterMesh, createJupiterEllipse };

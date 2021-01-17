@@ -7,8 +7,6 @@ import {
   BufferGeometry,
   EllipseCurve,
   LineBasicMaterial,
-  ConeGeometry,
-  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
@@ -26,9 +24,9 @@ const BASIC_URL = 'src/textures/mars/';
 /**
  * Create mesh of mars
  */
-const createMarsMesh = () => {
+const createMarsMesh = (realDiameter) => {
   const geometry = new SphereGeometry(
-    getElementDiameter('mars'),
+    getElementDiameter('mars', realDiameter),
     64,
     64,
   );
@@ -38,18 +36,10 @@ const createMarsMesh = () => {
   const marsBump = new TextureLoader().load(
     BASIC_URL + 'marsbump1k.jpg',
   );
-  // const marsDisp = new TextureLoader().load(
-  //   BASIC_URL + 'marscolor_displacementMap.jpg',
-  // );
-  // const marsNormal = new TextureLoader().load(
-  //   BASIC_URL + 'marscolor_normalMap.jpg',
-  // );
 
   const material = new MeshPhongMaterial({
     map: marsMap,
     bumpMap: marsBump,
-    // displacementMap: marsDisp,
-    // normalMap: marsNormal,
     bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
@@ -57,22 +47,17 @@ const createMarsMesh = () => {
   return mesh;
 };
 
-//create MarsMark
-const createMarsMark = () => {
-  const geometry = new ConeGeometry(14, 28, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //mars ellipse
-const createMarsEllipse = () => {
-  const marsDistance = getElementDistanceFromSun('mars');
+const createMarsEllipse = (realDistance) => {
+  const marsDistance = getElementDistanceFromSun(
+    'mars',
+    realDistance,
+  );
   const marscurve = new EllipseCurve(
     0,
     0, // ax, aY
-    marsDistance.perihelion,
-    marsDistance.aphelion, // xRadius, yRadius
+    marsDistance,
+    marsDistance, // xRadius, yRadius
     0,
     2 * Math.PI, // aStartAngle, aEndAngle
     false, // aClockwise
@@ -87,4 +72,4 @@ const createMarsEllipse = () => {
   return marsellipse;
 };
 
-export { createMarsMesh, createMarsMark, createMarsEllipse };
+export { createMarsMesh, createMarsEllipse };

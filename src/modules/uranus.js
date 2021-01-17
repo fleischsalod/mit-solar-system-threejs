@@ -7,8 +7,6 @@ import {
   BufferGeometry,
   LineBasicMaterial,
   EllipseCurve,
-  MeshBasicMaterial,
-  ConeGeometry,
   DoubleSide,
   MathUtils,
   Mesh,
@@ -30,35 +28,31 @@ const BASIC_URL = 'src/textures/uranus/';
 /**
  * Create mesh of Uranus
  */
-const createUranusMesh = () => {
+const createUranusMesh = (realDiameter) => {
   const geometry = new SphereGeometry(
-    getElementDiameter('uranus'),
+    getElementDiameter('uranus', realDiameter),
     64,
     64,
   );
   const uranusMap = new TextureLoader().load(
     BASIC_URL + 'uranusNew_COLOR.png',
   );
-  // const uranusDisp = new TextureLoader().load(
-  //   BASIC_URL + 'uranusNew_DISP.png',
-  // );
   const uranusSpec = new TextureLoader().load(
     BASIC_URL + 'uranusNew_SPEC.png',
   );
-  const uranusNormal = new TextureLoader().load(
-    BASIC_URL + 'uranusNew_NRM.png',
-  );
+  // const uranusNormal = new TextureLoader().load(
+  //   BASIC_URL + 'uranusNew_NRM.png',
+  // );
 
   const material = new MeshPhongMaterial({
     map: uranusMap,
-    // displacementMap: uranusDisp,
     specularMap: uranusSpec,
-    normalMap: uranusNormal,
-    bumpScale: 0.2,
+    // normalMap: uranusNormal,
+    // bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
   mesh.rotation.x = getAxialTiltInRad('uranus');
-  const ringMesh = createUranusRing();
+  const ringMesh = createUranusRing(realDiameter);
   ringMesh.rotation.x = Math.PI / 2;
   mesh.add(ringMesh);
   return mesh;
@@ -67,9 +61,10 @@ const createUranusMesh = () => {
 /**
  * Create mesh of Uranusrings
  */
-const createUranusRing = () => {
+const createUranusRing = (realDiameter) => {
   const { ringsInnerDiameter, ringsOuterDiameter } = getRingsDiameter(
     'uranus',
+    realDiameter,
   );
   const geometry = new RingBufferGeometry(
     ringsInnerDiameter,
@@ -103,22 +98,17 @@ const createUranusRing = () => {
   return ringMesh;
 };
 
-//create UranusMark
-const createUranusMark = () => {
-  const geometry = new ConeGeometry(96, 192, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //uranus ellipse
-const createUranusEllipse = () => {
-  const uranusDistance = getElementDistanceFromSun('uranus');
+const createUranusEllipse = (realDistance) => {
+  const uranusDistance = getElementDistanceFromSun(
+    'uranus',
+    realDistance,
+  );
   const uranuscurve = new EllipseCurve(
     0,
     0, // ax, aY
-    uranusDistance.perihelion,
-    uranusDistance.aphelion, // xRadius, yRadius
+    uranusDistance,
+    uranusDistance, // xRadius, yRadius
     0,
     2 * Math.PI, // aStartAngle, aEndAngle
     false, // aClockwise
@@ -135,4 +125,4 @@ const createUranusEllipse = () => {
   return uranusellipse;
 };
 
-export { createUranusMesh, createUranusMark, createUranusEllipse };
+export { createUranusMesh, createUranusEllipse };

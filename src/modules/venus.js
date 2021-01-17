@@ -7,8 +7,6 @@ import {
   BufferGeometry,
   Line,
   LineBasicMaterial,
-  ConeGeometry,
-  MeshBasicMaterial,
   Mesh,
   MeshPhongMaterial,
   SphereGeometry,
@@ -26,21 +24,15 @@ const BASIC_URL = 'src/textures/venus/';
 /**
  * Create mesh of venus
  */
-const createVenusMesh = () => {
+const createVenusMesh = (realDiameter) => {
   const geometry = new SphereGeometry(
-    getElementDiameter('venus'),
+    getElementDiameter('venus', realDiameter),
     64,
     64,
   );
   const venusMap = new TextureLoader().load(
     BASIC_URL + 'venuscolorNew_COLOR.png',
   );
-  // const venusBump = new TextureLoader().load(
-  //   BASIC_URL + 'venusbump.jpg',
-  // );
-  // const venusDisp = new TextureLoader().load(
-  //   BASIC_URL + 'venuscolorNEW_DISP.png',
-  // );
   const venusNormal = new TextureLoader().load(
     BASIC_URL + 'venuscolorNew_NRM.png',
   );
@@ -50,11 +42,9 @@ const createVenusMesh = () => {
 
   const material = new MeshPhongMaterial({
     map: venusMap,
-    // displacementMap: venusDisp,
     normalMap: venusNormal,
     specularMap: venusSpec,
-    // bumpMap: venusBump,
-    // bumpScale: 0.2,
+    bumpScale: 0.2,
   });
 
   const mesh = new Mesh(geometry, material);
@@ -65,9 +55,9 @@ const createVenusMesh = () => {
 /**
  * Create mesh of transparent cloud-layer
  */
-const createVenusCloudMesh = () => {
+const createVenusCloudMesh = (realDiameter) => {
   const geometry = new SphereGeometry(
-    getElementDiameter('venus') + 0.01,
+    getElementDiameter('venus', realDiameter) + 0.1,
     64,
     64,
   );
@@ -84,22 +74,17 @@ const createVenusCloudMesh = () => {
   return mesh;
 };
 
-//create VenusMark
-const createVenusMark = () => {
-  const geometry = new ConeGeometry(12, 24, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //venus ellipse
-const createVenusEllipse = () => {
-  const venusDistance = getElementDistanceFromSun('venus');
+const createVenusEllipse = (realDistance) => {
+  const venusDistance = getElementDistanceFromSun(
+    'venus',
+    realDistance,
+  );
   const venuscurve = new EllipseCurve(
     0,
     0, // ax, aY
-    venusDistance.perihelion,
-    venusDistance.aphelion, // xRadius, yRadius
+    venusDistance,
+    venusDistance, // xRadius, yRadius
     0,
     2 * Math.PI, // aStartAngle, aEndAngle
     false, // aClockwise
@@ -115,9 +100,4 @@ const createVenusEllipse = () => {
   const venusellipse = new Line(venusgeometry, venusmaterial);
   return venusellipse;
 };
-export {
-  createVenusMesh,
-  createVenusCloudMesh,
-  createVenusMark,
-  createVenusEllipse,
-};
+export { createVenusMesh, createVenusCloudMesh, createVenusEllipse };

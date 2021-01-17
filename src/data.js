@@ -1211,3 +1211,5 @@ export const data = {
     rel: 'https://api.le-systeme-solaire.net/rest/bodies/venus',
   },
 };
+
+export const SIZE_CONST = 50;

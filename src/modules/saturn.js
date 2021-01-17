@@ -7,8 +7,6 @@ import {
   LineBasicMaterial,
   EllipseCurve,
   BufferGeometry,
-  ConeGeometry,
-  MeshBasicMaterial,
   DoubleSide,
   Mesh,
   MeshPhongMaterial,
@@ -30,34 +28,30 @@ const BASIC_URL = 'src/textures/saturn/';
 /**
  * Create mesh of Saturn
  */
-const createSaturnMesh = () => {
+const createSaturnMesh = (realDiameter) => {
   const geometry = new SphereGeometry(
-    getElementDiameter('saturn'),
+    getElementDiameter('saturn', realDiameter),
     64,
     64,
   );
   const saturnMap = new TextureLoader().load(
     BASIC_URL + 'saturncolor2.jpg',
   );
-  // const saturnDisp = new TextureLoader().load(
-  //   BASIC_URL + 'saturncolorNEW_DISP.png',
+  // const saturnNormal = new TextureLoader().load(
+  //   BASIC_URL + 'saturncolorNew_NRM.png',
   // );
-  const saturnNormal = new TextureLoader().load(
-    BASIC_URL + 'saturncolorNew_NRM.png',
-  );
   const saturnSpec = new TextureLoader().load(
     BASIC_URL + 'saturncolorNew_SPEC.png',
   );
   const material = new MeshPhongMaterial({
     map: saturnMap,
-    // displacementMap: saturnDisp,
-    normalMap: saturnNormal,
+    // normalMap: saturnNormal,
     specularMap: saturnSpec,
-    bumpScale: 0.2,
+    // bumpScale: 0.2,
   });
   const mesh = new Mesh(geometry, material);
   mesh.rotation.x = getAxialTiltInRad('saturn');
-  const ringMesh = createSaturnRing();
+  const ringMesh = createSaturnRing(realDiameter);
   ringMesh.rotation.x = Math.PI / 2;
   mesh.add(ringMesh);
   return mesh;
@@ -66,9 +60,10 @@ const createSaturnMesh = () => {
 /**
  * Create Saturnrings
  */
-const createSaturnRing = () => {
+const createSaturnRing = (realDiameter) => {
   const { ringsInnerDiameter, ringsOuterDiameter } = getRingsDiameter(
     'saturn',
+    realDiameter,
   );
   const geometry = new RingBufferGeometry(
     ringsInnerDiameter,
@@ -101,22 +96,17 @@ const createSaturnRing = () => {
   return ringMesh;
 };
 
-//create SaturnMark
-const createSaturnMark = () => {
-  const geometry = new ConeGeometry(48, 96, 64, 1, 0, 6.3);
-  const material = new MeshBasicMaterial({ color: 0xfffff });
-  const cone = new Mesh(geometry, material);
-  return cone;
-};
-
 //saturn ellipse
-const createSaturnEllipse = () => {
-  const saturnDistance = getElementDistanceFromSun('saturn');
+const createSaturnEllipse = (realDistance) => {
+  const saturnDistance = getElementDistanceFromSun(
+    'saturn',
+    realDistance,
+  );
   const saturncurve = new EllipseCurve(
     0,
     0, // ax, aY
-    saturnDistance.perihelion,
-    saturnDistance.aphelion, // xRadius, yRadius
+    saturnDistance,
+    saturnDistance, // xRadius, yRadius
     0,
     2 * Math.PI, // aStartAngle, aEndAngle
     false, // aClockwise
@@ -133,4 +123,4 @@ const createSaturnEllipse = () => {
   return saturnellipse;
 };
 
-export { createSaturnMesh, createSaturnMark, createSaturnEllipse };
+export { createSaturnMesh, createSaturnEllipse };
