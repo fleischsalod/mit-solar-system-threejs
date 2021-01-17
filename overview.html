@@ -11,26 +11,10 @@
       href="https://fonts.googleapis.com/css2?family=Abel&display=swap"
       rel="stylesheet"
     />
-    <link type="text/css" rel="stylesheet" href="/css/home.css" />
+    <link type="text/css" rel="stylesheet" href="/css/app.css" />
     <title>Solar System</title>
   </head>
   <body>
-    <div class="container">
-      <div class="content">
-        <div class="mainheading">Unser Sonnensystem</div>
-        <div class="navigation">
-          <nav class="page-nav">
-            <a class="page-nav-item" href="overview.html">Erleben</a>
-            <a class="page-nav-item" href="javascript:void(0)"
-              >Staunen</a
-            >
-            <a class="page-nav-item" href="earth.html">Lernen</a>
-          </nav>
-        </div>
-        <div class="element"></div>
-      </div>
-      <div class="model"></div>
-    </div>
     <canvas>
       <video
         id="video01"
@@ -56,6 +40,15 @@
         <source src="src/textures/Torch-.mp4" type="video/mp4" />
       </video>
     </canvas>
-    <script type="module" src="src/app.js"></script>
+    <div class="back">
+      <a class="back-link" href="index.html">
+        <img
+          src="images/navigation/home.svg"
+          width="64px"
+          height="64px"
+        />
+      </a>
+    </div>
+    <script type="module" src="src/pages/overviewDetail.js"></script>
   </body>
 </html>

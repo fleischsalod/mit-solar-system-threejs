@@ -10,151 +10,15 @@ canvas {
   display: block;
 }
 
-nav {
+.back {
   position: absolute;
-  bottom: 0;
-}
-
-div {
-  color: rgb(255, 255, 255);
-}
-
-h1 {
-  position: absolute;
-  top: 40px;
-  left: 360px;
-  min-width: 400px;
-  max-width: 600px;
-  width: 100%;
-}
-
-h3 {
-  position: absolute;
-  top: 85px;
-  left: 230px;
-  min-width: 400px;
-  max-width: 600px;
-  width: 100%;
-}
-
-/*
-MAIN NAVIGATION
-*/
-.main-nav {
-  font-family: 'Abel', serif;
-  color: white;
-  font-size: 16px;
+  bottom: 16px;
+  left: 16px;
   background-color: black;
-  width: 100%;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 1rem 0;
 }
 
-.main-nav-item {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  text-decoration: none;
-}
-
-.home {
-  border-right: 1px solid white;
-}
-
-.main-nav-item.active {
-  background-color: #333333;
-}
-
-.main-nav-item:hover {
-  background-color: #333333;
-}
-
-.main-nav-item:link,
-.main-nav-item:visited,
-.main-nav-item:focus {
-  color: white;
-}
-
-#moon {
-  position: absolute;
-  top: 85px;
-  left: 330px;
-  min-width: 400px;
-  max-width: 600px;
-  width: 100%;
-}
-
-#earth {
-  position: absolute;
-  top: 85px;
-  left: 330px;
-  min-width: 400px;
-  max-width: 600px;
-  width: 100%;
-}
-
-#info {
-  position: absolute;
-  text-align: justify;
-  top: 190px;
-  left: 20px;
-  min-width: 100px;
-  max-width: 410px;
-  width: 100%;
-  z-index: 100;
-  display: block;
-}
-
-#info2 {
-  position: absolute;
-  font-size: larger;
-  top: 210px;
-  left: 500px;
-  min-width: 100px;
-  max-width: 410px;
-  width: 100%;
-  z-index: 100;
-  display: block;
-}
-
-#info3 {
-  position: absolute;
-  font-size: larger;
-  top: 300px;
-  left: 600px;
-  min-width: 100px;
-  max-width: 410px;
-  width: 100%;
-  z-index: 100;
-  display: block;
-}
-
-#info4 {
-  position: absolute;
-  font-size: larger;
-  top: 400px;
-  left: 600px;
-  min-width: 600px;
-  max-width: 650px;
-  width: 100%;
-  z-index: 100;
-  display: block;
-}
-
-#info5 {
-  position: absolute;
-  font-size: larger;
-  top: 490px;
-  left: 500px;
-  min-width: 100px;
-  max-width: 410px;
-  width: 100%;
-  z-index: 100;
-  display: block;
+.back:hover {
+  -ms-transform: scale(1.25); /* IE 9 */
+  -webkit-transform: scale(1.25); /* Safari 3-8 */
+  transform: scale(1.25);
 }
